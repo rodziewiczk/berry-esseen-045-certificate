@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:berry-esseen-045:bundle:v2",
+  "title": "Berry-Esseen 0.45 complete certificate-bundle manifest",
+  "type": "object",
+  "required": [
+    "format",
+    "target",
+    "rho0",
+    "precision_bits",
+    "python_flint",
+    "flint",
+    "scope",
+    "checker_sha256",
+    "core_sha256",
+    "proof_package_sha256",
+    "constructor_sha256",
+    "parameter_bank_loader_sha256",
+    "construction_package_sha256",
+    "verification_launcher_sha256",
+    "parameter_bank_manifest_sha256",
+    "certificate_set_sha256",
+    "certificates"
+  ],
+  "properties": {
+    "format": {"const": "berry-esseen-045-certificate-bundle-v2"},
+    "target": {"const": "9/20"},
+    "rho0": {"const": "712569/589000"},
+    "precision_bits": {"type": "integer", "minimum": 96, "maximum": 16384},
+    "python_flint": {"const": "0.9.0"},
+    "flint": {"const": "3.6.0"},
+    "scope": {
+      "const": {"n_start": 2, "n_end": 8123}
+    },
+    "checker_sha256": {"$ref": "#/$defs/sha256"},
+    "core_sha256": {"$ref": "#/$defs/sha256"},
+    "proof_package_sha256": {"$ref": "#/$defs/sha256"},
+    "constructor_sha256": {"$ref": "#/$defs/sha256"},
+    "parameter_bank_loader_sha256": {"$ref": "#/$defs/sha256"},
+    "construction_package_sha256": {"$ref": "#/$defs/sha256"},
+    "verification_launcher_sha256": {"$ref": "#/$defs/sha256"},
+    "parameter_bank_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "certificate_set_sha256": {"$ref": "#/$defs/sha256"},
+    "certificates": {
+      "type": "array",
+      "minItems": 8122,
+      "maxItems": 8122,
+      "items": {"$ref": "#/$defs/entry"}
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "entry": {
+      "type": "object",
+      "required": ["n", "file", "bytes", "sha256"],
+      "properties": {
+        "n": {"type": "integer", "minimum": 2, "maximum": 8123},
+        "file": {"type": "string", "pattern": "^n/[0-9]{4}\\.json$"},
+        "bytes": {"type": "integer", "minimum": 1, "maximum": 2147483648},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

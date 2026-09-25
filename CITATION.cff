@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "A Reproducible Route to a 0.45 Berry-Esseen Bound: Formal Verification Software"
+type: software
+authors:
+  - family-names: Rodziewicz
+    given-names: Kacper
+version: 1.2.0
+license: MIT
+keywords:
+  - Berry-Esseen inequality
+  - computer-assisted proof
+  - interval arithmetic
+  - rigorous numerics
+preferred-citation:
+  type: article
+  title: "A Reproducible Route to a 0.45 Berry-Esseen Bound"
+  authors:
+    - family-names: Rodziewicz
+      given-names: Kacper
+  year: 2026

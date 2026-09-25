@@ -1,0 +1,84 @@
+{
+  "format": "berry-esseen-parameter-bank-v1",
+  "version": 1,
+  "build_profile": "publication-a100-v1",
+  "rows": 886998,
+  "candidates_per_cell": 6,
+  "n_min": 2,
+  "n_max": 8123,
+  "rho0": "712569/589000",
+  "recipe_denominator": 1048576,
+  "geometry_sha256": "bcbe1ee1f583595a929a55043b10e1637a43cc1c76931eddad621c5ef8a3f849",
+  "depth9_parent_sha256": "86d683448a9c46bf8b9d903f6385cc1ba00b8908c4c31d372014e608e2a84bae",
+  "depth_counts": {
+    "6": 430226,
+    "8": 259884,
+    "9": 196888
+  },
+  "role": "Untrusted parameter advice. The Arb checker independently recomputes every selected cell bound.",
+  "arrays": {
+    "cell_index": {
+      "file": "cell_index.npy",
+      "dtype": "<i4",
+      "shape": [886998],
+      "bytes": 3548120,
+      "sha256": "f8b41e10a2f79caa0324abc40e39d0c6dd2286511adea443cd79765e3c601a74"
+    },
+    "depth": {
+      "file": "depth.npy",
+      "dtype": "|u1",
+      "shape": [886998],
+      "bytes": 887126,
+      "sha256": "8efdd90354fadd93caf07112fb070cd277ad01a9abf02a59846876a925e22c51"
+    },
+    "eta": {
+      "file": "eta.npy",
+      "dtype": "<f8",
+      "shape": [886998, 6],
+      "bytes": 42576032,
+      "sha256": "98c4a4ad5819c89b33ecd5216bbc22e99d924e94e713a3d18aa03140ad61a113"
+    },
+    "grid_power": {
+      "file": "grid_power.npy",
+      "dtype": "<i2",
+      "shape": [886998, 6],
+      "bytes": 10644104,
+      "sha256": "fb68ed32052e7bd0cebd7726757c6e3744751e64f30fe0aa459377a46e6921a1"
+    },
+    "lam": {
+      "file": "lam.npy",
+      "dtype": "<f8",
+      "shape": [886998, 6],
+      "bytes": 42576032,
+      "sha256": "07b1bb4cd9495e4136ae9d176151135649f785b14677dc5869dcfbde08a97017"
+    },
+    "n": {
+      "file": "n.npy",
+      "dtype": "<i4",
+      "shape": [886998],
+      "bytes": 3548120,
+      "sha256": "c844f9a5c112764c16ed0a78230c9826fb8c73acc54d6ca698379c0f4b3f4518"
+    },
+    "pieces": {
+      "file": "pieces.npy",
+      "dtype": "<i4",
+      "shape": [886998, 6],
+      "bytes": 21288080,
+      "sha256": "460c8461228de1a276945b47cdabca974250102717704b269fff3f3f8115c3a9"
+    },
+    "q": {
+      "file": "q.npy",
+      "dtype": "<f8",
+      "shape": [886998, 6],
+      "bytes": 42576032,
+      "sha256": "d93776d7f7795c545dc99137762884f2e4d4ac9500f9082340a74277182675be"
+    },
+    "t0": {
+      "file": "t0.npy",
+      "dtype": "<f8",
+      "shape": [886998, 6],
+      "bytes": 42576032,
+      "sha256": "6ecd3269a7e8e111ec1034bcd8a4147d677ee3aecf3a24bbf8831bfcd0d2d384"
+    }
+  }
+}

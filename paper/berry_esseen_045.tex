@@ -1,0 +1,1862 @@
+\documentclass[11pt,a4paper,twoside]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=29mm,headheight=14pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools,amsthm}
+\usepackage{booktabs,tabularx,longtable,array}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize,noabbrev]{cleveref}
+
+\input{certificate-results.tex}
+
+\ifcertificateaccepted
+  \newcommand{\PaperTitleText}{A 0.45 Berry--Esseen Bound}
+  \newcommand{\PaperRunningTitle}{A 0.45 Berry--Esseen bound}
+\else
+  \newcommand{\PaperTitleText}{A Reproducible Route to a 0.45 Berry--Esseen Bound}
+  \newcommand{\PaperRunningTitle}{Toward a 0.45 Berry--Esseen bound}
+\fi
+
+\definecolor{BerryBlue}{HTML}{173B57}
+\definecolor{BerryLight}{HTML}{EFF5F8}
+\definecolor{BerryRule}{HTML}{A7BAC7}
+\definecolor{CodeGray}{HTML}{F5F6F7}
+
+\hypersetup{
+  hypertexnames=false,
+  colorlinks=true,
+  linkcolor=BerryBlue,
+  citecolor=BerryBlue,
+  urlcolor=BerryBlue,
+  pdftitle={\PaperTitleText: Regularized Prawitz Estimates and Finite Verification},
+  pdfauthor={Kacper Rodziewicz},
+  pdfsubject={Berry--Esseen inequality and computer-assisted verification}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,LO]{K.\ Rodziewicz}
+\fancyhead[RE,RO]{\PaperRunningTitle}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.35pt}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyhead[LE,LO]{K.\ Rodziewicz}
+  \fancyhead[RE,RO]{\PaperRunningTitle}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.35pt}
+}
+\fancypagestyle{titlepage}{
+  \fancyhf{}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+\setlength{\parindent}{1.35em}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{2em}
+\allowdisplaybreaks
+\newcommand{\manualtag}[1]{\tag{#1}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{reproducibility}[theorem]{Reproducibility record}
+\newtheorem*{finaltheorem}{Theorem}
+\newtheorem*{finalrecord}{Reproducibility record}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\iu}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\rhozero}{\rho_{0}}
+\newcommand{\Cstar}{C^{\ast}}
+\newcommand{\Uhat}{\widehat U}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\doi}[1]{\href{https://doi.org/#1}{doi:\nolinkurl{#1}}}
+
+\newenvironment{resultbox}
+  {\par\medskip\noindent
+   \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+   \raggedright\color{BerryBlue}\hrule\medskip\color{black}}
+  {\medskip\color{BerryBlue}\hrule\color{black}
+   \end{minipage}\par\medskip}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{CodeGray},
+  frame=single,
+  rulecolor=\color{BerryRule},
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+  xleftmargin=0.5em,
+  xrightmargin=0.5em
+}
+
+\title{\bfseries\color{BerryBlue}
+  \PaperTitleText\\[0.35em]
+  \large Regularized Prawitz Estimates and Finite Certificate Verification}
+\author{Kacper Rodziewicz}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{titlepage}
+
+\begin{abstract}
+Let \(X_1,X_2,\ldots\) be independent and identically distributed random
+variables with mean zero, variance \(\sigma^2>0\), and finite third absolute
+moment.  We develop a complete analytic and computational route to
+\[
+ \sup_{x\in\R}
+ \left|
+   \Prob\!\left\{
+     \frac{X_1+\cdots+X_n}{\sigma\sqrt n}\le x
+   \right\}-\Phi(x)
+ \right|
+ \le
+ 0.45\,\frac{\E\abs{X_1}^3}{\sigma^3\sqrt n}.
+\]
+Known inequalities reduce the problem to
+\(2\le n\le8123\) and
+\(1\le\rho\le712569/589000\), where
+\(\rho=\E\abs{X_1}^3/\sigma^3\).
+On this rectangle we combine Prawitz's smoothing inequality with a
+Rademacher comparison and two complementary characteristic-function
+majorants.  Three analytic devices make rigorous interval evaluation stable:
+a positive partial-fraction expansion for a regularized cotangent, a
+nonnegative factorization of the Gaussian comparison defect, and an exact
+endpoint identity for the Prawitz kernel that gives a quadratic tail.
+The resulting criterion is formulated for cell-by-cell verification with
+outward-rounded Arb arithmetic.  We specify the certificate language, exact partition
+reconstruction, trust boundary, fail-closed checker, and reproducible
+execution protocol needed to turn the finite computation into a mathematical
+proof.
+\ifcertificateaccepted
+The archival run reported in the final section completed this verification.
+\else
+Until the complete public checker reports \code{ACCEPTED\_FULL}, the numerical
+conclusion of this typeset version remains conditional.
+\fi
+\end{abstract}
+
+\begin{center}
+\begin{minipage}{0.92\linewidth}
+\small
+\noindent\textbf{AI assistance disclosure.}
+The development of the proof and its computer-assisted verification workflow
+was supported by artificial-intelligence assistance.  This manuscript was
+also drafted and edited with assistance from OpenAI's ChatGPT using the
+GPT-5.6 Sol model.  The named author reviewed the mathematical argument,
+computations, and final text and accepts responsibility for the published
+claims.
+\end{minipage}
+\end{center}
+
+\noindent\textbf{2020 Mathematics Subject Classification.}
+60F05, 60E10, 65G30.
+
+\noindent\textbf{Keywords.}
+Berry--Esseen inequality; Prawitz smoothing inequality; characteristic
+functions; interval arithmetic; computer-assisted proof; reproducibility.
+
+\section{Introduction}
+
+For a centered random variable \(Y\) with
+\(\E Y^2=1\) and \(\rho=\E\abs{Y}^3<\infty\), write
+\[
+ S_n=\frac{Y_1+\cdots+Y_n}{\sqrt n},
+ \qquad
+ \Delta_n=\sup_{x\in\R}\abs{\Prob\{S_n\le x\}-\Phi(x)}.
+\]
+The classical Berry--Esseen problem asks for the smallest universal constant
+\(\Cstar\) such that
+\[
+ \Delta_n\le \Cstar\,\frac{\rho}{\sqrt n}
+\]
+for every \(n\) and every admissible distribution.
+
+The best previously published general upper bound is
+\(\Cstar\le0.4690\), while Esseen's asymptotic two-point example gives
+\[
+ \Cstar\ge
+ C_E=\frac{\sqrt{10}+3}{6\sqrt{2\pi}}
+ =0.409732\ldots.
+\]
+Thus the value of \(\Cstar\) remains open; see
+Shevtsova~\cite{Shevtsova2013} and
+Zolotukhin, Nagaev, and Chebotarev~\cite{ZolotukhinNagaevChebotarev2018}
+for the preceding bounds and historical context.  The purpose of this paper
+is to lower the general upper bound from \(0.4690\) to \(0.45\).
+
+The proof developed here has three layers.  First, published estimates remove
+\(n=1\), large third moments, and \(n\ge8124\).  Second, Prawitz's smoothing
+inequality is supplied with stable, distribution-free majorants.  Third, the
+remaining compact parameter rectangle is covered by finitely many rational
+cells whose inequalities are recomputed with directed interval arithmetic.
+The logical interface between the last two layers is Proposition~6.3.
+
+The analytic difficulty is concentrated in expressions that are harmless
+mathematically but ill-conditioned in floating-point arithmetic.  Near
+\(s=0\), subtraction in
+\(\cot(\pi s)-1/(\pi s)\) is replaced by a positive series with an explicit
+tail.  Near \(u=0\), subtraction between \(\cos^n u\) and its Gaussian
+approximation is replaced by a product of nonnegative factors.  Near \(s=1\),
+the Prawitz kernel is rewritten in the variable \(h=1-s\), exposing its
+linear zero and yielding a contribution of order \(H^2\) on
+\([1-H,1]\).
+
+The computer-assisted part is intentionally narrow.  An A100 calculation
+supplies parameter advice, but no floating-point GPU value is trusted.
+The public checker parses exact rational data, reconstructs every partition,
+and recomputes every bound with outward rounding.  It accepts only a complete,
+hash-bound bundle for all \(n=2,\ldots,8123\).  Thus search, parallel
+scheduling, and checkpoints affect running time, not the mathematical
+conclusion.
+
+\section{Reduction to a finite parameter rectangle}
+
+We use three established estimates.  The sharp one-summand result of Bentkus
+and Kir\v{s}a~\cite{BentkusKirsa1989} gives
+\begin{equation}
+ \Delta_1\le 0.3704\,\rho<0.45\,\rho.
+ \manualtag{1}\label{eq:one-summand}
+\end{equation}
+A structural Berry--Esseen estimate due to Shevtsova
+\cite{Shevtsova2013} implies
+\begin{equation}
+ \Delta_n\le
+ \frac{0.3322(\rho+0.429)}{\sqrt n}.
+ \manualtag{2}\label{eq:structural}
+\end{equation}
+Finally, an asymptotically optimal estimate with an explicit quadratic
+remainder~\cite{Shevtsova2012} gives
+\begin{equation}
+ \Delta_n\le
+ C_E\frac{\rho}{\sqrt n}
+ {}+3\left(\frac{\rho}{\sqrt n}\right)^2,
+ \qquad
+ C_E=\frac{\sqrt{10}+3}{6\sqrt{2\pi}}.
+ \manualtag{3}\label{eq:asymptotic}
+\end{equation}
+By Lyapunov's inequality, \(\rho\ge1\).  Define
+\begin{equation}
+ \rhozero
+ =
+ \frac{0.3322\cdot0.429}{0.45-0.3322}
+ =
+ \frac{712569}{589000}
+ =
+ 1.2097945670\ldots.
+ \manualtag{4}\label{eq:rhozero}
+\end{equation}
+
+\begin{lemma}[Large third moments]\label{lem:large-rho}
+If \(\rho\ge\rhozero\), then
+\[
+ \Delta_n\le0.45\,\frac{\rho}{\sqrt n}
+\]
+for every \(n\ge1\).
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:structural}, it is enough to check
+\(0.3322(\rho+0.429)\le0.45\rho\), which is equivalent to
+\(\rho\ge\rhozero\).
+\end{proof}
+
+\begin{lemma}[Large sample sizes]\label{lem:large-n}
+If \(1\le\rho\le\rhozero\) and \(n\ge8124\), then
+\[
+ \Delta_n\le0.45\,\frac{\rho}{\sqrt n}.
+\]
+\end{lemma}
+
+\begin{proof}
+Equation~\eqref{eq:asymptotic} gives
+\[
+ \frac{\sqrt n\,\Delta_n}{\rho}
+ \le C_E+\frac{3\rho}{\sqrt n}
+ \le C_E+\frac{3\rhozero}{\sqrt n}.
+\]
+The right-hand side decreases with \(n\).  The strict inequality at
+\(n=8124\) follows from the exact rational calculation in
+Appendix~\ref{app:threshold}.
+\end{proof}
+
+\begin{corollary}[Finite rectangle]\label{cor:finite-rectangle}
+To prove \(\Cstar\le0.45\), it is enough to treat
+\begin{equation}
+ 2\le n\le8123,
+ \qquad
+ 1\le\rho\le\rhozero.
+ \manualtag{5}\label{eq:finite-rectangle}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Use \eqref{eq:one-summand} for \(n=1\),
+Lemma~\ref{lem:large-rho} for \(\rho\ge\rhozero\), and
+Lemma~\ref{lem:large-n} for \(n\ge8124\) in the remaining range.
+\end{proof}
+
+\section{The Prawitz functional}
+
+Let
+\[
+ f_n(t)=\E\e^{\iu tS_n},
+ \qquad
+ r_n(t)=\abs{f_n(t)-\e^{-t^2/2}}.
+\]
+For \(0<s<1\), define the Prawitz kernel
+\begin{equation}
+ K(s)=
+ \frac{1-s}{2}
+ {}+\frac{\iu}{2}
+ \left((1-s)\cot(\pi s)+\frac1\pi\right),
+ \manualtag{6}\label{eq:kernel}
+\end{equation}
+and extend it continuously by \(K(1)=0\).
+Prawitz's smoothing inequality~\cite{Prawitz1972,KorolevShevtsova2012}
+states that, for \(n>1\), \(T>0\), and \(0<t_0\le1\),
+\begin{equation}
+\begin{aligned}
+ \Delta_n\le{}&
+ 2\int_0^{t_0}\abs{K(s)}r_n(Ts)\dd s\\
+ &{}+2\int_{t_0}^{1}\abs{K(s)}\abs{f_n(Ts)}\dd s\\
+ &{}+2\int_0^{t_0}
+ \left|K(s)-\frac{\iu}{2\pi s}\right|
+ \e^{-T^2s^2/2}\dd s
+ {}+\frac1\pi\int_{t_0}^{\infty}
+ \frac{\e^{-T^2s^2/2}}{s}\dd s.
+\end{aligned}
+ \manualtag{7}\label{eq:prawitz}
+\end{equation}
+The final term equals
+\[
+ \frac{1}{2\pi}E_1\!\left(\frac{T^2t_0^2}{2}\right),
+ \qquad
+ E_1(x)=\int_x^\infty\frac{\e^{-y}}{y}\dd y.
+\]
+
+Set
+\begin{equation}
+ B(\rho)=
+ \sqrt{\frac{\rho^2}{2}
+       +\frac{\rho\sqrt{\rho^2+8}}{2}-2}.
+ \manualtag{8}\label{eq:B}
+\end{equation}
+Write \(\varphi(u)=\E\e^{\iu uY_1}\), so that
+\(f_n(t)=\varphi(t/\sqrt n)^n\).  The comparison theorem of Mattner and
+Shevtsova~\cite{MattnerShevtsova2019} gives the one-summand estimate
+\[
+ \abs{\varphi(u)-\cos u}
+ \le \frac{B(\rho)\abs u^3}{6}.
+\]
+Put
+\[
+ u=\frac{t}{\sqrt n},
+ \qquad
+ c=\abs{\cos u},
+ \qquad
+ \delta=\frac{B(\rho)\abs u^3}{6}.
+\]
+The power factorization, together with
+\(\abs{\varphi(u)}\le1\) and \(c\le1\), first yields
+\begin{equation}
+ \left|
+ f_n(t)-\cos^n\!\left(\frac{t}{\sqrt n}\right)
+ \right|
+ \le
+ n\delta
+ =\frac{B(\rho)\abs t^3}{6\sqrt n}.
+ \manualtag{9}\label{eq:rademacher-comparison}
+\end{equation}
+Moreover,
+\(\abs{\varphi(u)}\le\min\{1,c+\delta\}=:a\).  Define
+\[
+ D_{\mathrm{pow}}(n,\rho,t)
+ =
+ \delta\sum_{j=0}^{n-1}a^jc^{\,n-1-j},
+ \qquad
+ D(n,\rho,t)
+ =
+ \min\{2,n\delta,D_{\mathrm{pow}}(n,\rho,t)\}.
+\]
+The factorization of \(z^n-w^n\), with
+\(\abs{\varphi(u)}\le a\), gives the bound \(D_{\mathrm{pow}}\).
+The triangle inequality gives the bound \(2\), while
+\eqref{eq:rademacher-comparison} gives \(n\delta\).  Taking the minimum gives
+\begin{equation}
+ \left|
+ f_n(t)-\cos^n\!\left(\frac{t}{\sqrt n}\right)
+ \right|
+ \le D(n,\rho,t).
+ \manualtag{10}\label{eq:power-bound}
+\end{equation}
+
+Let \(\theta_0\) be the unique root in \((\pi,2\pi)\) of
+\[
+ \theta^2+2\theta\sin\theta+6(\cos\theta-1)=0,
+\]
+and define
+\[
+ \kappa=
+ \frac{\cos\theta_0-1+\theta_0^2/2}{\theta_0^3}.
+\]
+For \(z\ge0\), set
+\begin{equation}
+ \psi(z)=
+ \begin{cases}
+  z^2/2-\kappa z^3, & 0\le z\le\theta_0,\\
+  1-\cos z,         & \theta_0<z\le2\pi,\\
+  0,                & z>2\pi.
+ \end{cases}
+ \manualtag{11}\label{eq:psi}
+\end{equation}
+
+\begin{lemma}[Bounds for \(\psi\)]\label{lem:psi-bounds}
+The function \(\psi\) in \eqref{eq:psi} is continuous on
+\([0,\infty)\) and satisfies
+\[
+ 0\le\psi(z)\le2
+ \qquad(z\ge0).
+\]
+Consequently, for \(\rho\ge1\), the base in \eqref{eq:MP} belongs
+to \([0,1]\).
+\end{lemma}
+
+\begin{proof}
+Write
+\[
+ F(z)=z^2+2z\sin z+6(\cos z-1)
+\]
+and, for \(z>0\),
+\[
+ r(z)=\frac{\cos z-1+z^2/2}{z^3}.
+\]
+Direct differentiation gives
+\[
+ r'(z)=-\frac{F(z)}{2z^4},
+ \qquad
+ F'(z)=4\cos(z/2)
+ \bigl(z\cos(z/2)-2\sin(z/2)\bigr).
+\]
+For \(0<z<\pi\), the inequality \(\tan(z/2)>z/2\) implies
+\(F'(z)<0\), and hence \(F(z)<0\).
+For \(\pi<z<2\pi\), both factors in the displayed product for
+\(F'\) are negative, so \(F'(z)>0\).  Moreover,
+\[
+ F(\pi)=\pi^2-12<0,
+ \qquad
+ F(2\pi)=4\pi^2>0.
+\]
+The intermediate value theorem therefore gives a zero in \((\pi,2\pi)\),
+and strict monotonicity there makes it unique.  It follows that
+\(F(z)<0\) for \(0<z<\theta_0\).  Thus \(r\) is increasing there
+and
+\[
+ r(z)\le r(\theta_0)=\kappa
+ \qquad(0<z\le\theta_0).
+\]
+Therefore
+\[
+ z^2/2-\kappa z^3\le1-\cos z\le2.
+\]
+Moreover, \(1-\cos\theta_0<\theta_0^2/2\) gives \(\kappa>0\), and
+\[
+ \kappa\theta_0
+ =
+ \frac12-\frac{1-\cos\theta_0}{\theta_0^2}
+ \le\frac12.
+\]
+Hence
+\[
+ z^2/2-\kappa z^3
+ =
+ z^2(1/2-\kappa z)\ge0
+ \qquad(0\le z\le\theta_0).
+\]
+The bounds on the other branches are immediate.
+The defining identity for \(\kappa\) gives continuity at
+\(\theta_0\), and both adjacent branches vanish at \(2\pi\).
+Finally, \((\rho+1)^2\ge4\).
+\end{proof}
+
+For \(\epsilon>0\), write
+\[
+ \Psi(t,\epsilon)=\frac{\psi(\epsilon\abs t)}{\epsilon^2}.
+\]
+For \(\delta=1\), Theorem~2.2 of Shevtsova~\cite{Shevtsova2012}
+states
+\[
+ \abs{f_n(t)}
+ \le
+ \left(1-\frac2n\Psi(t,\epsilon_n)\right)^{n/2},
+ \qquad
+ \epsilon_n=\frac{\rho+\E\abs Y}{\sqrt n}.
+\]
+The cited result also proves that \(\Psi(t,\epsilon)\) is nonincreasing
+in \(\epsilon\) for fixed \(t\).  Since Cauchy--Schwarz gives
+\(\E\abs Y\le1\), we may replace \(\epsilon_n\) by the larger value
+\((\rho+1)/\sqrt n\).  After the scaling
+\begin{equation}
+ T=\frac{q\sqrt n}{\rho+1},
+ \manualtag{12}\label{eq:T-scaling}
+\end{equation}
+this gives
+\begin{equation}
+ \abs{f_n(Ts)}
+ \le
+ M_P(n,\rho,Ts)
+ :=
+ \left(
+ 1-\frac{2\psi(qs)}{(\rho+1)^2}
+ \right)^{n/2}.
+ \manualtag{13}\label{eq:MP}
+\end{equation}
+Indeed, \(((\rho+1)/\sqrt n)Ts=qs\), and hence
+\(n^{-1}\Psi(Ts,(\rho+1)/\sqrt n)
+=\psi(qs)/(\rho+1)^2\), exactly the base in \eqref{eq:MP}.
+Lemma~\ref{lem:psi-bounds} makes the real half-power in
+\eqref{eq:MP} well defined.
+
+Define
+\begin{equation}
+ R_{n,\rho}(t)
+ =
+ \min\left\{
+ 2,\,
+ \left|
+ \cos^n\!\left(\frac{t}{\sqrt n}\right)-\e^{-t^2/2}
+ \right|
+ +D(n,\rho,t)
+ \right\},
+ \manualtag{14}\label{eq:R}
+\end{equation}
+\begin{equation}
+ M_R(n,\rho,t)
+ =
+ \min\left\{
+ 1,\,
+ \left|\cos\!\left(\frac{t}{\sqrt n}\right)\right|^n
+ +D(n,\rho,t)
+ \right\},
+ \manualtag{15}\label{eq:MR}
+\end{equation}
+and
+\begin{equation}
+ M_{n,\rho}(t)
+ =
+ \min\{M_R(n,\rho,t),M_P(n,\rho,t)\}.
+ \manualtag{16}\label{eq:M}
+\end{equation}
+Then
+\begin{equation}
+ r_n(t)\le R_{n,\rho}(t),
+ \qquad
+ \abs{f_n(t)}\le M_{n,\rho}(t)\le1.
+ \manualtag{17}\label{eq:majorants}
+\end{equation}
+
+Substitution into \eqref{eq:prawitz} gives
+\begin{equation}
+\begin{aligned}
+ U_n(\rho;T,t_0)
+ ={}&
+ 2\int_0^{t_0}\abs{K(s)}R_{n,\rho}(Ts)\dd s\\
+ &{}+2\int_{t_0}^{1}\abs{K(s)}M_{n,\rho}(Ts)\dd s\\
+ &{}+2\int_0^{t_0}\abs{L(s)}\e^{-T^2s^2/2}\dd s
+ {}+\frac1{2\pi}E_1\!\left(\frac{T^2t_0^2}{2}\right),
+\end{aligned}
+ \manualtag{18}\label{eq:U}
+\end{equation}
+where \(L(s)=K(s)-\iu/(2\pi s)\).  For every admissible
+distribution,
+\begin{equation}
+ \Delta_n\le U_n(\rho;T,t_0).
+ \manualtag{19}\label{eq:universal-U}
+\end{equation}
+
+\section{Stable analytic majorants}
+
+\subsection{The coefficient \texorpdfstring{\(B(\rho)\)}{B(rho)}}
+
+The direct formula \eqref{eq:B} contains cancellation at \(\rho=1\).
+The following factorization removes it.
+
+\begin{lemma}\label{lem:stable-B}
+For every \(\rho\ge1\),
+\begin{equation}
+ 2B(\rho)^2
+ =
+ (\rho^2-1)
+ \left(
+ 1+\frac{\rho^2+9}{\rho\sqrt{\rho^2+8}+3}
+ \right).
+ \manualtag{20}\label{eq:stable-B}
+\end{equation}
+Moreover, \(B(\rho)\ge0\) and \(B\) is increasing on
+\([1,\infty)\).
+\end{lemma}
+
+\begin{proof}
+Rationalizing the radical in \eqref{eq:B} gives
+\eqref{eq:stable-B}.  For \(\rho>1\),
+\[
+ \frac{\dd}{\dd\rho}B(\rho)^2
+ =
+ \rho+\frac{\rho^2+4}{\sqrt{\rho^2+8}}>0.
+\]
+Since \(B\) is the nonnegative square root in \eqref{eq:B} and
+\(B(1)=0\), monotonicity follows by continuity.
+\end{proof}
+
+\subsection{A positive recursion for power differences}
+
+\begin{lemma}\label{lem:positive-recursion}
+For \(a,c\ge0\) and every integer \(m\ge1\), let
+\[
+ S_n(a,c)=\sum_{j=0}^{n-1}a^jc^{\,n-1-j}.
+\]
+Then
+\[
+ S_{2m}=S_m(a,c)(a^m+c^m),
+ \qquad
+ S_{2m+1}=a^{2m}+cS_{2m}(a,c).
+\]
+\end{lemma}
+
+\begin{proof}
+Split the first sum at \(m\), and separate the term \(a^{2m}\) in
+the second.  The recursion uses only addition and multiplication of
+nonnegative quantities and requires no division by \(a-c\); it is therefore
+well suited to outward-rounded evaluation.
+\end{proof}
+
+\subsection{The regularized cotangent}
+
+For \(0<s<1\), define
+\begin{equation}
+ d(s)=\frac1{\pi s}-\cot(\pi s).
+ \manualtag{21}\label{eq:d}
+\end{equation}
+
+\begin{lemma}[Positive partial fractions]\label{lem:cotangent}
+For \(0<x<\pi\),
+\begin{equation}
+ \frac1x-\cot x
+ =
+ 2x\sum_{k=1}^{\infty}
+ \frac1{k^2\pi^2-x^2}.
+ \manualtag{22}\label{eq:cot-series}
+\end{equation}
+Every summand is positive and strictly increasing in \(x\).  For each
+integer \(m\ge1\),
+\begin{equation}
+ \frac1x-\cot x
+ \le
+ 2x\sum_{k=1}^{m}
+ \frac1{k^2\pi^2-x^2}
+ +
+ \frac{2x}{
+   m\bigl(\pi^2-x^2/(m+1)^2\bigr)}.
+ \manualtag{23}\label{eq:cot-tail}
+\end{equation}
+Consequently, \(d\) is nonnegative and strictly increasing on \((0,1)\).
+\end{lemma}
+
+\begin{proof}
+The logarithmic derivative of Euler's product
+\[
+ \frac{\sin x}{x}
+ =
+ \prod_{k=1}^{\infty}
+ \left(1-\frac{x^2}{k^2\pi^2}\right),
+\]
+with termwise differentiation justified uniformly on compact subsets of
+\((-\pi,\pi)\), gives \eqref{eq:cot-series}.  For fixed \(k\),
+\[
+ \frac{\dd}{\dd x}
+ \frac{x}{k^2\pi^2-x^2}
+ =
+ \frac{k^2\pi^2+x^2}{(k^2\pi^2-x^2)^2}>0.
+\]
+For \(k\ge m+1\),
+\[
+ \frac1{k^2\pi^2-x^2}
+ \le
+ \frac1{k^2\bigl(\pi^2-x^2/(m+1)^2\bigr)}.
+\]
+Using
+\(\sum_{k=m+1}^{\infty}k^{-2}\le\int_m^\infty t^{-2}\dd t=1/m\)
+proves \eqref{eq:cot-tail}.  Substitution \(x=\pi s\) proves the
+final assertion.
+\end{proof}
+
+The regularized kernel has the exact form
+\begin{equation}
+ L(s)
+ =
+ \frac{1-s}{2}\bigl(1-\iu d(s)\bigr),
+ \qquad
+ 2\abs{L(s)}
+ =
+ (1-s)\sqrt{1+d(s)^2}.
+ \manualtag{24}\label{eq:L}
+\end{equation}
+
+\begin{corollary}[Uniform \(L\)-bound]\label{cor:L-bound}
+If \(0<s_-\le s_+<1\), then
+\begin{equation}
+ \sup_{s\in[s_-,s_+]}2\abs{L(s)}
+ \le
+ (1-s_-)\sqrt{1+d(s_+)^2}.
+ \manualtag{25}\label{eq:L-bound}
+\end{equation}
+The value \(d(s_+)\) may be replaced by the finite upper bound
+in \eqref{eq:cot-tail}.
+\end{corollary}
+
+\begin{proof}
+Use \eqref{eq:L}, Lemma~\ref{lem:cotangent}, and monotonicity of the
+square root.
+\end{proof}
+
+\subsection{A stable Gaussian comparison}
+
+Directly subtracting \(\cos^n u\) and \(\e^{-nu^2/2}\) is poorly
+conditioned near zero.  The next identity separates the small defect from a
+Gaussian factor.
+
+\begin{lemma}[Gaussian defect]\label{lem:gaussian-defect}
+Let \(n\ge1\) be an integer.  For \(0\le u<\pi/2\), define
+\begin{equation}
+ h(u)=-\log(\cos u)-\frac{u^2}{2}.
+ \manualtag{26}\label{eq:h}
+\end{equation}
+Then \(h(0)=0\), \(h(u)\ge0\), and \(h\) is increasing.  Moreover,
+\begin{equation}
+ \left|\cos^n u-\e^{-nu^2/2}\right|
+ =
+ \e^{-nu^2/2}\left(1-\e^{-nh(u)}\right).
+ \manualtag{27}\label{eq:gaussian-defect}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Since \(h'(u)=\tan u-u\) and
+\((\tan u-u)'=\tan^2u\ge0\), one has \(h'\ge0\) and \(h\ge0\).
+Positivity of \(\cos u\) permits taking the logarithm and gives
+\[
+ \cos^n u=\e^{-nu^2/2}\e^{-nh(u)}.
+\]
+Equation~\eqref{eq:gaussian-defect} follows.
+\end{proof}
+
+\begin{corollary}[Rectangular-cell bound]\label{cor:gaussian-cell}
+Let \(n\ge1\) be an integer,
+\(\rho\in[\rho_-,\rho_+]\), \(s\in[s_-,s_+]\), and \(q>0\).  Put
+\[
+ u_-=\frac{qs_-}{\rho_++1},
+ \qquad
+ u_+=\frac{qs_+}{\rho_-+1}.
+\]
+If \(0\le u_-\le u_+<\pi/2\), then throughout the cell
+\begin{equation}
+\begin{aligned}
+ \left|
+ \cos^n\!\left(\frac{qs}{\rho+1}\right)
+ -
+ \exp\!\left(
+ -\frac{nq^2s^2}{2(\rho+1)^2}
+ \right)
+ \right|
+ &\le
+ \e^{-nu_-^2/2}\left(1-\e^{-nh(u_+)}\right)\\
+ &\le
+ \e^{-nu_-^2/2}\min\{1,nh(u_+)\}.
+\end{aligned}
+ \manualtag{28}\label{eq:gaussian-cell}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Throughout the rectangle,
+\[
+ u_-\le\frac{qs}{\rho+1}\le u_+.
+\]
+In \eqref{eq:gaussian-defect}, the Gaussian factor decreases with \(u\),
+while \(1-\e^{-nh(u)}\) increases.  Bound the two factors at opposite
+endpoints.  The final inequality uses
+\(1-\e^{-x}\le\min\{1,x\}\) for \(x\ge0\).
+\end{proof}
+
+\section{Analytic control of the endpoint \texorpdfstring{\(s=1\)}{s=1}}
+
+The second integral in \eqref{eq:U} reaches \(s=1\).  A rectangular
+enclosure that forgets \(K(1)=0\) introduces a first-order artifact.
+The endpoint can instead be handled exactly.
+
+\begin{lemma}[Endpoint identity]\label{lem:endpoint-identity}
+For \(0<h<1\),
+\begin{equation}
+ K(1-h)=\frac h2+\frac{\iu h}{2}d(h),
+ \qquad
+ 2\abs{K(1-h)}=h\sqrt{1+d(h)^2}.
+ \manualtag{29}\label{eq:endpoint-identity}
+\end{equation}
+In particular, \(K(1)=0\) by continuity.
+\end{lemma}
+
+\begin{proof}
+Using \(\cot(\pi-\pi h)=-\cot(\pi h)\) in \eqref{eq:kernel} gives
+\[
+ K(1-h)
+ =
+ \frac h2+
+ \frac{\iu}{2}
+ \left(-h\cot(\pi h)+\frac1\pi\right)
+ =
+ \frac h2+\frac{\iu h}{2}d(h).
+\]
+Taking the modulus proves \eqref{eq:endpoint-identity}.
+Equation~\eqref{eq:cot-series} gives \(d(h)=O(h)\) as \(h\downarrow0\),
+and hence \(K(1-h)\to0\).
+\end{proof}
+
+\begin{lemma}[Uniform endpoint shape]\label{lem:endpoint-shape}
+If \(0\le h\le H\le1/2\), then
+\begin{equation}
+ 2\abs{K(1-h)}
+ \le
+ h\sqrt{1+d(H)^2}.
+ \manualtag{30}\label{eq:endpoint-shape}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For \(h=0\), the assertion follows from \(K(1)=0\).
+If \(0<h\le H\), Lemma~\ref{lem:cotangent} gives
+\(0\le d(h)\le d(H)\); now apply \eqref{eq:endpoint-identity}.
+\end{proof}
+
+\begin{theorem}[Quadratic endpoint tail]\label{thm:quadratic-tail}
+Let \(n\ge1\) be an integer, let \(\rho\ge1\), \(T>0\), and let
+\(0<H\le1/2\), \(s_\ast=1-H\).  Then
+\begin{equation}
+ \int_{s_\ast}^{1}
+ 2\abs{K(s)}M_{n,\rho}(Ts)\dd s
+ \le
+ \frac{H^2}{2}\sqrt{1+d(H)^2}.
+ \manualtag{31}\label{eq:quadratic-tail}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+By \eqref{eq:majorants}, \(0\le M_{n,\rho}\le1\).  Substitute
+\(s=1-h\), apply Lemma~\ref{lem:endpoint-shape}, and integrate:
+\[
+ \int_{s_\ast}^{1}
+ 2\abs{K(s)}M_{n,\rho}(Ts)\dd s
+ \le
+ \int_0^H h\sqrt{1+d(H)^2}\dd h.
+\]
+\end{proof}
+
+\begin{remark}[Sharp order]\label{rem:sharp-order}
+Equation~\eqref{eq:cot-series} gives
+\[
+ d(H)=\frac{\pi H}{3}+O(H^3),
+ \qquad
+ \frac{H^2}{2}\sqrt{1+d(H)^2}
+ =
+ \frac{H^2}{2}+O(H^4).
+\]
+A bound that treats the endpoint imaginary part as a nonzero constant would
+produce an artificial \(O(H)\) contribution.  The quadratic estimate restores
+the correct local order of the kernel.
+\end{remark}
+
+\begin{lemma}[Choice of cutoff]\label{lem:cutoff}
+Let \(r\ge1\) be an integer and let
+\[
+ \max\{t_0,1/2\}\le s_1,\ldots,s_r<1.
+\]
+For each \(j\), suppose that \(P_j\) is a rigorous upper bound for
+\[
+ \int_{t_0}^{s_j}
+ 2\abs{K(s)}M_{n,\rho}(Ts)\dd s.
+\]
+Then
+\begin{equation}
+ \int_{t_0}^{1}
+ 2\abs{K(s)}M_{n,\rho}(Ts)\dd s
+ \le
+ \min_{1\le j\le r}
+ \left\{
+ P_j+
+ \frac{(1-s_j)^2}{2}
+ \sqrt{1+d(1-s_j)^2}
+ \right\}.
+ \manualtag{32}\label{eq:cutoff}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For each \(j\), split the integral at \(s_j\).
+Since \(H_j=1-s_j\in(0,1/2]\), Theorem~\ref{thm:quadratic-tail}
+applies to the second part.  Every expression inside the minimum is therefore
+an upper bound for the complete integral, and the finite minimum is valid.
+\end{proof}
+
+\begin{remark}[Verifier cutoffs]\label{rem:verifier-cutoffs}
+The verifier uses the exact dyadic cutoffs
+\(s_j=1-2^{-j}\) for \(j=1,\ldots,14\), retaining only eligible
+cutoffs.  It also tests the left endpoint of the final certificate
+subinterval when that endpoint is at least \(1/2\).  The value of \(d\) is
+bounded by \eqref{eq:cot-tail} with \(m=100\).
+\end{remark}
+
+\section{A finite verification criterion}
+
+Fix \(n\in\{2,\ldots,8123\}\) and
+\(I=[\rho_-,\rho_+]\subset[1,\rhozero]\).
+Choose positive rational \(q,t_0,\eta,\lambda\) such that
+\[
+ 0<\lambda\le\min\{t_0,1/2\},
+ \qquad t_0<1,
+ \qquad
+ 0<\eta\le\min\{t_0,1/2\},
+ \qquad
+ \frac{q\eta}{\rho_-+1}\le1,
+\]
+and use \(T(\rho)=q\sqrt n/(\rho+1)\) as in
+\eqref{eq:T-scaling}.  For every \(\rho\in I\),
+\[
+ \frac{T(\rho)\eta}{\sqrt n}
+ =
+ \frac{q\eta}{\rho+1}
+ \le
+ \frac{q\eta}{\rho_-+1}
+ \le1.
+\]
+
+\begin{lemma}[First integral near zero]\label{lem:first-zero}
+Let \(n\ge1\) be an integer, \(\rho\ge1\), \(T>0\), and
+\(0<\eta\le1/2\).  If \(T\eta/\sqrt n\le1\), then
+\begin{equation}
+ 2\int_0^\eta
+ \abs{K(s)}R_{n,\rho}(Ts)\dd s
+ \le
+ \frac{B(\rho)T^3\eta^3}{9\sqrt n}
+ +
+ \frac{T^4\eta^4}{12n}.
+ \manualtag{33}\label{eq:first-zero}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+First justify the kernel estimate.  If \(0<s<1/2\), then
+\(\tan(\pi s)\ge\pi s\), so
+\(0\le\cot(\pi s)\le1/(\pi s)\).  Equation~\eqref{eq:kernel}
+gives
+\[
+ \abs{\Re K(s)}\le\frac12,
+ \qquad
+ \abs{\Im K(s)}\le\frac1{2\pi s}.
+\]
+Thus
+\[
+ \abs{K(s)}
+ \le\abs{\Re K(s)}+\abs{\Im K(s)}
+ \le\frac12+\frac1{2\pi s}\le\frac1s.
+\]
+At \(s=1/2\), the same estimate follows directly from
+\(\cot(\pi/2)=0\); the endpoint \(s=0\) is understood by the displayed
+majorant.
+
+Put \(u=Ts/\sqrt n\).  On \(0\le s\le\eta\), one has
+\(0\le u\le1\).  Lemma~\ref{lem:gaussian-defect} gives
+\(\cos u\le\e^{-u^2/2}\).  Moreover,
+\[
+ \cos u\ge1-\frac{u^2}{2},
+ \qquad
+ \e^{-u^2/2}
+ \le
+ 1-\frac{u^2}{2}+\frac{u^4}{8},
+\]
+and hence
+\[
+ 0\le\e^{-u^2/2}-\cos u\le\frac{u^4}{8}.
+\]
+Both factors lie in \([0,1]\).  The power factorization therefore gives
+\[
+ \left|\e^{-nu^2/2}-\cos^n u\right|
+ \le
+ n\left(\e^{-u^2/2}-\cos u\right)
+ \le\frac{nu^4}{8}\le\frac{nu^4}{6}.
+\]
+From the definition preceding \eqref{eq:power-bound},
+\[
+ D(n,\rho,Ts)\le n\delta
+ =
+ \frac{B(\rho)T^3s^3}{6\sqrt n}.
+\]
+Equation~\eqref{eq:R} now gives
+\[
+ R_{n,\rho}(Ts)
+ \le
+ \frac{B(\rho)T^3s^3}{6\sqrt n}
+ +
+ \frac{T^4s^4}{6n}.
+\]
+Multiply by \(2\abs{K(s)}\le2/s\) and integrate.
+\end{proof}
+
+\begin{lemma}[Third integral near zero]\label{lem:third-zero}
+For \(0<\lambda\le\min\{t_0,1/2\}\),
+\begin{equation}
+ 2\int_0^\lambda
+ \abs{L(s)}\e^{-T^2s^2/2}\dd s
+ \le
+ \lambda\sqrt{1+\frac4{\pi^2}}.
+ \manualtag{34}\label{eq:third-zero}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For \(0<s\le\lambda\le1/2\), Lemma~\ref{lem:cotangent} gives
+\(d(s)\le d(1/2)=2/\pi\).  Equation~\eqref{eq:L} implies
+\[
+ 2\abs{L(s)}
+ =
+ (1-s)\sqrt{1+d(s)^2}
+ \le
+ \sqrt{1+4/\pi^2}.
+\]
+Since \(\e^{-T^2s^2/2}\le1\), integration proves
+\eqref{eq:third-zero}; the endpoint \(s=0\) follows by continuity.
+\end{proof}
+
+\subsection{Uniform evaluation on a cell}
+
+Partition \([\eta,t_0]\), \([t_0,1]\), and
+\([\lambda,t_0]\) into finitely many rational subintervals.
+On every proper subrectangle \(I\times[s_-,s_+]\), all quantities are
+enclosed by outward-rounded interval arithmetic.
+
+Lemma~\ref{lem:stable-B} bounds \(B(\rho)\) by \(B(\rho_+)\).
+The scaled variable satisfies
+\[
+ \frac{qs_-}{\rho_++1}
+ \le
+ \frac{qs}{\rho+1}
+ \le
+ \frac{qs_+}{\rho_-+1}.
+\]
+Equations~\eqref{eq:B}--\eqref{eq:majorants},
+Lemma~\ref{lem:positive-recursion}, and
+Corollary~\ref{cor:gaussian-cell} give uniform upper bounds for
+\(R_{n,\rho}\) and \(M_{n,\rho}\).  If the upper endpoint of the
+scaled interval is not below \(\pi/2\), the difference in \eqref{eq:R}
+is evaluated directly by interval arithmetic.  Definition~\eqref{eq:psi}
+is evaluated on cells contained in one branch; a subinterval crossing
+\(\theta_0\) or \(2\pi\) uses the global lower bound
+\(\psi\ge0\) from Lemma~\ref{lem:psi-bounds}.  Continuity of \(\psi\)
+at both branch points and continuity of the other elementary expressions
+show that the proper integrands are continuous.
+
+Equation~\eqref{eq:kernel} bounds the kernel in the first two proper
+integrals.  Equations~\eqref{eq:cot-tail}--\eqref{eq:L-bound} bound the
+regularized kernel in the third.  Each proper integral is enclosed by a
+finite upper sum.  For the second integral, every prefix sum is combined
+with Theorem~\ref{thm:quadratic-tail} and Lemma~\ref{lem:cutoff}.
+
+The near-zero part of the first integral is bounded uniformly by
+\eqref{eq:first-zero}, using \(B(\rho_+)\) and
+\[
+ T_{\max}=\frac{q\sqrt n}{\rho_-+1}.
+\]
+The third near-zero part is bounded by \eqref{eq:third-zero}.
+Finally,
+\[
+ E_1'(x)=-\frac{\e^{-x}}x<0.
+\]
+Since \(T(\rho)\) is smallest at \(\rho=\rho_+\), the last term in
+\eqref{eq:U} is bounded uniformly by
+\[
+ \frac1{2\pi}
+ E_1\!\left(
+  \frac{nq^2t_0^2}{2(\rho_++1)^2}
+ \right).
+\]
+Let \(\Uhat_{n,I}\) denote the sum of these six certified
+contributions.  Then
+\[
+ U_n(\rho;T(\rho),t_0)\le\Uhat_{n,I}
+ \qquad(\rho\in I).
+\]
+
+The implementation isolates the two branch points with the rational guards
+\[
+ \frac{3995895679}{10^9}<\theta_0<
+ \frac{3995895680}{10^9},
+ \qquad
+ \frac{6283185307}{10^9}<2\pi<
+ \frac{6283185308}{10^9}.
+\]
+These inequalities are themselves certified at initialization.
+
+\begin{proposition}[Cell criterion]\label{prop:cell-criterion}
+If
+\begin{equation}
+ \frac{\sqrt n}{\rho_-}\,\Uhat_{n,I}
+ \le\frac9{20},
+ \manualtag{35}\label{eq:cell-criterion}
+\end{equation}
+then
+\[
+ \frac{\sqrt n\,\Delta_n}{\rho}\le0.45
+\]
+for every \(\rho\in I\) and every admissible distribution with third
+absolute moment \(\rho\).
+\end{proposition}
+
+\begin{proof}
+By \eqref{eq:universal-U},
+\(\Delta_n\le\Uhat_{n,I}\) throughout the cell.  Since
+\(\rho\ge\rho_-\),
+\[
+ \frac{\sqrt n\,\Delta_n}{\rho}
+ \le
+ \frac{\sqrt n\,\Uhat_{n,I}}{\rho_-}
+ \le\frac9{20}=0.45.
+\]
+\end{proof}
+
+\begin{theorem}[Finite completion criterion]\label{thm:finite-completion}
+Suppose that, for every \(n=2,\ldots,8123\), the interval
+\([1,\rhozero]\) is covered by finitely many cells satisfying
+\eqref{eq:cell-criterion}.  Then \(\Cstar\le0.45\).
+\end{theorem}
+
+\begin{proof}
+Apply Proposition~\ref{prop:cell-criterion} on the finite rectangle
+\eqref{eq:finite-rectangle}, and use
+Corollary~\ref{cor:finite-rectangle} outside it.
+\end{proof}
+
+\section{Computer-assisted verification}
+\label{sec:computer-verification}
+
+The finite covering in Theorem~\ref{thm:finite-completion} is implemented as
+a certificate-checking computation.  The proof object is separated from the
+procedure used to discover it: GPU searches and heuristic parameter selection
+may propose a certificate, but acceptance depends on a compact checker that
+reconstructs every partition and recomputes every bound with outward-rounded
+interval arithmetic.
+
+\subsection{Scope and proof objects}
+
+For each integer \(n=2,\ldots,8123\), a certificate shard contains an
+ordered partition
+\[
+ 1=\rho_{n,0}<\rho_{n,1}<\cdots<\rho_{n,m_n}=\rhozero.
+\]
+Each cell
+\(I_{n,j}=[\rho_{n,j-1},\rho_{n,j}]\) carries exact rational
+parameters \(q,t_0,\eta,\lambda\) and a compact grid recipe with two
+integers, \code{pieces} and \code{power}.  The checker requires literal
+equality of consecutive rational endpoints.  Gaps, overlaps, reversed
+intervals, and degenerate cells are rejected.
+
+For each cell the checker reconstructs all six contributions to
+\(\Uhat_{n,I}\): the two near-zero estimates
+\eqref{eq:first-zero} and \eqref{eq:third-zero}, three proper upper sums,
+and the \(E_1\) tail.  It accepts the cell only if the outward-rounded upper
+endpoint of the left-hand side of \eqref{eq:cell-criterion} does not exceed
+the lower endpoint of the exact rational \(9/20\).
+
+\subsection{Exact certificate language}
+
+A shard has format \code{berry-esseen-045-cert-v2}.  All real-valued
+certificate data are canonical rational strings: an integer or a reduced
+fraction \(a/b\) with \(b>0\).  JSON floating-point numbers, duplicate keys,
+unknown fields, noncanonical fractions, and nonstandard constants such as
+\code{NaN} or \code{Infinity} are rejected.  A cell contains exactly
+\[
+ \code{rho},\ \code{q},\ \code{t0},\ \code{eta},\
+ \code{lambda},\ \code{grid},
+\]
+where \code{rho} contains two endpoints and
+\(\code{grid}=\{\code{pieces},\code{power}\}\), with
+\[
+ 1\le\code{pieces}\le4096,
+ \qquad
+ 1\le\code{power}\le8.
+\]
+The analytic guards
+\[
+ 0<\lambda\le\min\{t_0,1/2\},\qquad t_0<1,\qquad
+ 0<\eta\le\min\{t_0,1/2\},\qquad
+ q\eta\le\rho_-+1
+\]
+are checked again from the parsed rationals.
+
+\subsection{Deterministic reconstruction of the grids}
+
+No floating-point grid nodes occur in the proof object.  Let \([a,b]\) be
+one of the proper integration intervals, \(p=\code{pieces}\), and
+\(d=\code{power}\).  A concentrated grid is the sorted union of the
+following exact rational points:
+
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item the polynomial mesh
+\[
+ a+(b-a)\frac{i^d}{M^d},
+ \qquad
+ M=\max\{8,\lfloor p/2\rfloor\},
+ \qquad
+ 0\le i\le M;
+\]
+\item the uniform safety mesh with
+\(\max\{4,\lfloor p/8\rfloor\}\) subintervals; and
+\item for \(n\ge16\), a mesh in the scaled variable \(Ts\).
+Writing
+\[
+ \underline{\sqrt n}
+ =
+ \frac{\lfloor10^6\sqrt n\rfloor}{10^6},
+ \qquad
+ D=\max\{8,\lfloor p/4\rfloor\},
+\]
+where the floor is computed by integer square root, the inserted points are
+\[
+ \frac{\rho_{\mathrm{mid}}+1}
+      {q\,\underline{\sqrt n}}\frac{k}{D},
+ \qquad
+ 0\le k\le10D,
+\]
+whenever they lie strictly inside \((a,b)\).
+\end{enumerate}
+
+For \(n<16\) and \(d=1\), the concentrated grid reduces to the exact
+uniform \(p\)-partition.  The first and third proper integrals use
+concentrated grids; the second uses the exact uniform \(p\)-partition.
+Every grid is augmented with the four rational guards for
+\(\theta_0/q\) and \(2\pi/q\) displayed in Section~6.  Thus branch crossings
+of \(\psi(qs)\) are isolated deterministically.  The second grid is also
+augmented by the dyadic endpoint cutoffs described in
+Remark~\ref{rem:verifier-cutoffs}.
+
+\subsection{Outward-rounded evaluation}
+
+The trusted numerical core uses Arb through
+\code{python-flint==0.9.0}.  Exact rational points are passed through FLINT
+rationals; an interval \([a,b]\) is represented by the ball with exact
+midpoint \((a+b)/2\) and radius \((b-a)/2\).  The publication configuration
+uses \(192\) bits of precision.  All elementary and special-function
+evaluations are outward rounded.
+
+The decision path is fail-closed.  Every computed enclosure must be finite.
+Denominators and square-root domains must be certified positive, the
+exponential-integral argument must be certified positive, and branch guards
+must be decisive.  An ambiguous comparison is a rejection.  The code uses
+the stable factorization \eqref{eq:stable-B}, the positive recursion of
+Lemma~\ref{lem:positive-recursion}, the cotangent upper bound
+\eqref{eq:cot-tail} with \(100\) terms, and
+Corollary~\ref{cor:gaussian-cell}; direct interval subtraction is only the
+guarded fallback outside the positive-cosine region.
+
+The endpoint directions in Section~6 are enforced explicitly:
+\(B\) is evaluated at \(\rho_+\), the largest \(T\) at \(\rho_-\), and
+the \(E_1\) term from the smallest \(T\), which occurs at \(\rho_+\).
+The second integral tests several complete upper bounds from
+\eqref{eq:cutoff}; taking their finite minimum is sound because no candidate
+is merely a bound for a partial tail.
+
+Each worker initializes the constants independently.  Initialization
+certifies the isolating bracket for \(\theta_0\), the rational bracket for
+\(2\pi\), positivity of the required constants, and the global reduction
+\[
+ C_E+\frac{3\rhozero}{\sqrt{8124}}<\frac9{20}.
+\]
+
+\subsection{Bundle completeness and integrity}
+
+A complete proof object has format
+\code{berry-esseen-045-certificate-bundle-v2}.  It contains exactly
+\(8122\) ordered shards with the canonical names
+\[
+ \code{n/0002.json},\ldots,\code{n/8123.json}.
+\]
+The checker rejects an incorrect scope, missing or additional files,
+directories among the shards, renamed files, path traversal, or an incorrect
+order.
+
+The manifest records the byte length and SHA--256 digest of each shard.  A
+shard is read once; both the parsed object and its digest are derived from the
+same byte string.  The checker also recomputes the ordered certificate-set
+digest obtained by hashing the ASCII records
+\[
+ \code{2:hash\_2\string\n},\ldots,
+ \code{8123:hash\_8123\string\n}.
+\]
+The manifest records and the checker recomputes SHA--256 digests for the
+numerical core, the public checker, the constructor, the parameter-bank
+loader, the one-shot launcher, and both relevant package initializers.  The
+parameter-bank manifest digest is retained as construction provenance.  The
+constructor and bank remain advice-producing components rather than premises
+for a cell inequality: every proposed cell is recomputed by the checker.
+These content hashes detect inconsistency within a bundle; they do not
+authenticate the repository revision or replace review of the trusted source.
+
+The complete checker performs the following ordered obligations.
+
+\begin{enumerate}[leftmargin=2.2em]
+\item Require the specified \code{python-flint} and underlying FLINT versions,
+parse the manifest strictly, and require the exact public scope.
+\item Validate all \(8122\) entries, source hashes, file names, byte lengths,
+shard hashes, the certificate-set digest, and the absence of extra shards.
+\item Initialize interval constants and verify the analytic large-\(n\)
+reduction.
+\item For each \(n\), require an exact gap-free cover of
+\([1,\rhozero]\), reconstruct every grid, and recompute every cell.
+\item Only after all shards have returned in the canonical order, atomically
+write the bundle-local audit record and print \code{ACCEPTED\_FULL}.
+\end{enumerate}
+
+Before work begins, the one-shot launcher invalidates any previous accepted
+audit.  The checker permits an audit only at the fixed bundle-local path,
+rejects symbolic or multiply linked targets, and installs the new record by
+atomic replacement.  Every validation or arithmetic failure handled by the
+checker prints \code{REJECTED}, returns a nonzero exit status, and leaves no
+active accepted global result.  Command-line parsing errors and an external
+process interruption also return nonzero, but are reported by the Python
+runtime rather than by that validation handler.  A diagnostic
+single-shard acceptance is not a certificate of the theorem.
+
+\subsection{Trust boundary}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Logical role of the software and data.}
+\label{tab:trust-boundary}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}
+                              >{\raggedright\arraybackslash}X
+                              >{\centering\arraybackslash}p{0.10\linewidth}@{}}
+\toprule
+Component & Role & Trusted\\
+\midrule
+Analytic reductions and lemmas in this paper
+  & Mathematical derivation of the finite criterion & yes\\
+\path{proof/berry_core.py}
+  & Outward-rounded realization of equations (20)--(35) & yes\\
+\path{proof/check_certificate.py}
+  & Strict parsing, coverage, integrity, and complete recomputation & yes\\
+Package initializers and \path{construction/verify.py}
+  & Faithful one-shot launch, manifest assembly, and result reporting
+  & execution\\
+CPython, \code{python-flint}, FLINT, and Arb
+  & Runtime and interval-arithmetic substrate & yes\\
+Linux kernel, Docker engine, CPU, and hardware
+  & Host execution substrate outside the container image & yes\\
+Certificate constructor and parameter-bank loader
+  & Candidate selection, refinement, and checkpointing & no\\
+A100 parameter bank and GPU notebooks
+  & Floating-point advice used to find efficient rational recipes & no\\
+Printed decimals, elapsed time, and worst-cell summaries
+  & Human-readable audit information & no\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The trusted numerical core and checker form the mathematical
+project-specific surface.  The launcher and package initialization path must
+also report faithfully when the one-shot command is used; their exact source
+bytes are bound into the manifest.  Runtime libraries are execution
+assumptions and are pinned by version and binary hashes in the supplied
+container.  The host kernel, container engine, processor, and hardware remain
+ordinary external execution assumptions: a container fixes userspace, not
+those components.  The final checker is launched in a fresh process after
+construction.  This separates acceptance from constructor state, but it is
+not an implementation-diverse second realization of the analytic formulas.
+
+\subsection{Untrusted construction and reproducibility}
+
+The parameter bank contains \(886{,}998\) dyadic \(\rho\)-cells and six
+candidate recipes per cell.  The exact geometry is recovered from integer
+depth and index data:
+\[
+ \left[
+ 1+\frac{j}{2^d}(\rhozero-1),
+ \,
+ 1+\frac{j+1}{2^d}(\rhozero-1)
+ \right].
+\]
+The bank coordinates for candidate \(q,t_0,\eta,\lambda\) begin on the
+dyadic lattice with denominator \(2^{20}\).  The constructor converts them to
+exact rationals and may raise \(\eta\) to the exact admissibility boundary
+\((\rho_-+1)/q\); consequently, a parameter stored in the final certificate
+need not retain denominator \(2^{20}\).  The constructor tries the six
+candidates in a fixed order and, if necessary, doubles the proposed number of
+grid pieces up to \(4096\).  Every emitted candidate is already evaluated with
+Arb, but that constructor-side test is an optimization only; the public checker
+recomputes the cell.
+
+Construction is deterministic for fixed sources, configuration, bank, and
+runtime.  Each \(n\) is handled in a separate process with no cross-\(n\)
+warm start.  Parallelism changes scheduling only.  A completion marker binds
+\(n\), the mathematical configuration digest, the imported construction-source
+digest, shard digest, and byte length.  Legacy markers from the preceding
+format are accepted only while the previously omitted imported sources still
+equal their frozen release hashes.  Shards and markers are installed by
+atomic replacement, so interruption cannot promote a partial file.  A resumed
+run reuses only markers whose content and hashes still match.
+The launcher holds an exclusive operating-system lock on the artifact tree for
+the entire construction and checking sequence, preventing simultaneous runs
+from racing on shards, markers, logs, or the final audit.
+
+The complete Windows execution is:
+\begin{lstlisting}[language=bash]
+verify.cmd
+\end{lstlisting}
+It builds the pinned Linux container, constructs or resumes all shards, and
+launches a fresh complete check.  The default is six worker processes; output
+reports every \(n\) through \(10\) and then every multiple of ten.  The
+build targets a pinned \code{linux/amd64} userspace and fixes
+Python \(3.12.4\), the Docker frontend and base-image digests, and the hashes
+of all installed wheels.  The bank is
+mounted read-only, project artifacts are the only writable output, network
+access is disabled, Linux capabilities are dropped, and the verifier runs as
+a non-root user.
+
+Regeneration of the advice bank is a separate reproducibility experiment.
+The output-free notebook
+\code{notebooks/build\_parameter\_bank\_colab.ipynb} checks out an immutable
+40-hex-character Git commit and requires CPython~3.12 on Linux x86-64 and an
+NVIDIA A100 of compute capability~8.0.  The complete Python wheel dependency
+closure is version- and SHA--256-locked and forcibly reinstalled; the
+Colab-provided CUDA runtime is required to be 12.x, while the exact runtime and
+driver versions are recorded rather than fixed by that wheel lock.  Checkpoints bind the build profile, exact
+input geometry, parent payload, and saved payload.  A completed bank is copied
+to a content-addressed Drive directory and exposed through an atomically
+installed pointer only after the copied tree is authenticated.  The builder
+publishes a bank only after array shapes, dtypes, byte counts, SHA--256 digests,
+exact dyadic coverage, and semantic equality with the committed reference
+manifest; it then installs the exact reference manifest bytes.  An A100 is therefore needed to
+reproduce the search output, but not to verify a completed certificate.
+
+\begin{proposition}[Checker implication]\label{prop:checker-implication}
+Assume the analytic statements used by the trusted numerical core and
+faithful execution of the stated trusted stack.  If the public checker
+terminates with \code{ACCEPTED\_FULL}, then the hypothesis of
+Theorem~\ref{thm:finite-completion} has been verified for every
+\(n=2,\ldots,8123\) and every \(\rho\in[1,\rhozero]\).  Consequently,
+\[
+ \Cstar\le\frac9{20}=0.45.
+\]
+\end{proposition}
+
+\begin{proof}
+Acceptance implies that every required \(n\) occurs exactly once and that
+its cells form an exact cover of \([1,\rhozero]\).  On each cell,
+outward-rounded evaluation proves \eqref{eq:cell-criterion}.  Their union
+gives the hypothesis of Theorem~\ref{thm:finite-completion} throughout the
+finite rectangle.  Initialization checks the threshold \(n=8124\), and
+Section~2 covers all complementary ranges.
+\end{proof}
+
+\section{Exploratory construction of the parameter bank}
+\label{sec:exploration}
+
+The parameter advice was obtained by a float64 search on an NVIDIA A100-SXM4
+\(80\,\mathrm{GB}\) GPU.  It determines where fine \(\rho\)-subdivision and
+dense integration meshes are useful.  Its sampled values are not consumed
+by the public checker.
+
+The final bank contains \(886{,}998\) leaves.  Its exact geometry is
+summarized in Table~\ref{tab:bank-depth}; the geometry digest is
+\[
+ \code{bcbe1ee1f583595a929a55043b10e1637a43cc1c76931eddad621c5ef8a3f849}.
+\]
+
+\begin{table}[htbp]
+\centering
+\caption{Final dyadic geometry of the publication parameter bank.}
+\label{tab:bank-depth}
+\begin{tabular}{@{}rrr@{}}
+\toprule
+Depth & Final leaves & Percentage\\
+\midrule
+6 & 430,226 & 48.5036\%\\
+8 & 259,884 & 29.2993\%\\
+9 & 196,888 & 22.1971\%\\
+\midrule
+Total & 886,998 & 100\%\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+In the exploratory scoring used to design the bank, the distribution of the
+largest sampled score within a cell was as follows.
+
+\begin{table}[htbp]
+\centering
+\caption{Exploratory float64 scores.  These values are search diagnostics,
+not interval bounds.}
+\label{tab:exploratory-scores}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Sampled normalized score & Cells & Percentage\\
+\midrule
+\(B_{\rm num}<0.4400\) & 886,076 & 99.8961\%\\
+\(0.4400\le B_{\rm num}<0.4450\) & 361 & 0.0407\%\\
+\(0.4450\le B_{\rm num}<0.4480\) & 467 & 0.0526\%\\
+\(0.4480\le B_{\rm num}<0.4495\) & 94 & 0.0106\%\\
+\(B_{\rm num}\ge0.4495\) & 0 & 0\%\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The largest sampled score was
+\begin{equation}
+ B_{\rm num}^{\max}=0.44820233914501284,
+ \manualtag{36}\label{eq:exploratory-maximum}
+\end{equation}
+with the difficult region concentrated near small \(n\), in particular near
+\(n=3\).  The gap to \(0.45\) guided the grid design but has no logical role
+in acceptance.
+
+Checkpoint restoration was used during the bank search.  Consequently, the
+recorded \(1914.5\)-second active segment in the exploratory notebook is not
+an end-to-end reproduction time and is not reported as one.  A fresh
+reproduction should report wall-clock time together with which levels were
+restored; the complete certificate checker separately records its own elapsed
+time in the final audit.
+
+\section{Discussion}
+
+The endpoint estimate in Theorem~\ref{thm:quadratic-tail} changes the
+geometry of the verification problem.  A rectangular bound that forgets
+\(K(1)=0\) forces the final mesh width to compensate for an \(O(H)\)
+artifact.  The regularized identity gives the correct \(O(H^2)\)
+contribution, allowing much of the second Prawitz integral to be certified
+without an excessively fine endpoint grid.
+
+The partial-fraction expansion and Gaussian-defect identity serve the same
+purpose at the other delicate points: they replace subtraction of nearly
+equal quantities by positive expressions.  Positivity makes monotonicity
+transparent and prevents interval widths from growing merely because two
+large overlapping enclosures are subtracted.
+
+The method also illustrates the useful separation between discovery and
+verification.  A large GPU search can optimize parameters aggressively
+without entering the trusted base.  Once a rational candidate is serialized,
+the public checker discards every exploratory score and reconstructs the
+mathematical inequality from first principles.  A defective parameter bank
+can slow construction or prevent it from finding a certificate; it cannot
+cause an invalid cell to pass.
+
+\section*{Data and code availability}
+
+The complete checker, trusted numerical core, certificate schemas,
+container specification, parameter-bank provenance, and one-command
+reproduction instructions are supplied in the accompanying public
+repository.  The certificate shards contain only exact rational data.  The
+accepted audit record is written to
+\path{artifacts/certificate/verification.json}; the executable checker, not
+the human-readable decimal summaries in that record, is authoritative.
+
+\appendix
+
+\section{Exact verification of the threshold
+\texorpdfstring{\(n=8124\)}{n=8124}}
+\label{app:threshold}
+
+Set
+\[
+ a=\frac{3162277661}{10^9},
+ \qquad
+ p=\frac{3141592653}{10^9},
+ \qquad
+ b=\frac{2506628274}{10^9},
+ \qquad
+ c=\frac{90133234}{10^6}.
+\]
+For completeness, define
+\[
+ A_m(x)=\sum_{k=0}^{m}\frac{(-1)^k x^{2k+1}}{2k+1}.
+\]
+The alternating-series remainder gives
+\(A_{2r+1}(x)<\arctan x<A_{2r}(x)\) for \(0<x\le1\).
+Machin's identity \(\pi=16\arctan(1/5)-4\arctan(1/239)\) therefore yields
+\[
+ \pi>
+ L:=16A_7(1/5)-4A_2(1/239)
+ =\frac{3367720447004809249690544948}
+        {1071978712185331878662109375}.
+\]
+The entirely rational comparison
+\[
+ L-p=
+ \frac{323056151203315029001}
+      {548853100638889921875000000000}>0
+\]
+proves \(p<\pi\).
+Direct integer arithmetic gives
+\[
+ a^2-10
+ =
+ \frac{5259630921}{10^{18}}>0,
+\]
+\[
+ 2p-b^2
+ =
+ \frac{495945231}{250000000000000000}>0,
+\]
+\[
+ 8124-c^2
+ =
+ \frac{32175311}{250000000000}>0,
+\]
+and
+\[
+ \frac{409732184}{10^9}
+ -\frac{a+3}{6b}
+ =
+ \frac{65406953}{469992801375000000}>0.
+\]
+Consequently,
+\[
+ \sqrt{10}<a,
+ \qquad
+ \sqrt{2\pi}>b,
+ \qquad
+ \sqrt{8124}>c,
+ \qquad
+ C_E<\frac{409732184}{10^9}.
+\]
+Using \(\rhozero=712569/589000\), one more exact subtraction yields
+\[
+ \frac9{20}
+ -
+ \left(
+ \frac{409732184}{10^9}
+ +
+ \frac{3\rhozero}{90133234/10^6}
+ \right)
+ =
+ \frac{3121000875001}{3318029676625000000}>0.
+\]
+This proves
+\(C_E+3\rhozero/\sqrt{8124}<9/20\) without floating-point
+evaluation.
+
+\section{Correspondence between the manuscript and the trusted core}
+\label{app:correspondence}
+
+Table~\ref{tab:correspondence} identifies the principal executable
+realizations of the analytic statements.  It is a review map, not an
+additional assumption.
+
+\begin{longtable}{@{}p{0.40\linewidth}p{0.54\linewidth}@{}}
+\caption{Analytic-to-executable correspondence.}
+\label{tab:correspondence}\\
+\toprule
+Trusted function & Mathematical result\\
+\midrule
+\endfirsthead
+\toprule
+Trusted function & Mathematical result\\
+\midrule
+\endhead
+\code{stable\_B\_point}
+  & Lemma~4.1 and equation (20)\\
+\code{geom\_sum\_upper}
+  & Lemma~4.2\\
+\code{regularized\_cot\_d\_upper\_point}
+  & Lemma~4.3 and equations (21)--(23)\\
+\code{kernel\_L\_abs\_upper}
+  & Corollary~4.4 and equation (25)\\
+\code{rad\_gauss\_diff\_upper}
+  & Lemma~4.5, Corollary~4.6, and equations (26)--(28)\\
+\code{kernel\_K\_abs\_upper}
+  & Lemmas~5.1--5.2 and equations (29)--(30)\\
+\code{second\_endpoint\_integral\_upper}
+  & Theorem~5.3 and equation (31)\\
+\code{second\_integral\_upper}
+  & Lemma~5.5 and equation (32), with \(s_\ast\ge1/2\)\\
+\code{evaluate\_cell}
+  & Lemmas~6.1--6.2, Proposition~6.3, and equations (33)--(35)\\
+\code{self\_test\_global\_reductions}
+  & Lemma~2.2 and Appendix~A\\
+\bottomrule
+\end{longtable}
+
+\section*{Certified conclusion}
+\label{sec:certified-conclusion}
+
+\ifcertificateaccepted
+\begin{finalrecord}
+\small
+\raggedright
+\textbf{Archival verification.}\par\smallskip
+The public checker returned \code{ACCEPTED\_FULL} for bundle format
+\code{\CertificateBundleFormat}, target \CertificateTarget, and exact scope
+\(n=\CertificateScopeStart,\ldots,\CertificateScopeEnd\).  It completed on
+\CertificateDate{} using \CertificateRuntime{}, \code{python-flint}
+\CertificatePythonFlint, and FLINT \CertificateFlint; the complete check took
+\CertificateElapsedSeconds{} seconds and accepted \CertificateTotalCells{}
+cells.  The largest reported directed-decimal cell upper bound was
+\CertificateWorstUpper{} at \CertificateWorstLocation.
+
+The SHA--256 digest of the accepted manifest is
+\par\smallskip
+\noindent{\ttfamily\small\CertificateManifestDigest}\par\smallskip
+It binds the complete certificate-set digest and every packaged
+source digest; the audit record lists the bound digests separately.
+\end{finalrecord}
+
+\begin{finaltheorem}
+For every \(n\ge1\) and every independent identically distributed sequence
+with mean zero, variance \(\sigma^2>0\), and finite third absolute moment,
+\[
+ \sup_{x\in\R}
+ \left|
+ \Prob\!\left\{
+ \frac{X_1+\cdots+X_n}{\sigma\sqrt n}\le x
+ \right\}
+ -\Phi(x)
+ \right|
+ \le
+ \frac9{20}\,
+ \frac{\E\abs{X_1}^3}{\sigma^3\sqrt n}.
+\]
+In particular, the universal Berry--Esseen constant satisfies
+\[
+ \boxed{\Cstar\le\frac9{20}=0.45}.
+\]
+\end{finaltheorem}
+
+\begin{proof}
+The archival bundle-v2 audit records \code{ACCEPTED\_FULL} for target
+\(9/20\) and the exact scope \(n=2,\ldots,8123\), after checking the manifest,
+certificate-set, and packaged-source digests.  Proposition~\ref{prop:checker-implication}
+proves the finite rectangle, and Corollary~\ref{cor:finite-rectangle} proves
+every complementary case.
+\end{proof}
+\else
+\begin{resultbox}
+\textbf{Archival certificate result to be inserted after the complete run.}
+The publication constant is \CertifiedConstant.  Populate the digests, cell
+count, worst upper bound and location, elapsed time, completion timestamp, and
+environment in
+\code{paper/certificate-results.tex} directly from
+\code{artifacts/certificate/verification.json}.  First require format
+\code{berry-esseen-045-certificate-bundle-v2}, target \code{9/20}, exact scope
+\code{2--8123}, the pinned FLINT versions, and matching manifest,
+certificate-set, and packaged-source digests; then change
+\code{\string\certificateacceptedfalse} to
+\code{\string\certificateacceptedtrue}.  No sampled GPU value is suitable
+for this record.
+\end{resultbox}
+
+\begin{finaltheorem}
+If the archival public checker returns \code{ACCEPTED\_FULL} for a verified
+bundle-v2 record with target \(9/20\), exact scope \(n=2,\ldots,8123\), and
+matching manifest, certificate-set, and packaged-source digests, then the
+universal Berry--Esseen constant satisfies
+\[
+ \boxed{\Cstar\le\frac9{20}=0.45}.
+\]
+\end{finaltheorem}
+
+\begin{proof}
+The accepted audit invokes Proposition~\ref{prop:checker-implication}, and
+the conclusion follows from Theorem~\ref{thm:finite-completion} and the
+reductions of Section~2.
+\end{proof}
+\fi
+
+\begin{thebibliography}{99}
+\raggedright
+
+\bibitem{BentkusKirsa1989}
+V.~Bentkus and K.~Kir\v{s}a,
+\newblock Estimates of the closeness of a distribution to the normal law,
+\newblock \emph{Lithuanian Mathematical Journal} \textbf{29} (1989),
+321--332.
+
+\bibitem{KorolevShevtsova2012}
+V.~Korolev and I.~Shevtsova,
+\newblock An improvement of the Berry--Esseen inequality with applications
+to Poisson and mixed Poisson random sums,
+\newblock \emph{Scandinavian Actuarial Journal} \textbf{2012}(2) (2012),
+81--105,
+\newblock \doi{10.1080/03461238.2010.485370}.
+
+\bibitem{MattnerShevtsova2019}
+L.~Mattner and I.~Shevtsova,
+\newblock An optimal Berry--Esseen type theorem for integrals of smooth
+functions,
+\newblock \emph{ALEA, Latin American Journal of Probability and Mathematical
+Statistics} \textbf{16} (2019), 487--530,
+\newblock \doi{10.30757/ALEA.v16-19}.
+
+\bibitem{Prawitz1972}
+H.~Prawitz,
+\newblock Limits for a distribution, if the characteristic function is
+given in a finite domain,
+\newblock \emph{Scandinavian Actuarial Journal} \textbf{1972}(2) (1972),
+138--154,
+\newblock \doi{10.1080/03461238.1972.10404645}.
+
+\bibitem{Shevtsova2012}
+I.~Shevtsova,
+\newblock Moment-type estimates with asymptotically optimal structure for
+the accuracy of the normal approximation,
+\newblock \emph{Annales Mathematicae et Informaticae} \textbf{39} (2012),
+241--307,
+\newblock Proceedings of the Conference on Stochastic Models and their
+Applications, Debrecen, 2011,
+\newblock \url{https://ami.uni-eszterhazy.hu/uploads/papers/finalpdf/AMI_39_from241to307.pdf}.
+
+\bibitem{Shevtsova2013}
+I.~Shevtsova,
+\newblock On the absolute constants in the Berry--Esseen inequality and its
+structural and nonuniform improvements,
+\newblock \emph{Informatics and Its Applications} \textbf{7}(1) (2013),
+124--125,
+\newblock \url{https://www.mathnet.ru/eng/ia252}.
+
+\bibitem{ZolotukhinNagaevChebotarev2018}
+A.~Zolotukhin, S.~Nagaev, and V.~Chebotarev,
+\newblock On a bound of the absolute constant in the Berry--Esseen inequality
+for i.i.d. Bernoulli random variables,
+\newblock \emph{Modern Stochastics: Theory and Applications} \textbf{5}(3)
+(2018), 385--410,
+\newblock \doi{10.15559/18-VMSTA113}.
+
+\end{thebibliography}
+
+\end{document}
+

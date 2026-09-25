@@ -1,0 +1,34 @@
+name: berry-esseen-045
+
+services:
+  verify:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: berry-esseen-045-verifier:1.2.0
+    command:
+      - --workers
+      - ${VERIFY_WORKERS:-6}
+      - --parameter-bank
+      - /app/data/parameter_bank
+      - --output
+      - /app/artifacts/certificate
+    volumes:
+      - type: bind
+        source: ./data/parameter_bank
+        target: /app/data/parameter_bank
+        read_only: true
+      - type: bind
+        source: ./artifacts
+        target: /app/artifacts
+    network_mode: none
+    read_only: true
+    tmpfs:
+      - /tmp:size=512m,mode=1777
+    init: true
+    restart: "no"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true

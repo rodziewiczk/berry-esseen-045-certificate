@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:berry-esseen-045:certificate:v2",
+  "title": "Berry-Esseen 0.45 compact interval-certificate shard",
+  "type": "object",
+  "required": [
+    "format",
+    "target",
+    "rho0",
+    "precision_bits",
+    "python_flint",
+    "scope",
+    "n_blocks"
+  ],
+  "properties": {
+    "format": {"const": "berry-esseen-045-cert-v2"},
+    "target": {"const": "9/20"},
+    "rho0": {"const": "712569/589000"},
+    "precision_bits": {"type": "integer", "minimum": 96, "maximum": 16384},
+    "python_flint": {"const": "0.9.0"},
+    "scope": {
+      "type": "object",
+      "required": ["n_start", "n_end"],
+      "properties": {
+        "n_start": {"type": "integer", "minimum": 2, "maximum": 8123},
+        "n_end": {"type": "integer", "minimum": 2, "maximum": 8123}
+      },
+      "additionalProperties": false
+    },
+    "n_blocks": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {"$ref": "#/$defs/n_block"}
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "rational": {
+      "type": "string",
+      "description": "Lexical form only. The authoritative checker additionally requires the unique reduced representation: positive denominator, gcd(|numerator|, denominator) = 1, no /1 suffix, and zero written exactly as 0.",
+      "maxLength": 256,
+      "pattern": "^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$"
+    },
+    "grid": {
+      "type": "object",
+      "required": ["pieces", "power"],
+      "properties": {
+        "pieces": {"type": "integer", "minimum": 1, "maximum": 4096},
+        "power": {"type": "integer", "minimum": 1, "maximum": 8}
+      },
+      "additionalProperties": false
+    },
+    "cell": {
+      "type": "object",
+      "required": ["rho", "q", "t0", "eta", "lambda", "grid"],
+      "properties": {
+        "rho": {
+          "type": "array",
+          "prefixItems": [
+            {"$ref": "#/$defs/rational"},
+            {"$ref": "#/$defs/rational"}
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "q": {"$ref": "#/$defs/rational"},
+        "t0": {"$ref": "#/$defs/rational"},
+        "eta": {"$ref": "#/$defs/rational"},
+        "lambda": {"$ref": "#/$defs/rational"},
+        "grid": {"$ref": "#/$defs/grid"}
+      },
+      "additionalProperties": false
+    },
+    "n_block": {
+      "type": "object",
+      "required": ["n", "cells"],
+      "properties": {
+        "n": {"type": "integer", "minimum": 2, "maximum": 8123},
+        "cells": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4096,
+          "items": {"$ref": "#/$defs/cell"}
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
