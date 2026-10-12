@@ -116,5 +116,8 @@ its separate complete byte-identity check. The new finite-index runner has
 been source-audited; its first `--tiny` invocation declined to launch because
 the host did not have the required two available-memory readings. That is a
 resource-gate rejection, not a successful launcher fixture or arithmetic
-replay. No fresh end-to-end `--full` run is claimed for this publication copy.
+replay. A second invocation, after sufficient headroom was available, passed
+all 277 source identities and the owned bounded launcher fixture with a clean
+exit. This establishes that small fixture only, not mathematics or a VM test.
+No fresh end-to-end `--full` run is claimed for this publication copy.
 

@@ -7657,7 +7657,8 @@ nonnegativity of the gap defect, and the conditional count inequalities.
 Their analytic foundation is given below and in
 \cite{EffectiveSupplement}. The finite inputs are the positive-budget
 certificates at 27--30, the complete sharp covers at 31--34, and the
-all-index continuation from 35. The positive-budget enclosure is used
+finite supported exclusions at 35--48. The independent proof from
+49 onward is included below. The positive-budget enclosure is used
 in its charged form, including at index 27. The theorem incorporates
 these previously established implications at their stated analytic
 and finite-arithmetic scope; the supplement records the complete premises.
@@ -7699,6 +7700,24 @@ if \(n(C-\CE)\ge K\), then
 Splitting at \(C=40974/100000+K/n\) makes this charge affine
 on each side. This permits the same corner-enclosure argument
 as at the zero budget, without discarding the score dependence.
+
+The scalar seed at 27 uses \(R=13/5\), \(C\le469/1000\),
+\(K=6/5\), and the direct support certificate of
+Lemma~\ref{cut31:support:direct}. Its two complete signed passes
+each use the \(24\times24\times8\times4\) closed moment cover.
+The first exports
+\[
+ \mathcal R\le36139/12500,\qquad D\le20807/25000.
+\]
+The inequalities \(\mathcal R<2n/5\), \(D<4\) license the
+density and phase refinement before the second pass. On its complete,
+nonempty surviving cover the charged enclosure gives
+\(D\le-1/1000\), contradicting \(D\ge0\).
+The finite certificate in \cite{EffectiveSupplement} checks every
+necessary exclusion, score--moment corner and threshold envelope;
+the cell count alone is not this assertion. This proves the first
+ceiling in \eqref{cut31:positive-ladder}; the next three use their
+separately certified positive-budget enclosures.
 
 \subsection{One contrary law and a closed moment cover}
 Suppose \(C_{31}\ge\CE\). Lemma~\ref{cut49:global:attainment}
@@ -7743,6 +7762,125 @@ At \(\rho_*=7361/4000\),
 Hence the closed cover and this tail exclude every possible
 \(\rho\ge1\). This proves \(C_{31}<\CE\).
 
+\subsection{The conditional moment prices}
+The stronger count comparisons use the following pointwise moment
+inequalities, not additional hypotheses on an optimizer.
+\begin{lemma}[Two-sided cubic moment bounds]\label{cut31:cubic:bounds}
+If \(\E Y=0\), \(\E Y^2=w\), and \(-L\le Y\le R\), with
+\(L,R>0\), then
+\[
+ w\le LR,\qquad w^2/L-Lw\le\E Y^3\le Rw-w^2/R.
+\]
+If one endpoint is zero, \(Y=0\) almost surely.
+\end{lemma}
+\begin{proof}
+Integrate \((Y+L)(R-Y)\ge0\) to obtain the variance bound.
+Integrating \((R-Y)(Y+w/R)^2\ge0\) gives the upper cubic
+bound; apply it to \(-Y\) for the lower one.
+The assertion at a zero endpoint follows from centering and the sign.
+\end{proof}
+
+Let the actual central gap be \((-A,B)\), \(A,B>0\).
+Write \(X=\ell(B_0+U-p)\), \(B_0=\mathbf1_{\{X>0\}}\),
+\(p=\Pp(B_0=1)\), \(q=1-p\), and \(\E(U\mid B_0)=0\).
+Put
+\[
+ v=pq,\quad a_0=p-A/\ell,\quad a_1=q-B/\ell,
+ \quad s_i=\E(U^2\mid B_0=i),\quad t_i=\E(U^3\mid B_0=i).
+\]
+Thus \(U\le a_0\) in class 0, \(U\ge-a_1\) in class 1,
+and \(a_0,a_1\ge0\). Bounded support supplies the opposite
+endpoints, denoted \(-O_0\) and \(O_1\).
+The exact normalization and absolute third moment are
+\[
+ \ell^{-2}=v+qs_0+ps_1,\qquad
+ \frac\rho{\ell^3}=v(p^2+q^2)+3v(s_0+s_1)+pt_1-qt_0.
+\]
+Lemma~\ref{cut31:cubic:bounds} consequently supplies both lower
+and upper bounds for \(\rho\) and the necessary clamps
+\(s_0\le O_0a_0\), \(s_1\le a_1O_1\).
+
+\begin{lemma}[The priced central-gap defect]\label{cut31:gap:priced}
+Let \(\sigma=\sqrt{10}\), and let \(D\) be the nonnegative
+gap defect of Section~\ref{cut49:re:entry}.
+With \(d=a_0+a_1\) and
+\(b_0=v[(\sigma+1)p^2+(\sigma-1)q^2-6v]\),
+\begin{align*}
+ \frac D{\ell^3}\ge{}&b_0+6v(d-d^2+a_0a_1)\\
+ &+ps_1\left[3(\sigma+1)q-(\sigma+5)a_1
+                    +(\sigma-1)s_1/a_1\right]\\
+ &+qs_0\left[3(\sigma+3)p-(\sigma+7)a_0
+                    +(\sigma+1)s_0/a_0\right].
+\end{align*}
+At \(a_i=0\), its variance is zero and its term is defined as zero.
+\end{lemma}
+\begin{proof}
+The Tonelli gap decomposition and its nonnegative outer-gap
+remainder give
+\[
+ D\ge m\{(\sigma+1)A^2+(\sigma-1)B^2-6AB\}
+       +(\sigma-1)T_++(\sigma+1)T_-+6BR_++6AR_-.
+\]
+Here \(m=\ell v\), \(A=\ell(p-a_0)\),
+\(B=\ell(q-a_1)\), and direct expansion gives
+\[
+ \begin{aligned}
+ T_+/\ell^3&=p(q^3+3qs_1+t_1)-v(q-a_1)^2,\\
+ T_-/\ell^3&=q(p^3+3ps_0-t_0)-v(p-a_0)^2,\\
+ R_+/\ell^2&=ps_1+va_1,\qquad
+ R_-/\ell^2=qs_0+va_0.
+ \end{aligned}
+\]
+Use \(t_1\ge s_1^2/a_1-a_1s_1\) and
+\(t_0\le a_0s_0-s_0^2/a_0\) from
+Lemma~\ref{cut31:cubic:bounds}. Expansion, with
+\(\sqrt{\sigma^2-1}=3\), gives the assertion.
+At a zero inward endpoint the conditional noise vanishes, so the
+convention follows directly, without division by zero.
+\end{proof}
+
+These inequalities justify exclusions by the actual defect or
+absolute third moment. They are evaluated on the whole acquired
+parameter cell. For example
+\(a_0+a_1-a_0^2-a_1^2-a_0a_1\) increases in each coordinate
+when \(a_0+a_1<1/4\); positive reciprocal costs use the upper
+endpoint of their denominator. Stronger endpoint inversions require
+their derivative-sign gates. Without them the complete interval
+enclosure is retained, rather than excluding a cell.
+
+More explicitly, for the right side \(F\) of
+Lemma~\ref{cut31:gap:priced},
+\[
+ \begin{aligned}
+ \partial_{a_0}F&=6v(1-2a_0-a_1)-q(\sigma+7)s_0
+                         -q(\sigma+1)(s_0/a_0)^2,\\
+ \partial_{a_1}F&=6v(1-2a_1-a_0)-p(\sigma+5)s_1
+                         -p(\sigma-1)(s_1/a_1)^2.
+ \end{aligned}
+\]
+On \(p\in[p_-,p_+]\subset(0,1/2]\),
+\(a_0+a_1\le d_*<1/2\),
+\(s_i\le S_i\), \(s_i/a_i\le O_i\), sufficient lower
+derivative gates are
+\[
+ \begin{aligned}
+ 6p_-(1-p_-)(1-2d_*)-(1-p_-)
+               [ (\sigma+7)S_0+(\sigma+1)O_0^2 ]&>0,\\
+ 6p_-(1-p_-)(1-2d_*)-p_+
+               [ (\sigma+5)S_1+(\sigma-1)O_1^2 ]&>0.
+ \end{aligned}
+\]
+When they hold, the actual lower inward endpoints, including
+\(s_i/O_i\), may be substituted. Zero endpoints are treated
+by the vanishing-noise case. In the actual central-gap domain
+\(a_0<p\), \(a_1<q\), all terms of \(F\) are nonnegative:
+\(b_0=v(\sqrt{\sigma+1}p-\sqrt{\sigma-1}q)^2\),
+\(d-d^2+a_0a_1\ge0\), and the two linear variance prices
+are positive. Thus a negative interval lower bound for \(F\)
+may be raised to zero before division by a positive upper
+normalization bound; this follows from \(F\ge0\), not merely
+from \(D\ge0\).
+
 \subsection{The count inequality preserves one phase}
 The decisive refinement of the finite comparison can be seen
 before any arithmetic. Write the localized law as
@@ -7769,6 +7907,53 @@ The strict outgoing event is the complement of the closed
 own-count event, including atoms. At \(\lambda=0\), the law is
 Bernoulli and Schulz's strict theorem applies directly.
 
+For completeness the incoming exponential envelopes retain the
+conditional variance allocation. If \(T\) is centered, \(T\le A\),
+\(A>0\), and \(\E T^2=w\), then, for \(z>0\),
+\[
+ \E e^{zT}\le1+\frac{w}{A^2}(e^{zA}-1-zA).
+\]
+Indeed
+\((e^{zx}-1-zx)/x^2=z^2\int_0^1(1-t)e^{ztx}\,dt\)
+is increasing in \(x\), including its value at zero.
+Multiply the resulting pointwise inequality by \(T^2\) and integrate.
+At \(A=0\), centering forces \(T=0\).
+
+The allocation retained across all counts belongs to the marginal law:
+\[
+ \lambda=n(qs_0+ps_1),\qquad
+\alpha=\frac{ps_1}{qs_0+ps_1}\quad(\lambda>0),\qquad
+ s_0=\frac{\lambda(1-\alpha)}{nq},\quad
+ s_1=\frac{\lambda\alpha}{np}.
+\]
+For \(m_0=n-j\), \(m_1=j\), write \(W_j\) for the corresponding
+class sum. Independence and \(\lambda\le\Lambda\) give
+\[
+ \E e^{zW_j}\le
+ [1+r_0(1-\alpha)]^{m_0}[1+r_1\alpha]^{m_1},\qquad
+ r_0=\frac{\Lambda(e^{zA_0}-1-zA_0)}{nqA_0^2},\quad
+ r_1=\frac{\Lambda(e^{zA_1}-1-zA_1)}{npA_1^2}.
+\]
+Apply this also to reflected noises for incoming left tails.
+An absent class or zero endpoint contributes the factor one.
+On a probability cell, use its positive lower bounds for \(p,q\)
+in these adverse denominators. The case \(\lambda=0\) is deterministic
+noise. No different count-specific allocation is substituted for
+the shared \(\alpha\).
+The logarithm of the product is concave in \(\alpha\).
+When \(r_0r_1>0\), its only possible interior maximum is
+\[
+ \alpha_*=
+ \frac{j r_1(1+r_0)-(n-j)r_0}{n r_0r_1}.
+\]
+Thus its maximum on an acquired closed allocation interval is
+bounded at the two endpoints and, if contained there, at
+\(\alpha_*\). Degenerate cases use the endpoints.
+Chernoff's inequality gives a valid incoming tail bound for each
+chosen \(z\); its minimum with a separately proved Cantelli bound
+is again valid. This establishes the incoming-envelope implication,
+not merely the evaluation of its coefficients.
+
 Here is the common-phase estimate in a form independent of the
 chosen minorants. Fix a closed interval \([l,h]\), and nonnegative
 smooth incoming envelopes \(B_j(u)\ge\Pp\{W_j\le u-(j-k)\}\).
@@ -7790,8 +7975,56 @@ quartic cases satisfy, for every actual law and phase,
 \]
 for at least one applicable case \(c\).
 The shifted-quartic inequality of
-Section~\ref{cut49:shortloc:section} supplies elementary minorants;
-the refined cases also retain the acquired moment budgets.
+Section~\ref{cut49:shortloc:section} supplies elementary minorants.
+The following refinement retains the separate conditional variances
+and the signed support costs.
+
+\begin{lemma}[A variance-priced quartic minorant]\label{cut31:quartic:refined}
+Let \(Z_i\) be independent centered variables supported in
+\([l_i,r_i]\), put \(v_i=\E Z_i^2\),
+\(V=\sum_i v_i\), \(J=\sum_i v_i^2\), and \(W=\sum_i Z_i\).
+For \(a>0\) and \(K\ge(9+6\sqrt3)/4\),
+\begin{align*}
+ K a^4\Pp\{W>u\}\ge{}&3a^2V-3V^2+3J
+ +\sum_i v_i\min_{x\in\{l_i,r_i\}}(4ux-x^2)\\
+ &+(3a^2-6V)u^2-2a^3u-u^4.
+\end{align*}
+\end{lemma}
+\begin{proof}
+The polynomial \(h_a(z)=(-z^4+3a^2z^2+2a^3z)/(Ka^4)\)
+satisfies \(h_a(z)\le\mathbf1_{\{z>0\}}\).
+Indeed its numerator, in the variable \(z/a\), is
+\(x(2-x)(x+1)^2\): it is nonpositive for \(x\le0\),
+and its maximum for \(x\ge0\) is \((9+6\sqrt3)/4\).
+Apply this inequality to \(W-u\), using
+\[
+ \E W^2=V,\quad \E W^3=\sum_i\E Z_i^3,\quad
+ \E W^4=\sum_i\E Z_i^4+3V^2-3J.
+\]
+Concavity of \(x\mapsto4ux-x^2\) on \([l_i,r_i]\) gives
+\[
+ 4u\E Z_i^3-\E Z_i^4
+ =\E[Z_i^2(4uZ_i-Z_i^2)]
+ \ge v_i\min_{x\in\{l_i,r_i\}}(4ux-x^2).
+\]
+Expansion of \(\E h_a(W-u)\) gives the assertion.
+The strict outgoing event is preserved, since \(h_a(0)=0\).
+\end{proof}
+
+For two noise classes, with support intervals \([-O_0,a_0]\)
+and \([-a_1,O_1]\) and total variances \(V_0,V_1\), the signed
+cost is
+\[
+ V_0\min_{x\in\{-O_0,a_0\}}(4ux-x^2)
+ +V_1\min_{x\in\{-a_1,O_1\}}(4ux-x^2).
+\]
+The switches occur at \((a_0-O_0)/4\) and \((O_1-a_1)/4\).
+A closed phase interval crossing a switch retains both cases.
+For a class containing \(m>0\) summands, Cauchy--Schwarz gives
+\(\sum v_i^2\ge V_{\mathrm{class}}^2/m\); a class with no summands
+contributes zero. Thus the minorants use only acquired support
+and variance bounds. One may take the rational \(K=97/20\),
+since \((26/15)^2>3\).
 
 \begin{lemma}[Common phase]\label{cut31:common-phase}
 The signed error in \eqref{cut31:one-phase} is at most
@@ -7833,6 +8066,209 @@ on a whole closed interval; a subdivision retains every shared
 endpoint. This is the finite algebraic step, not a numerical
 search for a maximizing phase.
 
+\subsection{Signed comparisons on a finite index band}
+For a Bernoulli law write \(q=1-p\),
+\(\rho_B=(p^2+q^2)/\sqrt{pq}\), \(F_{-1}=0\),
+\(F_j=\Pp\{\operatorname{Bin}(n,p)\le j\}\), and
+\(z_j=(j-np)/\sqrt{npq}\). Its full normalized discrepancy is
+\[
+ B_n(p)=\frac{\sqrt{npq}}{1-2pq}
+ \max_{0\le j\le n}\{F_j-\Phi(z_j),\ \Phi(z_j)-F_{j-1}\}.
+\]
+Both faces of every atom are retained; between atoms the signed
+discrepancy is monotone. On \([l,r]\subset(0,1/2]\), coupling
+shows that \(F_j\) decreases with \(p\), while direct
+differentiation shows that \(z_j\) decreases and the positive
+normalization factor increases. Consequently
+\[
+ B_n(p)\le\frac{\sqrt{nr(1-r)}}{1-2r(1-r)}
+ \max_{0\le j\le n}
+ \{0,F_j(l)-\Phi(z_j(r)),\Phi(z_j(l))-F_{j-1}(r)\}.
+\]
+The zero in the maximum licenses the upward normalization bound.
+Exact binomial probabilities and outward Gaussian enclosures on
+subdivisions of the 100 closed panels covering \([.28,.48]\)
+prove the conservative margins
+\[
+ \begin{array}{c|ccc}
+ n&40&41&42\\\hline
+ C_E-B_n(p)&370197/10^9&202018/10^9&204942/10^9
+ \end{array}
+\]
+where each entry is a lower bound; the larger cell-specific margins
+are retained in the finite witnesses.
+
+\begin{lemma}[Signed finite margin]\label{cut31:finite-margin}
+Let \(0<N\le n\le L<\infty\), \(0<l\le\lambda\le U\),
+\(0<m\le M\le1\), and \(\rho_B\ge r_B>0\).
+Suppose the same-law comparison gives
+\[
+ \rho_B(C-B_n(p))/\lambda\le M B(\lambda)+I(\lambda)/n,
+\]
+where \(B,I\) are convex on \([l,U]\), and
+\(B_n(p)\le C_*-\varepsilon\), \(\varepsilon>0\), on the
+whole admitted index and probability cell. Put
+\[
+ F(\lambda)=\max\{mB(\lambda),B(\lambda)\}
+             +\max\{I(\lambda)/N,I(\lambda)/L\}.
+\]
+If \(F(l),F(U)<r_B\varepsilon/U\), then \(C<C_*\).
+\end{lemma}
+\begin{proof}
+For real \(b,i\), the linear endpoint bounds give
+\(Mb+i/n\le\max\{mb,b\}+\max\{i/N,i/L\}\).
+The maxima of positive multiples of convex functions are convex,
+so \(F(\lambda)\le\max\{F(l),F(U)\}\).
+Multiply the strict bound by \(\lambda\le U\) to obtain
+\(\rho_B(C-B_n(p))<r_B\varepsilon\le\rho_B\varepsilon\).
+Division by \(\rho_B\) proves the assertion. No sign of
+\(B\) or \(I\) was assumed.
+\end{proof}
+
+For a lower reserve one instead uses \(\min\{mb,b\}\le Mb\).
+If \(\rho_B(C-B_n(p))\le-R\), the sufficient test is
+\(R+r_B\varepsilon>0\). If
+\(\rho_B(C-B_n(p))\le-\lambda R_T\), it is
+\(R_T+r_B\varepsilon/U>0\), uniformly for \(0<\lambda\le U\).
+At index 39 use \(C_*=C_E+K/39\), \(\varepsilon=K/39\),
+and Schulz's bound; at 40--42 use the finite margins above.
+Replacing a signed binomial discrepancy by the larger \(B_n(p)\)
+preserves the comparison.
+The actual lower-noise kernels are a constant plus a nonnegative
+reciprocal of a positive affine function and a nonnegative linear
+term; their inverse-index terms are a constant plus a nonnegative
+multiple of \(1/\lambda\). These forms prove the required convexity.
+
+\begin{lemma}[Signed cubic repair]\label{cut31:signed-cubic-repair}
+Let \(0<p\le1/2\), \(q=1-p\), \(v=pq\), \(Y=B_0+U\),
+\(B_0\sim\operatorname{Bernoulli}(p)\),
+\(\E(U\mid B_0)=0\), and \(s_i=\E(U^2\mid B_0=i)\).
+Put \(s=qs_0+ps_1\), \(\lambda=ns\), and
+\(X=(Y-p)/\sqrt{v+s}\). Suppose
+\(U_0\le a_0<p\), \(U_1\ge-a_1>-q\), \(a_i\ge0\),
+and \(d=a_0+a_1\). Then
+\[
+ (v+s)^{3/2}(\rho-\rho_B)\ge sQ,\qquad
+ Q=6p-3p^2-3/2-d-\frac{3(1-2v)s}{8v}.
+\]
+On \(p\in[p_-,p_+]\subset(0,1/2]\), \(n\ge N>0\),
+\(\lambda\le\Lambda\), \(d\le d_*\), set
+\[
+ v_-=p_-(1-p_-),\qquad
+ Q_*=6p_--3p_-^2-3/2-d_*
+       -\frac{3(1-2v_-)\Lambda}{8v_-N}.
+\]
+If \(0<m_-\le C/(v+s)^{3/2}\le m_+\), put
+\(g=\min\{m_-Q_*,m_+Q_*\}\). Thus
+\(C(\rho-\rho_B)\ge sg\), even when \(Q_*<0\).
+For \(P\ge(2/5)/(2v_-^{3/2})\),
+\(D_+\ge\max\{\delta,0\}\),
+\begin{align*}
+ &\sqrt n\left[\Phi\left(\frac\delta{\sqrt{nv}}\right)
+ -\Phi\left(\frac\delta{\sqrt{n(v+s)}}\right)\right]
+ -C(\rho-\rho_B)\\
+ &\qquad\le(PD_+-g)\lambda/n
+ \le\max\{0,PD_+-g\}\lambda/N.
+\end{align*}
+\end{lemma}
+\begin{proof}
+The sign restrictions fix the signs of \(Y-p\) in each class.
+Expansion gives
+\[
+ \E|Y-p|^3=v(1-2v)+3pq(s_0+s_1)
+                    +p\E U_1^3-q\E U_0^3.
+\]
+Since \(\E U_1^3\ge-a_1s_1\),
+\(\E U_0^3\le a_0s_0\), and \(p\le q\), this is at least
+\(v(1-2v)+(3p-d)s\).
+The bound \((1+x)^{3/2}\le1+3x/2+3x^2/8\), \(x\ge0\),
+follows from Taylor's theorem with negative third derivative.
+It proves the displayed formula for \(Q\).
+Its adverse terms are enlarged by \(d_*,\Lambda/N,v_-\),
+whereas \(6p-3p^2\) increases, so \(Q\ge Q_*\).
+Multiply by the actual positive multiplier and minimize over
+\([m_-,m_+]\), retaining either sign of \(Q_*\).
+The normal correction is nonpositive for \(\delta\le0\).
+For \(\delta>0\), its derivative in the added variance is at most
+\((2/5)\delta/(2v_-^{3/2})\). Integrating from zero to \(s\)
+and subtracting the cubic gain proves the first repair bound.
+Only its nonnegative part can be enlarged by replacing \(n\) by \(N\).
+\end{proof}
+
+For \(2/5\le C\le4247/10000\), admissible multipliers satisfy
+\[
+ m_-\le\frac{2/5}{[p_+(1-p_+)+\Lambda/N]^{3/2}},\qquad
+ m_+\ge\frac{4247/10000}{v_-^{3/2}}.
+\]
+For \(d_0,\Lambda>0\), if the acquired joint resource gives
+\(d/d_0+\lambda/\Lambda\le1\), a noise band \(\lambda\ge l\)
+licenses \(d_*=d_0(1-l/\Lambda)\).
+The tiny- and middle-noise tests use the clamped repair; the
+lower-noise signed test retains its coefficient inside
+\(I(\lambda)/n\) and uses Lemma~\ref{cut31:finite-margin}.
+At zero noise the law is Bernoulli directly.
+
+\begin{lemma}[Signed Gaussian phase derivatives]\label{cut31:signed-gaussian-derivative}
+Let \(v=p(1-p)>0\), \(s=\lambda/n\ge0\),
+\(\ell=(v+s)^{-1/2}\), and \(np+H/\ell=k+u\), \(|u|\le1/2\).
+Put \(h=H/\ell\), \(\delta=k-np=h-u\), and
+\(\pi_k=\Pp\{\operatorname{Bin}(n,p)=k\}>0\).
+Suppose the finite Stirling enclosure gives
+\[
+ \sqrt n\pi_k=\frac{\phi(0)}{\sqrt v}
+ \exp\{-\delta^2/(2nv)+\zeta\},\qquad |\zeta|\le Z/n.
+\]
+Assume \(n\ge N\), \(v\ge v_->0\), \(|\delta|\le D\),
+\(D^2<Nv_-\), \(\lambda\le\Lambda\), and
+\(h\le h_+\), \(h_+\ge0\). With \(k,\delta\) fixed, set
+\[
+ f(t)=\frac{\Phi((\delta+t)/\sqrt{n(v+s)})
+              -\Phi(\delta/\sqrt{n(v+s)})}{\pi_k}.
+\]
+Put \(b=1/2\), \(t_* =\min\{b,h_+\}\),
+\(G_+=2h_+t_*-t_*^2\), \(G_-=b^2+2h_+b\), and
+\(\eta=G_-/(2v_-)+Z\). If \(\eta<N\), then
+\[
+ f'(t)\ge1-\frac{(\Lambda+G_+)/(2v_-)+Z}{N}
+ \quad(0\le t\le u,\ u\ge0),
+\]
+\[
+ f'(-t)\le(1-\eta/N)^{-1}
+ \quad(0\le t\le-u,\ u\le0).
+\]
+\end{lemma}
+\begin{proof}
+Direct differentiation gives
+\[
+ \log f'(t)=-\tfrac12\log(1+s/v)
+ +\frac{\delta^2s}{2nv(v+s)}
+ -\frac{2\delta t+t^2}{2n(v+s)}-\zeta.
+\]
+For \(u\ge0\), convexity on \([0,u]\) bounds
+\(2(h-u)t+t^2\) by \(\max\{0,2hu-u^2\}\le G_+\).
+The first logarithmic term is at least \(-s/(2v)\) and the
+second is nonnegative. Apply \(e^{-x}\ge1-x\) to obtain the
+first bound. For \(u=-r\), put \(t=-\tau\).
+Since \(\delta^2\le nv\), the first two terms are at most
+\(-\log(1+x)/2+x/[2(1+x)]\le0\), \(x=s/v\).
+Also \(2(h+r)\tau-\tau^2\le r^2+2h_+r\le G_-\)
+on \(0\le\tau\le r\). Hence \(\log f'(-\tau)\le\eta/n\);
+use \(e^x\le(1-x)^{-1}\), \(0\le x<1\).
+The closed seams \(u=0\) and \(s=0\) are included.
+\end{proof}
+
+Only the positive threshold cap enters \(h_+=H_+/\ell_-\).
+The negative cap still enters \(D\) and the Stirling enclosure.
+The symmetric entropy bounds remain valid on \([a,b]\subset(0,1)\)
+with \(a<1/2\), \(a+b\le1\), even when \(b>1/2\).
+Indeed the farthest endpoint from one half is \(a\), and
+\(r(1-r)\) decreases, whereas
+\(|1-2r|/[r(1-r)]^j\), \(j=1,2\), increases with this distance.
+With \(y=|1-2r|\), the latter functions are
+\(4^jy/(1-y^2)^j\), with positive derivatives.
+This extends only these symmetric bounds, not arbitrary signed
+coefficients. Each entropy segment checks \(a+b\le1\), \(b<1\).
+
 \subsection{Actual-index bridges and the infinite range}
 The continuation supplies three separate certificate implications
 \begin{equation}\label{cut31:bridges}
@@ -7841,23 +8277,105 @@ The continuation supplies three separate certificate implications
 \end{equation}
 They have the same closed moment cover \eqref{cut31:moment-cover}.
 In the resource transfer, the physical defect and noise prices
-scale by \(31/m\); the binomial probabilities, threshold
+scale by \(31/m\). A uniform pass at floor \(N=31\) retains
+the two invariants
+\[
+ \mathcal R_m\le r_{\rm stored},\qquad
+ mD_m\le31d_{\rm stored},
+\]
+not merely \(D_m\le d_{\rm stored}\).
+Equations~\eqref{cut49:re:unweighted},
+\eqref{cut49:re:phaseprice}, and \eqref{cut49:re:exports}
+give this interpretation by induction over the enclosure schedule.
+The floor Fourier constants bound all actual indices above the
+floor under their monotonicity gates. The stored raw bound licenses
+the smaller density floor \(.3988(1-5r_{\rm stored}/(2N))\).
+The floor excess subtraction is at most the actual
+\(m(C_m-C_E)\rho\). Dividing its remaining nonnegative budget
+by \(997N/15000\) therefore exports \(mD_m\le Nd_{\rm stored}\).
+Intersections take minima and a complete cell union takes maxima;
+both preserve the weighted invariant. Actual-index support, score
+caps and every later resource callback are acquired separately,
+before using these exports.
+The binomial probabilities, threshold
 normalization and count covers use the actual index \(m\).
 Thus \eqref{cut31:bridges} consists of three actual-index proofs,
 not relabeled 31 certificates. Discharge their predecessor
 assumptions in the order \(31,32,33,34\).
 
-The effective continuation in \cite{EffectiveSupplement} also
-proves \(C_n<\CE\) for every \(n\ge35\). Its finite descent
-uses excess budgets \(.54,.36,.18\) at indices 32,33,34,
-then sharp count comparisons at 35--39; the remaining indices
-use the retained all-index theorem from 40. The finite 36--39
-range is handled by a least-failure argument. The same-law resource and
-common-phase inequality above are the essential new estimates.
-Joining this all-index tail with the four sharp finite indices
-proves Theorem~\ref{cut31:global:main}. Neither this joining step
-nor the finite descent asserts monotonicity or eventual
-two-point optimality.
+Only finitely many further certificate implications are required,
+since Theorem~\ref{cut49:global:main} below treats every index
+from 49 onward. Put \(a_n=C_n-C_E\) and
+\(\delta_n=n(C_{n-1}-C_n)_+\). The supplied finite witnesses
+exclude an unrestricted attained contrary law under the following
+contracts, with actual support and resource acquisition included:
+\begin{enumerate}[leftmargin=*]
+\item At 35: \(a_{35}\ge0\), \(\delta_{35}\le63/340\),
+\(C_{35}<423493/10^6\).
+\item At 36, 37, 38: \(a_n\ge0\), \(\delta_n=0\), with
+respective own-score caps
+\(1699/4000\), \(84867/200000\), \(211449/500000\).
+\item The positive 39 barrier: \(39a_{39}\ge741/4000\),
+\(\delta_{39}\le33/100\), \(C_{39}<2113/5000\),
+\(C_{38},C_{37}<4253/10000\), \(39a_{39}<1/2\).
+\item The sharp 39 case: \(a_{39}\ge0\), \(\delta_{39}=0\),
+\(C_{39}<41449/100000\).
+\item At 40 and 41: \(0\le na_n<27/50\),
+\(C_n<2113/5000\), \(C_{n-1},C_{n-2}<4253/10000\),
+with \(\delta_{40}\le19/100\) or \(\delta_{41}=0\).
+\item At 42--48: \(0\le na_n\le27/50\),
+\(\delta_n\le19/100\), \(C_n<2113/5000\),
+\(C_{n-1},C_{n-2}<4253/10000\).
+\end{enumerate}
+These are finite supported exclusions, not an assumed infinite-tail
+theorem. The resource enclosure, cubic prices, common-phase
+minorants and signed finite-margin rules above give their analytic
+meaning; the exact coefficient and cover witnesses are in
+\cite{EffectiveSupplement}. In the floor-40 comparison, the
+support scopes \((N,L,K,q)=(40,40,0,.19)\) and
+\((40,42,0,0)\) are acquired separately, using the upper band
+endpoint in the favorable fifth-order coefficient.
+The resource keeps \(nD\le40d\). On a noise band it simultaneously
+uses \(d\le d_0(1-\lambda_-/\Lambda)\) and
+\(\theta\le\lambda_+/(40v_-+\lambda_+)\).
+Both threshold signs and every admitted probability cell remain
+covered, including the left signed phase and arbitrarily small
+positive noise.
+
+Here is the scalar composition. Whenever \(n\ge35\) and
+\(C_{n-1}<C_E\), the support-free smoothing estimate gives
+\[
+ na_n<n(s_n-1)C_E+s_n^3
+       \left(\frac1{15}+\frac{2}{25\sqrt{n-1}}\right).
+\]
+For \(n\ge35\), \(s_n<203/200\),
+\(\sqrt{n-1}>29/5\), and \(n(s_n-1)<64/125\).
+These follow by squaring at 35 and using
+\(n(s_n-1)=s_n^2/(s_n+1)\). Therefore
+\[
+ na_n<\frac{20487}{50000}\frac{64}{125}
+       +\left(\frac{203}{200}\right)^3
+        \left(\frac1{15}+\frac{2/25}{29/5}\right)
+ =\frac{5114241437}{17400000000}<\frac3{10}.
+\]
+Starting with \(C_{34}<C_E\), any first failure at 35--38 has
+\(\delta_n=0\) and \(C_n<.40974+.30/n\), strictly below its
+listed own-score cap. The first two finite contracts exclude it.
+Thus 35--38 are sharp.
+
+Next, if \(a_{39}\ge19/4000\), the same estimate gives
+\(39a_{39}<.30<.50\), \(C_{39}<.4226\), and
+\(\delta_{39}=0\); both deleted predecessors are sharp.
+The positive 39 contract contradicts this, proving
+\(a_{39}<19/4000\). A failure \(C_{39}\ge C_E\) then has
+\(C_{39}<C_E+19/4000<.41449\), so the sharp 39 contract
+excludes it. A first failure at 40 or 41 now has
+\(\delta_n=0\), \(na_n<.30<.54\), \(C_n<.4226\), and
+two sharp deleted predecessors; its actual-index contract excludes it.
+A first failure in 42--48 satisfies the identical caps and the
+last finite contract. Finally the already proved 49 theorem supplies
+the entire infinite range. This proves Theorem~\ref{cut31:global:main}
+without monotonicity or an imported infinite-tail conclusion.
 
 \clearpage
 \section{The result and the organizing ideas}\label{cut49:intro:chapter}
@@ -8253,6 +8771,118 @@ Define, for every real $H,t$ and $n>1$,
              \Phi(H/\sqrt n)\}
        +nt\phi(H/\sqrt n)+\tfrac H2(t^2-1)\phi(H/\sqrt n).
 \]
+\begin{lemma}[Direct support at every index]\label{cut31:support:direct}
+Let \(n\ge2\), and let \((P,H)\) be an unrestricted attained
+positive closed maximizing pair, with \(C=C_n>0\).
+Put \(s=\sqrt{n/(n-1)}\), \(e=n(s-1)-1/2\),
+\(A=\sqrt{n-1}\,\Delta_{n-1}(P)/\rho\), and \(d_P=n(A-C)\).
+Suppose \((d_P)_+\le q\), \(s\le S\), \(e\le E\),
+\(\rho\le r\), \(|\beta|\le b\), and \(0<c\le C\).
+Define
+\[
+ Q(v)=-v^3+\tfrac32rv^2+3bv+rE,\qquad
+ L(v)=\tfrac25(v^2/2+1/2+E)+cQ'(v).
+\]
+If \(R>0\) satisfies
+\[
+ Q(R),Q'(R),Q''(R),L(R),L'(R)<0,\qquad 1/5-3c<0,
+\]
+and, for both \(\eta\in\{-1,1\}\),
+\[
+ \sup_{H\in\R}\mathcal H_n(H,\eta R)+cQ(R)+rSq<0,
+\]
+then \(\operatorname{supp}P\subset(-R,R)\).
+\end{lemma}
+\begin{proof}
+The contact identity~\eqref{cut49:found:influence}, the active
+discrepancy \(C\rho/\sqrt n\), and the predecessor estimate
+for this same law imply, at every support point \(t\),
+\[
+ 0\le\mathcal H_n(H,t)
+ +C\{-|t|^3+\tfrac32\rho t^2+3\beta t+\rho e\}
+ +\rho s d_P.
+\]
+Here \(n(sA-C)=s d_P+n(s-1)C\); the scale correction has
+no omitted term. Also \(A\le C_{n-1}\), hence
+\((d_P)_+\le n(C_{n-1}-C)_+\).
+Put \(z=H/\sqrt n\), \(y=(H-t)/\sqrt n\).
+Exact differentiation gives
+\[
+ \partial_t\mathcal H_n=n\phi(z)+Ht\phi(z)-ns\phi(sy).
+\]
+Taylor's theorem and \(\|\phi''\|_\infty=\phi(0)\) give
+\( |n\phi(y)-n\phi(z)-Ht\phi(z)|\le\phi(0)t^2/2\).
+Moreover \(\partial_s[s\phi(sy)]=-\phi''(sy)\), so
+\(|s\phi(sy)-\phi(y)|\le\phi(0)(s-1)\). Therefore
+\[
+ |\partial_t\mathcal H_n(H,t)|
+ \le\phi(0)(t^2/2+1/2+e)
+ \qquad(n\ge2,\ H,t\in\R).
+\]
+The norm identity follows by maximizing
+\((x^2-1)e^{-x^2/2}\); its interior extrema occur at
+\(0,\pm\sqrt3\).
+Since \(Q'''=-6\), its first three gates imply \(Q(v)<0\)
+for every \(v\ge R\). At \(t=\eta v\), the bracket multiplying
+\(C\) is at most \(Q(v)\), so its multiplier may be replaced
+by \(c\). The signed predecessor term is at most \(rSq\).
+The contact expression is consequently bounded by
+\(\mathcal H_n(H,\eta v)+cQ(v)+rSq\), whose derivative
+in \(v\) is at most \(L(v)\). Since
+\(L''=2/5-6c<0\) and \(L(R),L'(R)<0\), this envelope strictly
+decreases on the entire closed ray. Its strict endpoint upper
+bound contradicts contact on both rays, including endpoints,
+exterior atoms and exterior accumulation points.
+\end{proof}
+
+\paragraph{The whole threshold line.}
+No sampled threshold maximum is needed in this lemma.
+For \(R>0\), Gaussian differentiation gives
+\[
+ |\partial_H^2\mathcal H_n(H,R)|\le M,\qquad
+ M=\frac{\sqrt n}{4}\left(\frac n{n-1}+1\right)
+       +\frac25R+\frac{2|R^2-1|}{5\sqrt n}.
+\]
+This follows from \(\|\phi'\|_\infty<1/4\),
+\(\|\phi''\|_\infty<2/5\), and
+\(\|\phi'''\|_\infty\le2/\pi<4/5\).
+For a closed threshold cell of midpoint \(m\) and halfwidth \(w\),
+Taylor's theorem bounds both signs by
+\[
+ \pm\mathcal H_n(H,R)
+ \le\pm\mathcal H_n(m,R)
+       +|\partial_H\mathcal H_n(m,R)|w+Mw^2/2.
+\]
+If \(H_0\ge5\sqrt n\), \(H_0-R\ge5\sqrt{n-1}\), and
+\(\tau\ge\Phi(-5)\), Mills' bound and monotonicity of
+\(H\phi(H/\sqrt n)\) give, on both threshold tails,
+\[
+ |\mathcal H_n(H,R)|\le n\sqrt n\,\tau
+ +(nR+H_0|R^2-1|/2)\phi(H_0/\sqrt n),\qquad |H|\ge H_0.
+\]
+Finally \(\mathcal H_n(H,-R)=-\mathcal H_n(-H,R)\).
+Finite rational CDF, density and square-root enclosures on all
+closed cells, together with these two tails, therefore certify
+the displayed whole-line endpoint bounds.
+
+In particular the positive-budget support certificate at index 27
+uses
+\[
+ \begin{gathered}
+ R=13/5,\quad q=813/2000,\quad c=8171/18000,\quad
+ r=6413121/5478500,\\
+ b=326352124353/10^{12},\quad E=14331929737/10^{12},\quad
+ S=1019049330731/10^{12}.
+ \end{gathered}
+\]
+The contrary hypothesis \(C_{27}\ge C_E+2/45\), the finite
+cap and the signed-moment inequality supply these bounds.
+The finite support certificate in \cite{EffectiveSupplement}
+checks every polynomial gate and both strict endpoint inequalities
+on 580 adjacent closed threshold cells covering \([-29,29]\),
+and on the two tails. Thus this support implication applies
+at 27 without extending an estimate proved only for \(n\ge36\).
+
 Write $v=n-1$, $s=\sqrt{n/v}$, $u=|t|$, and
 \[
  A=\frac{u^3-3u}{6},\quad B=\frac{u^4-6u^2+3}{24\sqrt v},
@@ -13899,7 +14529,7 @@ Eventually True}, arXiv:2609.06358v3 (2026), revised 30 September.
 K.~Rodziewicz and B.~Ko{\l}odziejek, \emph{Effective finite-index
 continuation and certificates for the iid Berry--Esseen problem},
 supplementary proof material (2026).
-\url{https://github.com/rodziewiczk/berry-esseen-045-certificate/tree/main/moment-defects}.
+\url{https://github.com/rodziewiczk/berry-esseen-045-certificate/tree/044e93ec97f377752924fe32bd08e0bc6f4334b1/moment-defects}.
 \bibitem{ZNC}
 A.~Zolotukhin, S.~Nagaev and V.~Chebotarev, On a bound of the
 absolute constant in the Berry--Esseen inequality for i.i.d.

@@ -427,7 +427,7 @@ def scalar_mode(work, source):
         ("n3/BE_three_summand_certificate/verify_algebra.py", False),
         ("structural/checks/local/verify_constants.py", True),
         ("structural/checks/local/verify_symbolic.py", False),
-        ("structural/checks/short_support/verify_constants.py", True),
+        ("structural/checks/short_support/verify_constants.py", False),
         ("structural/checks/short_support/verify_rational.py", True),
         ("structural/checks/additional/verify_second_order_lattice.py", False),
         ("n4/research/all_n/finite4_contact_derivation_2026_10_09.py", True),
