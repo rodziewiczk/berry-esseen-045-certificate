@@ -1,0 +1,30 @@
+{
+  "format": "exact-closure31-split-zip-v1",
+  "source_archive_sha256": "17fa140f63c5134ac48f1fd1040f4c5ae4bebdb2b92b2d7ce69f4048293d1fcb",
+  "record_path": "continuation_20261010/repair31/EVENTUAL_CUTOFF31_COMPOSED.json",
+  "record_sha256": "33c73b3bd4c8cb25cedb6c9c8ce3768608db18f1f65932a0fcd6bb468c2b51b9",
+  "bound_input_count": 9518,
+  "zip_member_count": 9519,
+  "expanded_bytes": 1021832849,
+  "zip_size": 135288952,
+  "zip_sha256": "68eb555e08ee7509f9d136df6fae5e354aff816ec4f77cc8426698c479b205a0",
+  "parts": [
+    {
+      "name": "closure31.zip.001",
+      "size": 50331648,
+      "sha256": "9eaf6c51b7aa4d484b20a4398995e78a2936ba77bca261c1603c0d037b07443f"
+    },
+    {
+      "name": "closure31.zip.002",
+      "size": 50331648,
+      "sha256": "a4f46c76159ce071e09e0f29a45805681365fbaefef5c5eeca1e0bee97cbba5e"
+    },
+    {
+      "name": "closure31.zip.003",
+      "size": 34625656,
+      "sha256": "3a5e7a0bdddd56dbf179ba5d9264a3aff3750a6f40246ac241beda8b0d5c681c"
+    }
+  ],
+  "operation": "EXACT_BYTE_PACKAGING_NOT_ARITHMETIC_REPLAY",
+  "fully_reproduced_historical_dependency_DAG": false
+}
