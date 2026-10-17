@@ -1,0 +1,47 @@
+{
+  "status": "PASS_FINAL_CONDITIONAL_CHAIN_READBACK",
+  "checked_at_utc": "2026-10-16T19:44:07.333918+00:00",
+  "certificate": "continuation_cutoff20_20261016/b0/sequential_synthesis_v8/CONDITIONAL_CUTOFF20_COMPOSED.json",
+  "certificate_sha256": "0247c2bbf7df6d101239818f097647e94f5f7a9fdef8ae49a60ebc71ed88ee08",
+  "available_file_bindings_checked": 31335,
+  "changed_or_missing_current_bindings": [],
+  "actual_count_leaf_table": [
+    {
+      "n": 20,
+      "B0_leaves": 37842,
+      "BN_leaves": 50144,
+      "leaves": 87986
+    },
+    {
+      "n": 21,
+      "B0_leaves": 9402,
+      "BN_leaves": 12555,
+      "leaves": 21957
+    },
+    {
+      "n": 22,
+      "B0_leaves": 6748,
+      "BN_leaves": 7694,
+      "leaves": 14442
+    },
+    {
+      "n": 23,
+      "B0_leaves": 5751,
+      "BN_leaves": 5322,
+      "leaves": 11073
+    },
+    {
+      "n": 24,
+      "B0_leaves": 4714,
+      "BN_leaves": 3848,
+      "leaves": 8562
+    }
+  ],
+  "selected_actual20_24_count_leaves": 144020,
+  "actual21_24_full_count_panels": 114,
+  "conditional_eventual_cutoff": 20,
+  "unqualified_cutoff20_proved": false,
+  "retained_tail_exact_byte_edges": 19092,
+  "retained_tail_unresolved_recorded_paths": 18719,
+  "scope": "Independent readback of complete actual-index/domain/predecessor chain and every bound available file. No numerical leaf, support or Fourier oracle rerun; historical/analytic limitations remain unchanged."
+}

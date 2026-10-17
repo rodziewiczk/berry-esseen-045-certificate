@@ -1,0 +1,101 @@
+{
+  "status": "COMPLETED_FINITE_CHAIN_AND_PROPOSED_EVENTUAL_CUTOFF20_UNDER_RETAINED_FRAMEWORK",
+  "updated_utc": "2026-10-16T19:51:44.403905+00:00",
+  "conditional_eventual_cutoff": 20,
+  "previous_retained_eventual_cutoff": 25,
+  "finite_indices_completed": [
+    20,
+    21,
+    22,
+    23,
+    24
+  ],
+  "remaining_finite_indices_20_24": [],
+  "retained_finite_indices": [
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "retained_infinite_tail_from": 31,
+  "conditional_cutoff20_composed": true,
+  "fully_rechecked_unconditional_theorem": false,
+  "fully_reproduced_historical_dependency_DAG": false,
+  "unqualified_cutoff20_proved": false,
+  "all_owned_numerical_workers_stopped": true,
+  "all_owned_proof_composition_workers_stopped": true,
+  "new_numerical_research_planned_this_session": false,
+  "actual21_24_count_panels": 114,
+  "actual21_24_count_leaves": 56034,
+  "selected_actual20_24_count_leaves": 144020,
+  "actual_count_leaf_table": [
+    {
+      "n": 20,
+      "B0_leaves": 37842,
+      "BN_leaves": 50144,
+      "leaves": 87986
+    },
+    {
+      "n": 21,
+      "B0_leaves": 9402,
+      "BN_leaves": 12555,
+      "leaves": 21957
+    },
+    {
+      "n": 22,
+      "B0_leaves": 6748,
+      "BN_leaves": 7694,
+      "leaves": 14442
+    },
+    {
+      "n": 23,
+      "B0_leaves": 5751,
+      "BN_leaves": 5322,
+      "leaves": 11073
+    },
+    {
+      "n": 24,
+      "B0_leaves": 4714,
+      "BN_leaves": 3848,
+      "leaves": 8562
+    }
+  ],
+  "final_certificate": "continuation_cutoff20_20261016/b0/sequential_synthesis_v8/CONDITIONAL_CUTOFF20_COMPOSED.json",
+  "final_certificate_sha256": "0247c2bbf7df6d101239818f097647e94f5f7a9fdef8ae49a60ebc71ed88ee08",
+  "root_final_readback": "continuation_cutoff20_20261016/root/FINAL_CHAIN_READBACK.json",
+  "root_final_readback_sha256": "df5f9983f6f682a01edda8fae612acda85e620fa1657cfee157ebab1c5510fd2",
+  "independent_final_review": "continuation_cutoff20_20261016/analytic/SEQUENTIAL_CUTOFF20_FINAL_OUTPUT_REVIEW.json",
+  "independent_final_review_sha256": "8ec666af11411d53be0c677d42581f2e4eb452f2dd7195d4373000e664aef237",
+  "available_current_file_bindings_checked": 31335,
+  "historical_tail": {
+    "declared_edges": 37811,
+    "exact_byte_matches_at_explicit_locations": 19092,
+    "additional_exact_matches_after_four_prefix_aliases": 14425,
+    "unresolved_by_finite_location_test": 18719,
+    "absence_elsewhere_proved": false,
+    "historical_execution_reconstructed": false
+  },
+  "base20_history": {
+    "unresolved_names_in_original_base_synthesis": 186,
+    "nonempty_candidate_byte_matches_in_imported_baseline": 30,
+    "empty_log_candidate_matches": 45,
+    "candidate_matches_rewrite_base_certificate": false
+  },
+  "remaining_verification": [
+    "Independently audit the full retained analytical/contact/resource/count/Fourier framework.",
+    "Recover or replace unresolved historical ancestors and validate a portable end-to-end replay."
+  ],
+  "future_research_not_executed": [
+    "Finite same-witness relaxed-score-cap bootstrap with fresh resource acquisition.",
+    "Pointwise score feedback with explicit corner/interpolation provenance.",
+    "Any attempt below n=20, requiring new actual-index predecessor/contact premises."
+  ],
+  "no_sample_size_monotonicity_assumed": true,
+  "package_kind": "Delta continuation; original supplied packages and retained earlier folders remain dependencies.",
+  "all_owned_workers_stopped": true,
+  "session_finished": true,
+  "final_imported_evidence_readback": "root/IMPORTED_EVIDENCE_READBACK_FINAL.json",
+  "final_imported_evidence_readback_sha256": "cb01f640d681f049887e24df6693694a2f839c3fcc837189870e7351bc16037c"
+}

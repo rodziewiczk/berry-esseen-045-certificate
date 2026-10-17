@@ -1,0 +1,160 @@
+FINDINGS REPORT — continuation of 16 October 2026
+Written 2026-10-16T19:47:00.636844+00:00
+
+RESULT
+The finite computational argument for actual n=20,21,22,23,24 is complete.
+It has been joined to the retained eventual cutoff25 theorem. The resulting
+statement is a PROPOSED EVENTUAL CUTOFF20 UNDER THE EXPLICITLY RETAINED ANALYTICAL
+AND HISTORICAL FRAMEWORK. There are no unfinished finite indices between 20
+and 24 in this composition. We do not claim a fully independent reconstruction
+of the historical proof or an unqualified theorem verified from first principles.
+
+Final selected certificate (paths below are relative to this continuation):
+  b0/sequential_synthesis_v8/CONDITIONAL_CUTOFF20_COMPOSED.json
+  SHA256 0247c2bbf7df6d101239818f097647e94f5f7a9fdef8ae49a60ebc71ed88ee08
+  status PROPOSED_EVENTUAL_CUTOFF20_FROM_COMPLETE_ACTUAL_CHAIN_UNDER_RETAINED_FRAMEWORK
+
+Thus, under the union A of the explicitly retained premises, the new result is
+  C_n < C_E for every integer n>=20,
+where C_E=(3+sqrt(10))/(6*sqrt(2*pi)), approximately 0.409732183702396.
+Here C_n is the supremum of sqrt(n) times the Kolmogorov distance between
+the standardized iid sum and the standard normal, divided by the standardized
+third absolute moment rho. The available eventual cutoff
+under this framework has moved from 25 to 20. No claim below 20 is made.
+
+WHAT WAS COMPLETED
+For actual 20 we completed the remaining low-moment count regions, assembled
+all 100 closed p panels in B0=[1,11/10] and BN=[11/10,9/8], and joined these to
+the retained exclusion for rho>=9/8. This gives the complete conditional
+actual 20 base. B0 contains 37,842 selected count leaves; BN contains 50,144.
+Some actual 20 components were retained from earlier accepted certificates;
+87,986 is the selected base total, not a claim that every base leaf was newly
+constructed in this continuation.
+
+For each actual index 21,22,23,24 we separately prepared and freshly checked
+INITIAL/support/resource calculations, acquired its complete count contracts,
+and completed all required count forests. Every one of the 114 selected
+actual 21--24 full count panels received complete native arithmetic acceptance.
+The selected set contains 99 successful original panels and 15 separately
+reviewed alpha8 repairs. All 114 now have successful acceptance; prior failures
+remain preserved as failures. Eight complete band compositions check every
+resource-to-contract interface and all closed probability seams.
+
+Selected finite count leaves:
+   n          B0             BN             total
+  20       37,842       50,144        87,986
+  21        9,402       12,555        21,957
+  22        6,748        7,694        14,442
+  23        5,751        5,322        11,073
+  24        4,714        3,848         8,562
+  TOTAL                                    144,020
+The actual 21--24 subtotal is 56,034 leaves. These counts describe the finite
+count part; support/resource/Fourier arguments are separate parts of the proof.
+
+Each step uses the GLOBAL sharp bound at the preceding sample index and the
+independent retained own-cap C_n<.419. It acquires actual-n resources with q=0;
+no forest from another n is relabelled. The full 20->21->22->23->24 chain is then
+joined to the retained 25..30 argument and its 31-onward tail. There is no
+assumption of monotonicity in sample size. All regional restrictions refer to
+the same unrestricted attained contrary witness, not to a constrained optimizer.
+
+WHY THE LAST COMPUTATIONS CLOSED
+The main practical improvement was constructor partition priority alpha 4->8,
+with separately bounded runtime extensions where needed. The successful retry
+changed the search order, while retaining the exact original native acceptor,
+arithmetic sources, actual-index contracts and strict target. The source and
+interface work also preserves the actual-n normalization, original Lambda and
+physical domain conditions. The selected inward/coupled scalar bounds were
+independently checked.
+
+A first fresh replay of actual 21 BN panel 39 hit the old 19:25 UTC deadline. Its
+completed forest remained valid as a candidate; that timed-out replay was never
+counted as acceptance. A separately reviewed acceptance-only continuation
+re-evaluated the entire same forest and passed. Both execution records remain
+preserved, and the final band explicitly selects the successful new replay.
+No numerical counterexample was established by the earlier budget failures.
+
+VERIFICATION OF THE FINAL RESULT
+All newly selected forests use full native fresh acceptance, rather than
+source review or geometry alone. The subsequent pure compositors independently
+check provenance, complete geometry, endpoints, actual-index interfaces and
+strict targets without pretending to rerun leaf arithmetic.
+
+Two final output audits checked the complete actual-index induction, retained
+tail, every available bound file and the explicit historical resolution table:
+  root/FINAL_CHAIN_READBACK.json
+  analytic/SEQUENTIAL_CUTOFF20_FINAL_OUTPUT_REVIEW.json
+Both pass. The final certificate binds 31,335 available files. Its historical
+limit flags remain false; source hashes and completed new calculations do not
+replace a missing analytical theorem or historical computation.
+
+All 13,698 imported files in the session's initial baseline remained unchanged
+in the final readback at 19:49 UTC (no changed or missing files):
+  root/IMPORTED_EVIDENCE_READBACK_FINAL.json
+The numerical search workers and all proof-composition workers have finished.
+
+RETAINED DEPENDENCIES — READ BEFORE CALLING THIS A FINAL PROOF
+The full generic attainment/contact/acquisition/count/Fourier framework and
+published inputs have not all been independently reproved in this session.
+The retained eventual cutoff 25 theorem itself has an incomplete reconstructed
+historical dependency graph. The new result therefore remains explicitly
+relative to those premises. This is a completed finite conditional argument,
+not a claim that the entire inherited framework has now been audited.
+
+The actual 20 base lists 186 unresolved historical dependency NAMES at its
+recorded locations. A later lookup found possible relocated bytes for 30
+nonempty names and 45 empty logs. That is a recovery lead, not reconstruction
+of their execution history and not a modification of the frozen base result.
+
+The retained eventual cutoff 25 certificate declares 37,811 file edges. Four explicit,
+suffix-preserving prefix maps recovered 14,425 additional exact-byte matches.
+The final composition now verifies 19,092 of those edges at explicit local
+locations; 18,719 remain unresolved by that finite location test. "Unresolved"
+does NOT mean that the bytes are known to be absent everywhere. These tail
+counts and the base 20 counts overlap and must not simply be added.
+  bn/tail25_prefix_audit_v1/REPORT.txt
+  root/HISTORICAL_BYTE_MATCH_DIAGNOSTIC.json
+
+The final JSON accordingly has conditional_cutoff20_composed=true, while
+cutoff20_proved=false and fully_reproduced_historical_dependency_DAG=false.
+These flags distinguish a complete proof relative to retained premises from
+an unqualified, independently reconstructed theorem. They are intentional.
+
+PROMISING FURTHER WORK NOT PURSUED IN THE REMAINING TIME
+1. First priority: audit the retained analytical framework and recover the
+   unresolved historical source/execution ancestors. Turn the result into a
+   compact independently replayable certificate with an explicit dependency
+   ledger. This is the main verification task before presenting a final proof.
+2. The finite same-witness relaxed-score-cap bootstrap is a logically sound
+   route: first certify a weaker rational score ceiling over a COMPLETE band,
+   then freshly reacquire resources using that ceiling, then attempt the sharp
+   target. It was described but not implemented or shown numerically useful.
+   A target-aware constructor AND acceptor port must inspect all affected
+   branches; changing a receipt label or inserting n(c-CE) is not sufficient.
+3. Pointwise score feedback requires explicit C/rho corner labels and justified
+   interpolation. The current maximum-of-corners envelope must not be treated
+   as simultaneous inequalities for every corner. No such feedback is deployed.
+4. Allocation-aware moment bounds have a reviewed derivation, but the examined
+   boxes showed no useful gain. They are not part of the successful count chain.
+5. No search below 20 was started. A next actual 19 attempt needs separately
+   justified predecessor/contact/own-cap inputs and its own full arithmetic
+   cover; the present result does not imply it by monotonicity.
+
+Readable argument and further-work details:
+  PROOF_STRUCTURE.txt
+  root/SEQUENTIAL_LOGIC_AND_BETA_REVIEW.txt
+  analytic/ANALYTIC_FINAL_HANDOFF_ADDENDUM.txt
+  analytic/FINITE_RELAXED_SCORE_CAP_BOOTSTRAP_LEMMA.txt
+  analytic/FINITE_RELAXED_SCORE_CAP_IMPLEMENTATION_CAVEAT.txt
+
+TRANSFER AND RESTART
+This is a delta continuation, not a self-contained replacement for the supplied
+packages. Keep the original folders and the older retained folders used by the
+explicit prefix maps. Existing captures record the original machine's absolute
+workspace path. Native replay after relocation requires a reviewed fresh
+capture/prefix-mapping procedure; changing paths in frozen files is not a valid
+substitute. See RESTART_GUIDE.txt and the relocation note before replaying.
+
+CURRENT_STATUS.json is the authoritative final summary. PAUSE_STATE.txt and
+older intermediate reports are historical snapshots. All failed attempts,
+unused source epochs and original false conditional flags are preserved.

@@ -1,0 +1,69 @@
+RESTART AND EVIDENCE GUIDE — final state, 16 October 2026
+
+Read SUMMARY_PL.txt, FINDINGS_REPORT.txt and CURRENT_STATUS.json first.
+The finite actual-index chain 20,21,22,23,24 is COMPLETE under the explicitly
+retained analytical and historical framework. It has been joined to the
+retained result for 25..30 and the infinite tail from 31. The final certificate
+is b0/sequential_synthesis_v8/CONDITIONAL_CUTOFF20_COMPOSED.json, SHA256
+0247c2bbf7df6d101239818f097647e94f5f7a9fdef8ae49a60ebc71ed88ee08.
+Two final output audits pass; neither claims to reconstruct all inherited
+analytical lemmas or historical executions. No finite index 20..24 remains open.
+
+What should happen next
+1. Review the retained analytical premises with the supervisor. The readable
+   PROOF_STRUCTURE.txt and root/SEQUENTIAL_LOGIC_AND_BETA_REVIEW.txt explain
+   the actual-index induction, same unrestricted witness and scope limitations.
+2. Recover or replace the unresolved historical ancestors. The tail prefix
+   audit recovered 19,092 exact-byte edges, but 18,719 recorded names remain
+   unresolved by its finite location test. This does not establish absence
+   elsewhere. The actual20 base separately records 186 unresolved names;
+   candidate byte matches do not by themselves reconstruct execution history.
+3. Build and validate a compact portable replay procedure. Existing successful
+   finite proofs need not be searched for again. If native re-execution is
+   desired, preserve their selected inputs and record new executions explicitly.
+4. Only as a separate research task consider n=19 or lower. The present result
+   gives no monotonicity in n and supplies no automatic downward implication.
+
+Preservation and execution
+- Keep imported folders and every frozen or executed proof epoch unchanged.
+  Preserve failed constructions and timed-out acceptances as historical records.
+  The final selectors identify which later successful runs replace them.
+- All numerical and proof-composition workers from this session have ended.
+  Recorded process IDs are historical; do not signal them after resuming.
+- Earlier frozen launchers retain the original 19:15 UTC stop-new and 19:25 UTC
+  reap limits. Separately reviewed continuation epochs use the additional-hour
+  authorization: 20:00 UTC stop-new, 20:05 UTC reap, 20:15 UTC final deadline.
+  These are all dates on 16 October 2026. A future authorized execution needs
+  a new named, reviewed launcher epoch and new captures, not edits to old dates.
+- Constructors and fresh native acceptors are distinct recorded actions.
+  Geometry, source hashes, metadata and successful assembly do not replace
+  fresh leaf arithmetic. Preserve exact actual-index resources and contracts.
+- The safe launchers own a recorded process group, block stop signals during
+  PID handoff, and terminate/reap the child group on stop or deadline. Preserve
+  those controls in any later execution port.
+- SESSION.json and RESEARCH_LOG.txt record the pause, resumption and extension.
+  PAUSE_STATE.txt and older reports are historical snapshots. Final status is
+  given by CURRENT_STATUS.json; older incomplete panels are not new open cases.
+
+Transfer to another machine
+This is a delta continuation, not a self-contained replacement for the supplied
+packages. Keep the original folders and earlier continuations used by the final
+dependency maps. Existing captures contain this machine's absolute workspace
+path. See analytic/RELOCATION_AND_REPLAY_HANDOFF_NOTE.txt before replaying.
+A fresh native replay in new copies, or an explicitly reviewed prefix-mapping
+layer, is needed for a relocated end-to-end replay. Neither route proves missing
+historical inputs. Do not silently rewrite paths in frozen proof records.
+PACKAGE_MANIFEST.json verifies the new package's file integrity, not its proof.
+
+Promising research not implemented in this session
+- Finite same-witness relaxed-score-cap bootstrap: certify a weaker rational
+  score ceiling on a complete band, freshly reacquire resources, then attempt
+  the sharp target. The constructor and acceptor need reviewed target-aware
+  changes. See analytic/FINITE_RELAXED_SCORE_CAP_BOOTSTRAP_LEMMA.txt and
+  analytic/FINITE_RELAXED_SCORE_CAP_IMPLEMENTATION_CAVEAT.txt. No numerical
+  improvement from this proposal has been established.
+- Pointwise C/rho feedback requires explicit corner labels and justified
+  interpolation. The existing maximum-of-corners envelope cannot be used as
+  simultaneous inequalities for every corner. This refinement is not deployed.
+- Allocation-aware moment bounds have a reviewed derivation, but gave no useful
+  improvement on the examined boxes. They are not part of the accepted chain.

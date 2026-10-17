@@ -4,3 +4,5 @@ reproduction/closure31/*.zip.* -text
 reproduction/closure31/manifest.json -text
 paper/*.pdf binary
 paper/*.tex -text
+continuations/**/*.zip -text
+continuations/**/reports/** -text

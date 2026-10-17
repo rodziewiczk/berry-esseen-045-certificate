@@ -1,0 +1,19 @@
+Zacznij od SUMMARY_PL.txt, a następnie FINDINGS_REPORT.txt.
+
+CURRENT_STATUS.json zawiera aktualny wynik i ograniczenia. Końcowy certyfikat
+znajduje się w b0/sequential_synthesis_v8/CONDITIONAL_CUTOFF20_COMPOSED.json.
+Wynik to proponowany cutoff 20 POD ZACHOWANYMI ZAŁOŻENIAMI; część obliczeniowa
+20–24 jest kompletna, pełny niezależny audyt starszego zaplecza pozostaje otwarty.
+
+To paczka przyrostowa. Należy zachować oryginalne materiały, zwłaszcza
+cutoff20_20261016, cutoff25_continue_20261015, cutoff25_20261013 oraz wcześniejsze
+foldery BE_cutoff35_release_20261007, threshold31_20261008, continuation_20261010
+i continuation_20261011. Dokładne zależności podają certyfikaty i raporty.
+
+Starsze raporty, PAUSE_STATE.txt i nieudane przebiegi są zachowanym zapisem pracy;
+nie zastępują końcowego CURRENT_STATUS.json. Nie należy ręcznie przerabiać
+zamrożonych certyfikatów, dat ani zapisów wykonań. RESTART_GUIDE.txt opisuje
+bezpieczne wznowienie i ograniczenia przenoszenia na inny komputer.
+
+PACKAGE_MANIFEST.json, jeżeli obecny, służy sprawdzeniu integralności tej paczki.
+Zgodność sum plików nie jest samodzielną weryfikacją matematycznego dowodu.

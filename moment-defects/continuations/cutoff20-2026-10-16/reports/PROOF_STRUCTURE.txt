@@ -1,0 +1,82 @@
+PROOF STRUCTURE AND LIMITS — continuation of 16 October 2026
+
+FINAL STATUS: all finite numerical components for actual n=20,21,22,23,24 have
+finished and the chain has been joined to the retained result for all n>=25.
+The final output is b0/sequential_synthesis_v8/CONDITIONAL_CUTOFF20_COMPOSED.json.
+Read FINDINGS_REPORT.txt and CURRENT_STATUS.json for verification and inherited
+limitations. This note explains the implications under those retained premises;
+it does not claim a fully independent reconstruction of the historical proof.
+
+Target and quantifiers
+C_n is the supremum, over standardized iid laws with finite third absolute
+moment rho, of sqrt(n) times their Kolmogorov distance from the standard normal,
+divided by rho. The target is C_E=(3+sqrt(10))/(6*sqrt(2*pi)). The requested
+cutoff 20 means a bound for EVERY integer n>=20. A result at n=20 by itself is
+not such a cutoff. No monotonicity of C_n with sample size is assumed.
+
+Same witness throughout a fixed n
+Assume a sharp-contrary unrestricted positive closed maximizer at that actual
+sample index. The retained attainment/contact framework supplies this witness;
+the source review in root/ATTAINMENT_CONTACT_REVIEW.txt found no gap in the
+specific existence/contact subargument it examined. A later restriction on
+rho, p or beta describes necessary coordinates of this same witness. It does
+not turn the witness into an optimizer of a moment-constrained problem.
+
+Actual20 regional argument
+1. The retained high-rho argument excludes rho>=9/8. It combines universal
+   Fourier bounds above 6/5 with an acquired support bound and the supported
+   Fourier calculation between 9/8 and 6/5.
+2. B0=[1,11/10] and BN=[11/10,9/8] each have a complete 100-panel closed p cover.
+   Each panel is excluded by necessary resources, a strict scalar contradiction,
+   or a complete native count forest with a separate fresh exact acceptance.
+3. Old coarse and newer feedback resources are kept with their own hypotheses.
+   In particular, stronger numerical values do not license an unproved
+   monotonicity assumption about the resource algorithm.
+4. The two finite bands and high-rho region cover every rho>=1, including both
+   seams. Jensen/Lyapunov supplies rho>=1. Thus every sharp-contrary witness is
+   excluded, conditional on the retained analytic and historical premises.
+
+The assembled actual 20 output is:
+  bn/global20_synthesis_v5/GLOBAL20_SYNTHESIS.json
+It reports PROPOSED_GLOBAL_SHARP20_UNDER_RETAINED_ANALYTIC_FRAMEWORK.
+Its exact recorded finite count-leaf total is 87,986 (B0: 37,842; BN: 50,144).
+It explicitly does NOT report an independently reproduced historical proof or
+an eventual cutoff20 theorem.
+
+Actual21,22,23,24 induction — finite obligations completed
+For each n separately, the existing auxiliary bound C_n<.419 supplies an own
+cap. A GLOBAL sharp result at n-1 supplies the q=0 predecessor premise. That
+premise is used in the actual-n INITIAL/contact/resource calculations; forests
+for n=20 are never relabelled as forests for a different n. The same three
+rho regions must then be exhausted at actual n:
+  global sharp(n-1) + owncap(n) + retained framework
+     -> high-rho exclusion(n) + complete B0(n) + complete BN(n)
+     -> global sharp(n).
+Only a completed sequence 20,21,22,23,24 can be combined with the retained
+cutoff25 result to obtain a proposed eventual cutoff20 under the same framework.
+Source preparation or successful isolated panels do not discharge a whole band.
+In the final selected chain all eight actual21..24 bands are complete, with
+114 fully accepted count panels and 56,034 count leaves. The high-rho and own-cap
+inputs are bound at each actual index. The total selected actual 20..24 count
+part contains 144,020 leaves, including retained portions of the actual 20 base.
+
+What new verification establishes
+The new successful numerical constructions retain complete original count-root
+sets. Native acceptance re-evaluates every leaf and applies its negative
+controls; a later pure composition checks provenance, geometry, resource-to-
+contract interfaces, endpoint coverage and exact dependencies. These are
+separate operations. Source reviews and hash matches alone are not substitutes
+for fresh numerical acceptance. Bounded failed searches and their frontiers
+remain preserved and are never included as successful proof fragments.
+
+What remains retained
+The entire supplied generic count reduction, published analytic inputs and
+all historical resource/Fourier acquisition ancestors have not been reproved
+from first principles in this continuation. The actual 20 synthesis lists 186
+unresolved historical source/execution dependency names at their recorded paths.
+A later hash lookup located candidate relocated bytes for 30 nonempty names and
+45 empty logs; this does not reconstruct their historical dependency graph. Available
+files are bound and checked; unavailable old inputs are explicitly retained
+premises. A new successful count forest does not recreate missing history.
+See root/RETAINED_HISTORICAL_DEPENDENCY_NAMES.txt and the synthesis JSON's
+unresolved_dependencies. This distinction must survive any eventual cutoff 20 claim.
