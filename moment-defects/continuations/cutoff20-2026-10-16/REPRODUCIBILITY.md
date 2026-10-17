@@ -94,11 +94,23 @@ Python and do not import archived mathematical code.
 
 The supplied final continuation explicitly retains parts of the older
 analytic/contact/resource/Fourier framework and historical computations.
-The completed [baseline-13 byte audit](../../diagnostics/README.md) did not
-locate the expected 1,748 source/certificate versions of that predecessor in
-the six scanned source archives. The full `cutoff25_20261013` baseline must be
-supplied or its relevant dependencies independently reconstructed/replaced.
-A matching filename alone is not sufficient.
+The completed [baseline-13 byte searches](../../diagnostics/README.md) checked
+all 103,031 ordinary non-Mac file members of the six source archives without
+a filename filter, then all 106 interior file members of the ten distinct
+nested ZIPs (50 byte-checked occurrences). Of 1,748 expected source/certificate
+paths, six nonempty paths have exact-content candidates under other names:
+three copies each of the binomial and heat helpers. Three further expected
+paths have empty contents. The remaining **1,739 expected nonempty versions
+were not located in this scanned scope**. A candidate is not an approved
+frozen-path relocation or a reconstruction of its historical execution.
+
+The `cutoff25_20261013` baseline must still be supplied or its relevant
+dependencies independently reconstructed/replaced. The base-at-20 ledger also
+has twelve unlocated frozen plans/results, besides execution metadata and
+logs; this is not a claim that twelve program modules are missing. The
+[full availability reports](https://github.com/rodziewiczk/berry-esseen-045-certificate/releases/tag/cutoff20-sources-2026-10-17)
+retain the separate categories and original scope. A matching filename alone
+is not sufficient, and these overlapping counts must not be added.
 Missing recorded paths may correspond to relocated bytes, but locating equal
 bytes is not a fresh arithmetic replay or a proof of an analytic implication.
 

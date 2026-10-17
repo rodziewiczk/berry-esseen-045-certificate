@@ -1,0 +1,17 @@
+NESTED CUTOFF13 EXACT-BYTE PROBE — NOT MATHEMATICAL REPLAY
+
+{
+  "status": "COMPLETE_BOUNDED_NESTED_ZIP_BYTE_SEARCH",
+  "expected_substantive_cutoff13_paths": 1748,
+  "distinct_expected_sha256": 1678,
+  "top_nested_zip_occurrences": 50,
+  "unique_top_nested_zip_sha256": 10,
+  "recursively_scanned_unique_zips": 10,
+  "hashed_unique_interior_members": 106,
+  "matched_requirement_count": 0,
+  "matched_requirement_paths": []
+}
+
+Only exact expected bytes in these nested ZIPs were sought. __MACOSX at ANY path component is excluded. No filename filter inside ZIPs. Outer flat non-ZIP members and unrelated archives are outside scope. A zero match is not mathematical validation or proof of global absence.
+Every one of the 50 selected top ZIP bodies was SHA-hashed, CRC-checked and duplicates byte-compared before deduplication.
+See nested13.json for every locator and unique interior member SHA.
