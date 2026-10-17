@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1500" viewBox="0 0 1700 1500" role="img" aria-labelledby="graph-title graph-description">
+<title id="graph-title">Principal mathematical results and proof dependencies</title>
+<desc id="graph-description">The main conclusions occupy the top row. Arrows point from mathematical prerequisites to conclusions. Literature and finite arithmetic inputs are distinguished. The original eventual bound is an independent retained branch.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L0,8 L7,4 Z" fill="#8291a2"/></marker></defs>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="35" y="42" font-family="Segoe UI,Arial,sans-serif" font-size="27" font-weight="600" fill="#18334a">Principal results and their proof dependencies</text>
+<text x="35" y="72" font-family="Segoe UI,Arial,sans-serif" font-size="16" fill="#526171">Arrows: prerequisite → conclusion. Only branches leading to the selected results are retained.</text>
+<path d="M400,213.0 C418,213.0 437,213.0 455,213.0" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>binary → second</title></path>
+<path d="M637.5,955 C637.5,915 217.5,336 217.5,296" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>classical → binary</title></path>
+<path d="M637.5,955 C637.5,915 1057.5,336 1057.5,296" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>classical → cutoff</title></path>
+<path d="M637.5,955 C637.5,915 1057.5,886 1057.5,846" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>classical → entry</title></path>
+<path d="M637.5,955 C637.5,915 1057.5,611 1057.5,571" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>classical → finite</title></path>
+<path d="M637.5,955 C637.5,915 637.5,886 637.5,846" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>classical → first</title></path>
+<path d="M637.5,1121 C637.5,1156 427.5,1195 427.5,1230" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>classical → original</title></path>
+<path d="M637.5,955 C637.5,915 217.5,886 217.5,846" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>classical → outer</title></path>
+<path d="M637.5,955 C637.5,915 1477.5,616 1477.5,576" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>classical → small_reductions</title></path>
+<path d="M217.5,1121 C217.5,1156 427.5,1195 427.5,1230" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>core → original</title></path>
+<path d="M217.5,955 C217.5,915 217.5,886 217.5,846" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>core → outer</title></path>
+<path d="M217.5,955 C217.5,915 217.5,611 217.5,571" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>core → penalty</title></path>
+<path d="M217.5,955 C217.5,915 1477.5,616 1477.5,576" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>core → small_reductions</title></path>
+<path d="M1477.5,955 C1477.5,915 1057.5,336 1057.5,296" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>data49 → cutoff</title></path>
+<path d="M1477.5,955 C1477.5,915 1057.5,886 1057.5,846" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>data49 → entry</title></path>
+<path d="M1477.5,955 C1477.5,915 1057.5,611 1057.5,571" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>data49 → finite</title></path>
+<path d="M1057.5,680 C1057.5,640 1057.5,336 1057.5,296" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>entry → cutoff</title></path>
+<path d="M1057.5,680 C1057.5,640 1057.5,611 1057.5,571" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>entry → finite</title></path>
+<path d="M637.5,405 C637.5,365 637.5,336 637.5,296" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>fifth → second</title></path>
+<path d="M1057.5,405 C1057.5,365 1057.5,336 1057.5,296" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>finite → cutoff</title></path>
+<path d="M637.5,680 C637.5,640 637.5,611 637.5,571" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>first → fifth</title></path>
+<path d="M637.5,846 C637.5,881 427.5,1195 427.5,1230" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>first → original</title></path>
+<path d="M637.5,680 C637.5,640 217.5,611 217.5,571" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>first → penalty</title></path>
+<path d="M1057.5,955 C1057.5,915 1057.5,336 1057.5,296" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>hc → cutoff</title></path>
+<path d="M1057.5,955 C1057.5,915 1057.5,886 1057.5,846" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>hc → entry</title></path>
+<path d="M1057.5,955 C1057.5,915 217.5,611 217.5,571" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>hc → penalty</title></path>
+<path d="M217.5,846 C217.5,881 427.5,1195 427.5,1230" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>outer → original</title></path>
+<path d="M217.5,680 C217.5,640 217.5,611 217.5,571" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>outer → penalty</title></path>
+<path d="M217.5,405 C217.5,365 217.5,336 217.5,296" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>penalty → binary</title></path>
+<path d="M1477.5,680 C1477.5,640 1477.5,336 1477.5,296" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>small_data → small</title></path>
+<path d="M1477.5,680 C1477.5,640 1477.5,616 1477.5,576" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>small_data → small_reductions</title></path>
+<path d="M1477.5,405 C1477.5,365 1477.5,336 1477.5,296" fill="none" stroke="#aab7c4" stroke-width="1.4" marker-end="url(#arrow)"><title>small_reductions → small</title></path>
+<g id="node-binary"><title>Penalized stability theorem; stab:thm:penalty</title>
+<rect x="35" y="130" width="365" height="166" rx="5" fill="#e8eff8" stroke="#cad3dc" stroke-width="1"/>
+<text x="49" y="150" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#194771">MAIN RESULT</text>
+<text x="49" y="176" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Eventual two-point optimality</text>
+<text x="49" y="201" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Cₙ = C_Q*(n) &lt; C_E</text>
+<text x="49" y="220" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">n ≥ N; the threshold is qualitative</text>
+<text x="49" y="282" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Penalized stability theorem</text></g>
+<g id="node-second"><title>Full second-order corollary; main:full-second-order</title>
+<rect x="455" y="130" width="365" height="166" rx="5" fill="#e8eff8" stroke="#cad3dc" stroke-width="1"/>
+<text x="469" y="150" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#194771">MAIN RESULT</text>
+<text x="469" y="176" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Full second-order asymptotic</text>
+<text x="469" y="201" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Cₙ = C_E − κ∞/n</text>
+<text x="469" y="220" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">− (κ₂ + A₂ωₙ²)/n² + o(n⁻²)</text>
+<text x="469" y="239" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Complete arithmetic limit interval</text>
+<text x="469" y="282" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Full second-order corollary</text></g>
+<g id="node-cutoff"><title>Effective theorem; conditional continuation; cut31:global:main; cut20:global:main; cut31:global:main; cut20:global:main; cut49:global:route; cut49:global:smoothing; cut49:global:route</title>
+<rect x="875" y="130" width="365" height="166" rx="5" fill="#e8eff8" stroke="#cad3dc" stroke-width="1"/>
+<text x="889" y="150" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#194771">MAIN RESULT</text>
+<text x="889" y="176" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Effective bounds: 31 / conditional 20</text>
+<text x="889" y="201" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Cₙ &lt; C_E for every n ≥ 31</text>
+<text x="889" y="220" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">n ≥ 20 only under retained premises</text>
+<text x="889" y="239" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Neither cutoff asserts binary optimality</text>
+<text x="889" y="282" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Effective theorem; conditional continuation</text></g>
+<g id="node-small"><title>Finite-index theorems; scopes distinguished; n2:thm:main; n3:thm:main; n4all:thm:main; n4:thm:main</title>
+<rect x="1295" y="130" width="365" height="166" rx="5" fill="#e8eff8" stroke="#cad3dc" stroke-width="1"/>
+<text x="1309" y="150" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#194771">MAIN RESULT</text>
+<text x="1309" y="176" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Finite-index bounds</text>
+<text x="1309" y="201" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">C₂ ≤ 2√2/7; C₃ ≤ 59√3/250</text>
+<text x="1309" y="220" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">C₄ ≤ 4097/10000, unrestricted</text>
+<text x="1309" y="239" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">C₄,≤₃ &lt; 409/1000 on at most three points</text>
+<text x="1309" y="282" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Finite-index theorems; scopes distinguished</text></g>
+<g id="node-penalty"><title>Penalized-extremizer argument; stab:lem:attainment; stab:eq:penalty-bound</title>
+<rect x="35" y="405" width="365" height="166" rx="5" fill="#ffffff" stroke="#cad3dc" stroke-width="1"/>
+<text x="49" y="425" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#334155">OWN PROOF PACKAGE</text>
+<text x="49" y="451" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Penalized extremizers</text>
+<text x="49" y="476" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Attainment and harmonic-series selection</text>
+<text x="49" y="495" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Support control; local absorption</text>
+<text x="49" y="557" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Penalized-extremizer argument</text></g>
+<g id="node-fifth"><title>Lattice saddle and phase optimization; bin:lem:fifth; bin:thm:main</title>
+<rect x="455" y="405" width="365" height="166" rx="5" fill="#ffffff" stroke="#cad3dc" stroke-width="1"/>
+<text x="469" y="425" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#334155">OWN PROOF PACKAGE</text>
+<text x="469" y="451" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Fifth-order lattice optimization</text>
+<text x="469" y="476" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Uniform saddle; integer node retained</text>
+<text x="469" y="495" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Phase and parameter optimized together</text>
+<text x="469" y="557" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Lattice saddle and phase optimization</text></g>
+<g id="node-finite"><title>Retained finite and local estimates; cut49:global:finitecontracts; cut49:global:finiteceiling; cut49:bar46:supported; cut49:global:ceiling46; cut49:shortloc:theorem; cut49:global:local; cut49:global:smoothing</title>
+<rect x="875" y="405" width="365" height="166" rx="5" fill="#ffffff" stroke="#cad3dc" stroke-width="1"/>
+<text x="889" y="425" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#334155">OWN PROOF PACKAGE</text>
+<text x="889" y="451" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Finite and local estimates</text>
+<text x="889" y="476" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Predecessor ceilings; sharper index 46</text>
+<text x="889" y="495" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Independent LOCAL47 and smoothing</text>
+<text x="889" y="514" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Three losses close the base at 49</text>
+<text x="889" y="557" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Retained finite and local estimates</text></g>
+<g id="node-small_reductions"><title>Own finite-index analytic reductions; n2:lem:certimp; n3:prop:certificate; n4all:lem:owner; n4all:prop:certificate; n4:lem:bounded</title>
+<rect x="1295" y="405" width="365" height="171" rx="5" fill="#ffffff" stroke="#cad3dc" stroke-width="1"/>
+<text x="1309" y="425" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#334155">OWN PROOF PACKAGE</text>
+<text x="1309" y="451" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Own finite-index reductions</text>
+<text x="1309" y="476" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Attainment, contact and bounded witnesses</text>
+<text x="1309" y="495" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">n = 2,3: moment / iid identities</text>
+<text x="1309" y="514" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">n = 4: unrestricted common-measure route</text>
+<text x="1309" y="533" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Separate at-most-three-point reduction</text>
+<text x="1309" y="562" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Own finite-index analytic reductions</text></g>
+<g id="node-outer"><title>Uniform outer Fourier estimate; orig:prop:qouter</title>
+<rect x="35" y="680" width="365" height="166" rx="5" fill="#ffffff" stroke="#cad3dc" stroke-width="1"/>
+<text x="49" y="700" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#334155">OWN PROOF PACKAGE</text>
+<text x="49" y="726" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Uniform outer Fourier envelope</text>
+<text x="49" y="751" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Moment cap; signed defect control</text>
+<text x="49" y="770" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Near-Esseen localization</text>
+<text x="49" y="832" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Uniform outer Fourier estimate</text></g>
+<g id="node-first"><title>Uniform two-point asymptotic; orig:lem:binsaddle; orig:lem:boundednode; orig:thm:twopoint</title>
+<rect x="455" y="680" width="365" height="166" rx="5" fill="#ffffff" stroke="#cad3dc" stroke-width="1"/>
+<text x="469" y="700" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#334155">OWN PROOF PACKAGE</text>
+<text x="469" y="726" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">First-order two-point asymptotic</text>
+<text x="469" y="751" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Uniform central binomial saddle</text>
+<text x="469" y="770" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">C_Q*(n) = C_E − κ∞/n + o(n⁻¹)</text>
+<text x="469" y="832" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Uniform two-point asymptotic</text></g>
+<g id="node-entry"><title>Contact, support and acquisition lemmas; cut49:re:enclosure; cut49:re:signed-phase-repair; cut49:re:acquired; cut49:global:attainment; cut49:global:contact; cut49:support:theorem</title>
+<rect x="875" y="680" width="365" height="166" rx="5" fill="#ffffff" stroke="#cad3dc" stroke-width="1"/>
+<text x="889" y="700" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#334155">OWN PROOF PACKAGE</text>
+<text x="889" y="726" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Contact and resource acquisition</text>
+<text x="889" y="751" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Gaussian support; one conserved budget</text>
+<text x="889" y="770" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Signed-phase repair and confinement</text>
+<text x="889" y="789" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Acyclic entry schedule</text>
+<text x="889" y="832" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Contact, support and acquisition lemmas</text></g>
+<g id="node-small_data"><title>Complete finite-index certificates; n2:eq:C1; n2:eq:C2; n3:sec:check; n4all:prop:certificate; n4:lem:bounded</title>
+<rect x="1295" y="680" width="365" height="171" rx="5" fill="#fbf4e6" stroke="#cad3dc" stroke-width="1"/>
+<text x="1309" y="700" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#856321">FINITE ARITHMETIC INPUT</text>
+<text x="1309" y="726" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Finite-index arithmetic</text>
+<text x="1309" y="751" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">n = 2,3: rational Bernstein certificates</text>
+<text x="1309" y="770" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">n = 4: unrestricted ALL260 closed cover</text>
+<text x="1309" y="789" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Separate three-point subdivision forest</text>
+<text x="1309" y="808" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Outward arithmetic; Gaussian enclosures</text>
+<text x="1309" y="837" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Complete finite-index certificates</text></g>
+<g id="node-core"><title>Moment defect; Fourier and Hermite results; orig:thm:defect; orig:cor:transport; orig:prop:m1; orig:thm:cf; orig:cor:rankfree; orig:lem:J2; orig:app:bernstein</title>
+<rect x="35" y="955" width="365" height="166" rx="5" fill="#edf5ef" stroke="#cad3dc" stroke-width="1"/>
+<text x="49" y="975" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#315c40">OWN FOUNDATIONS</text>
+<text x="49" y="1001" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Moment / Fourier foundations</text>
+<text x="49" y="1026" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Known sharp defect; quantitative estimates</text>
+<text x="49" y="1045" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Linear CF bound; coherent Hermite identity</text>
+<text x="49" y="1064" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Auxiliary Bernstein estimate</text>
+<text x="49" y="1107" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Moment defect; Fourier and Hermite results</text></g>
+<g id="node-classical"><title>Named literature inputs; orig:lem:BPcardinal</title>
+<rect x="455" y="955" width="365" height="166" rx="5" fill="#f0f0f3" stroke="#cad3dc" stroke-width="1"/>
+<text x="469" y="975" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#515168">IMPORTED INPUT</text>
+<text x="469" y="1001" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Classical imported inputs</text>
+<text x="469" y="1026" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Shevtsova: finite moment estimates</text>
+<text x="469" y="1045" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Schulz: strict binomial bound / localization</text>
+<text x="469" y="1064" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Prawitz: signed smoothing</text>
+<text x="469" y="1107" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Named literature inputs</text></g>
+<g id="node-hc"><title>Named inputs; retained-inputs assumption; cut20:retained-inputs</title>
+<rect x="875" y="955" width="365" height="166" rx="5" fill="#f0f0f3" stroke="#cad3dc" stroke-width="1"/>
+<text x="889" y="975" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#515168">IMPORTED INPUT</text>
+<text x="889" y="1001" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">External and retained premises</text>
+<text x="889" y="1026" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">He–Cheng: named smoothing / contact inputs</text>
+<text x="889" y="1045" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Conditional 20: analytic / history premises</text>
+<text x="889" y="1064" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Full inherited DAG / replay still unresolved</text>
+<text x="889" y="1107" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Named inputs; retained-inputs assumption</text></g>
+<g id="node-data49"><title>Retained effective arithmetic supplement; cut49:short:arithmetic; cut31:positive-ladder; cut31:moment-cover; cut31:bridges</title>
+<rect x="1295" y="955" width="365" height="166" rx="5" fill="#fbf4e6" stroke="#cad3dc" stroke-width="1"/>
+<text x="1309" y="975" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#856321">FINITE ARITHMETIC INPUT</text>
+<text x="1309" y="1001" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Retained effective finite certificates</text>
+<text x="1309" y="1026" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">31: closed moment / actual-index covers</text>
+<text x="1309" y="1045" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Retained 49 base and infinite-tail inputs</text>
+<text x="1309" y="1064" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Rational gates; every shared endpoint</text>
+<text x="1309" y="1107" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Retained effective arithmetic supplement</text></g>
+<g id="node-original"><title>Original qualitative eventual-bound theorem; orig:thm:eventual; orig:prop:qlocal; orig:lem:markedllt-full; orig:lem:anchored; orig:lem:shapecontraction</title>
+<rect x="35" y="1230" width="785" height="166" rx="5" fill="#f5f7f9" stroke="#cad3dc" stroke-width="1"/>
+<text x="49" y="1250" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" fill="#526171">RETAINED ORIGINAL ROUTE</text>
+<text x="49" y="1276" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#18334a">Separately retained original eventual-bound proof</text>
+<text x="49" y="1301" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Cₙ ≤ C_E for all sufficiently large n</text>
+<text x="49" y="1320" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Signed endpoint branches; marked LLT; cardinal gap; exact-lattice transfer</text>
+<text x="49" y="1339" font-family="Cambria,Times New Roman,serif" font-size="16" fill="#233747">Includes the compact shape certificate and its analytic continuation</text>
+<text x="49" y="1382" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" fill="#526171">Original qualitative eventual-bound theorem</text></g>
+<text x="860" y="1284" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#526171">Qualitative binary optimality does not supply the cutoff 49.</text>
+<text x="860" y="1313" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#526171">The original eventual-bound route is not assumed by either proof.</text>
+<text x="860" y="1342" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#526171">Imported inputs are not presented as new results of this manuscript.</text>
+</svg>

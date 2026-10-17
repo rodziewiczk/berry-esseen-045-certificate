@@ -1,6 +1,6 @@
 # Moment defects and sharp iid Berry--Esseen bounds
 
-Kacper Rodziewicz and Bartosz Kołodziejek. Working draft, 12 October 2026.
+Kacper Rodziewicz and Bartosz Kołodziejek. Working draft, 17 October 2026.
 
 [Read the manuscript](paper/manuscript.pdf) · [LaTeX source](paper/manuscript.tex)
 
@@ -33,9 +33,17 @@ C_3\le\frac{59\sqrt3}{250},\qquad
 C_4\le\frac{4097}{10000}<C_E.
 $$
 
-Eventual two-point optimality is qualitative: **31 is a cutoff for the strict
-upper bound, not a claimed cutoff for two-point optimality.** The unrestricted
-sharp bounds at indices 5--30 are not established here.
+The [finite continuation of 16 October](continuations/cutoff20-2026-10-16/README.md)
+now adds a **conditional cutoff 20**, under its explicitly retained analytic
+and historical certificate premises. The actual-index chain 20--24 is complete;
+it joins the retained 25--30 estimates and the tail from 31. The new manuscript
+states these premises separately rather than silently promoting the archive's
+conditional flags to an unconditional theorem.
+
+Eventual two-point optimality is qualitative: **neither effective cutoff is a
+claimed cutoff for two-point optimality.** The unrestricted sharp bounds at
+indices 5--19 remain open here; the new 20--30 extension has the conditional
+status just specified. The earlier argument from 31 is preserved unchanged.
 
 The opening section explains the elementary historical $C\le0.45$ argument,
 then passes from a fixed Rademacher reference to the binary law matching the
@@ -50,6 +58,9 @@ Use ordinary Python 3.11 or newer, without `-O`. Start from this directory.
 The commands have deliberately different meanings:
 
 ```sh
+# Transport integrity of the NEW conditional continuation only, not its mathematics.
+python -B -S continuations/cutoff20-2026-10-16/verify_archive.py
+
 # No imported proof code: check every archival cutoff-31 input byte.
 python -B -S reproduction/closure31.py
 

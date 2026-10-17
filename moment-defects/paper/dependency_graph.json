@@ -1,0 +1,1113 @@
+{
+  "title": "Principal results and their proof dependencies",
+  "subtitle": "Main results above; supporting arguments and imported inputs below.",
+  "source": "manuscript/drafts/appendix_elementary_045.tex",
+  "view": {
+    "width": 1700,
+    "height": 1500,
+    "boxWidth": 365,
+    "boxHeight": 166
+  },
+  "roots": [
+    "binary",
+    "second",
+    "cutoff",
+    "small",
+    "original"
+  ],
+  "main_roots": [
+    "binary",
+    "second",
+    "cutoff",
+    "small"
+  ],
+  "nodes": [
+    {
+      "id": "binary",
+      "kind": "main",
+      "x": 35,
+      "y": 125,
+      "title": "Eventual two-point optimality",
+      "lines": [
+        "Cₙ = C_Q*(n) < C_E",
+        "n ≥ N; N remains qualitative"
+      ],
+      "reference": "Penalized stability theorem",
+      "labels": [
+        "stab:thm:penalty"
+      ],
+      "deps": [
+        "penalty",
+        "schulz"
+      ]
+    },
+    {
+      "id": "second",
+      "kind": "main",
+      "x": 455,
+      "y": 125,
+      "title": "Full second-order asymptotic",
+      "lines": [
+        "Cₙ = C_E − κ∞/n",
+        "− (κ₂ + A₂ωₙ²)/n² + o(n⁻²)",
+        "Complete arithmetic limit interval"
+      ],
+      "reference": "Full second-order corollary",
+      "labels": [
+        "main:full-second-order"
+      ],
+      "deps": [
+        "binary",
+        "fifth"
+      ]
+    },
+    {
+      "id": "cutoff",
+      "kind": "main",
+      "x": 875,
+      "y": 125,
+      "title": "Effective bounds: 31 / conditional 20",
+      "lines": [
+        "Cₙ < C_E for every n ≥ 31",
+        "n ≥ 20 only under retained premises",
+        "Neither cutoff asserts binary optimality"
+      ],
+      "reference": "Effective theorem; conditional continuation",
+      "labels": [
+        "cut31:global:main",
+        "cut20:global:main"
+      ],
+      "deps": [
+        "retained31",
+        "conditional20"
+      ]
+    },
+    {
+      "id": "retained31",
+      "kind": "proof",
+      "x": 875,
+      "y": 355,
+      "title": "Retained unrestricted cutoff 31",
+      "lines": [
+        "Positive budgets 27–30; sharp covers 31–34",
+        "Actual-index continuation 35–48; tail from 49"
+      ],
+      "reference": "Retained effective-cutoff theorem",
+      "labels": [
+        "cut31:global:main"
+      ],
+      "deps": [
+        "tail",
+        "data31",
+        "contact",
+        "resource",
+        "schulz"
+      ]
+    },
+    {
+      "id": "conditional20",
+      "kind": "proof",
+      "x": 875,
+      "y": 355,
+      "title": "Conditional continuation to 20",
+      "lines": [
+        "Actual-index chain 20–24; retained 25–30",
+        "Conclusion only under explicit retained premises"
+      ],
+      "reference": "Conditional finite-continuation theorem",
+      "labels": [
+        "cut20:global:main"
+      ],
+      "deps": [
+        "retained31",
+        "cut20_inputs"
+      ]
+    },
+    {
+      "id": "cut20_inputs",
+      "kind": "external",
+      "x": 875,
+      "y": 1880,
+      "title": "Explicit retained premises for cutoff 20",
+      "lines": [
+        "Analytic framework and historical numerical inputs",
+        "Complete actual 20–24 chain and retained 25–30",
+        "Full inherited dependency replay remains unresolved"
+      ],
+      "reference": "Retained-inputs assumption",
+      "labels": [
+        "cut20:retained-inputs"
+      ],
+      "deps": []
+    },
+    {
+      "id": "data31",
+      "kind": "certificate",
+      "x": 1295,
+      "y": 1735,
+      "title": "Retained finite certificates for cutoff 31",
+      "lines": [
+        "Positive budgets, closed moment covers and bridges",
+        "Actual-index witnesses and all shared endpoints"
+      ],
+      "reference": "Effective-31 finite-certificate inputs",
+      "labels": [
+        "cut31:positive-ladder",
+        "cut31:moment-cover",
+        "cut31:bridges"
+      ],
+      "deps": []
+    },
+    {
+      "id": "small",
+      "kind": "main",
+      "x": 1295,
+      "y": 125,
+      "title": "Finite-index bounds",
+      "lines": [
+        "C₂ ≤ 2√2/7; C₃ ≤ 59√3/250",
+        "C₄ ≤ 4097/10000, unrestricted",
+        "C₄,≤₃ < 409/1000 on at most three points"
+      ],
+      "reference": "Two-, three- and four-summand theorems",
+      "labels": [
+        "n2:thm:main",
+        "n3:thm:main",
+        "n4all:thm:main",
+        "n4:thm:main"
+      ],
+      "deps": [
+        "reduce23",
+        "reduce4_all",
+        "reduce4",
+        "data23",
+        "data4_all",
+        "data4"
+      ]
+    },
+    {
+      "id": "penalty",
+      "kind": "proof",
+      "x": 35,
+      "y": 355,
+      "title": "Penalized extremal problem",
+      "lines": [
+        "Attainment, harmonic-series selection",
+        "Support control and local absorption"
+      ],
+      "reference": "Penalized-extremizer argument",
+      "labels": [
+        "stab:lem:attainment",
+        "stab:eq:penalty-bound"
+      ],
+      "deps": [
+        "outer",
+        "first",
+        "defect",
+        "hc_seq"
+      ]
+    },
+    {
+      "id": "fifth",
+      "kind": "proof",
+      "x": 455,
+      "y": 355,
+      "title": "Fifth-order lattice saddle",
+      "lines": [
+        "Uniform expansion; integer node retained",
+        "Quadratic optimization in the phase"
+      ],
+      "reference": "Lattice saddle and phase optimization",
+      "labels": [
+        "bin:lem:fifth",
+        "bin:thm:main"
+      ],
+      "deps": [
+        "first"
+      ]
+    },
+    {
+      "id": "tail",
+      "kind": "proof",
+      "x": 875,
+      "y": 355,
+      "title": "Least later failure",
+      "lines": [
+        "Base 49, smoothing, LOCAL47",
+        "Finite ceiling at 48 covers the n = 50 seam"
+      ],
+      "reference": "Retained first-failure tail argument",
+      "labels": [
+        "cut49:global:route",
+        "cut49:global:smoothing"
+      ],
+      "deps": [
+        "base49",
+        "local47",
+        "ceilings",
+        "smoothing"
+      ]
+    },
+    {
+      "id": "reduce23",
+      "kind": "proof",
+      "x": 1295,
+      "y": 355,
+      "title": "Own reductions for n = 2 and 3",
+      "lines": [
+        "Attainment, contact and support",
+        "Moment domain; iid/null expectations"
+      ],
+      "reference": "Two- and three-summand reductions",
+      "labels": [
+        "n2:lem:certimp",
+        "n3:prop:certificate"
+      ],
+      "deps": [
+        "defect",
+        "shev",
+        "data23"
+      ]
+    },
+    {
+      "id": "original",
+      "kind": "secondary",
+      "x": 35,
+      "y": 585,
+      "title": "Original qualitative conclusion",
+      "lines": [
+        "Cₙ ≤ C_E eventually",
+        "Not a premise of binary optimality or effective cutoffs"
+      ],
+      "reference": "Original qualitative eventual-bound theorem",
+      "labels": [
+        "orig:thm:eventual"
+      ],
+      "deps": [
+        "outer",
+        "first",
+        "oldlocal"
+      ]
+    },
+    {
+      "id": "first",
+      "kind": "proof",
+      "x": 455,
+      "y": 585,
+      "title": "Uniform two-point saddle",
+      "lines": [
+        "Central nodes and global localization",
+        "C_Q*(n) = C_E − κ∞/n + o(n⁻¹)"
+      ],
+      "reference": "Uniform two-point asymptotic",
+      "labels": [
+        "orig:lem:binsaddle",
+        "orig:lem:boundednode",
+        "orig:thm:twopoint"
+      ],
+      "deps": [
+        "schulz",
+        "shev"
+      ]
+    },
+    {
+      "id": "base49",
+      "kind": "proof",
+      "x": 875,
+      "y": 585,
+      "title": "The finite base at 49",
+      "lines": [
+        "Finite ceilings + sharpened index 46",
+        "Three losses supplied by local comparison"
+      ],
+      "reference": "Retained finite base at 49",
+      "labels": [
+        "cut49:global:route"
+      ],
+      "deps": [
+        "ceilings",
+        "bar46",
+        "local47"
+      ]
+    },
+    {
+      "id": "reduce4",
+      "kind": "proof",
+      "x": 1295,
+      "y": 585,
+      "title": "Own three-point reduction at n = 4",
+      "lines": [
+        "Restricted attainment; existing-atom variation",
+        "All chambers, collisions and both jump edges"
+      ],
+      "reference": "Restricted three-point reduction",
+      "labels": [
+        "n4:lem:bounded"
+      ],
+      "deps": [
+        "shev",
+        "data4"
+      ]
+    },
+    {
+      "id": "reduce4_all",
+      "kind": "proof",
+      "x": 1295,
+      "y": 355,
+      "title": "Unrestricted four-summand reduction",
+      "lines": [
+        "Global owner localization; one common defect measure",
+        "All physical excess, thresholds and reflected laws",
+        "Zero atoms and bounded infinite supports retained"
+      ],
+      "reference": "Unrestricted four-summand proof",
+      "labels": [
+        "n4all:lem:owner",
+        "n4all:prop:certificate"
+      ],
+      "deps": [
+        "reduce23",
+        "shev",
+        "prawitz",
+        "data4_all"
+      ]
+    },
+    {
+      "id": "outer",
+      "kind": "proof",
+      "x": 35,
+      "y": 815,
+      "title": "Uniform outer envelope",
+      "lines": [
+        "Moment cap and signed Fourier control",
+        "Near-Esseen localization"
+      ],
+      "reference": "Uniform outer Fourier estimate",
+      "labels": [
+        "orig:prop:qouter"
+      ],
+      "deps": [
+        "cf",
+        "response",
+        "prawitz",
+        "shev"
+      ]
+    },
+    {
+      "id": "hc_seq",
+      "kind": "external",
+      "x": 455,
+      "y": 815,
+      "title": "He–Cheng: sequential inputs",
+      "lines": [
+        "Smoothing, local noisy-Bernoulli comparison",
+        "Gaussian cancellation; preprint inputs"
+      ],
+      "reference": "Lemmas 2.2, 3.3, 3.5, 4.4",
+      "bib": [
+        "HC"
+      ],
+      "deps": []
+    },
+    {
+      "id": "bar46",
+      "kind": "proof",
+      "x": 875,
+      "y": 815,
+      "title": "Sharper ceiling at 46",
+      "lines": [
+        "a₄₆ < 0.54/46",
+        "Corrected signed curvature; seven passes"
+      ],
+      "reference": "Retained sharper ceiling at 46",
+      "labels": [
+        "cut49:bar46:supported",
+        "cut49:global:ceiling46"
+      ],
+      "deps": [
+        "ceilings",
+        "resource",
+        "contact",
+        "data49"
+      ]
+    },
+    {
+      "id": "local47",
+      "kind": "proof",
+      "x": 1295,
+      "y": 815,
+      "title": "LOCAL47: conditional local exclusion",
+      "lines": [
+        "Own Bernoulli count; positive and zero noise",
+        "Entry hypotheses acquired before comparison"
+      ],
+      "reference": "Retained local-comparison theorem",
+      "labels": [
+        "cut49:shortloc:theorem",
+        "cut49:global:local"
+      ],
+      "deps": [
+        "resource",
+        "contact",
+        "schulz",
+        "data49"
+      ]
+    },
+    {
+      "id": "oldlocal",
+      "kind": "proof",
+      "x": 35,
+      "y": 1045,
+      "title": "Original signed local completion",
+      "lines": [
+        "Bounded / growing / critical branches",
+        "Marked LLT, cardinal gap and lattice transfer"
+      ],
+      "reference": "Original signed local completion",
+      "labels": [
+        "orig:prop:qlocal",
+        "orig:lem:markedllt-full",
+        "orig:lem:anchored"
+      ],
+      "deps": [
+        "cf",
+        "response",
+        "prawitz",
+        "shape",
+        "first"
+      ]
+    },
+    {
+      "id": "schulz",
+      "kind": "external",
+      "x": 455,
+      "y": 1045,
+      "title": "Schulz: binomial input",
+      "lines": [
+        "Global strict two-point bound",
+        "Central-index localization"
+      ],
+      "reference": "Theorem 1 and Proposition 6.1",
+      "bib": [
+        "Schulz2016"
+      ],
+      "deps": []
+    },
+    {
+      "id": "ceilings",
+      "kind": "proof",
+      "x": 875,
+      "y": 1045,
+      "title": "Finite predecessor ceilings",
+      "lines": [
+        "1.5/j on 40–45; 0.7/j on 45–50",
+        "Supported exclusions and exact finite seams"
+      ],
+      "reference": "Retained predecessor-ceiling argument",
+      "labels": [
+        "cut49:global:finitecontracts",
+        "cut49:global:finiteceiling"
+      ],
+      "deps": [
+        "contact",
+        "resource",
+        "shev",
+        "data49"
+      ]
+    },
+    {
+      "id": "smoothing",
+      "kind": "proof",
+      "x": 1295,
+      "y": 1045,
+      "title": "Support-free smoothing",
+      "lines": [
+        "A good predecessor bounds the excess",
+        "Supplies the hypotheses at a first failure"
+      ],
+      "reference": "Support-free smoothing lemma",
+      "labels": [
+        "cut49:global:smoothing"
+      ],
+      "deps": [
+        "shev"
+      ]
+    },
+    {
+      "id": "response",
+      "kind": "foundation",
+      "x": 35,
+      "y": 1275,
+      "title": "Coherent defect representation",
+      "lines": [
+        "One defect measure at every frequency",
+        "Hermite error and explicit tail coefficients"
+      ],
+      "reference": "Coherent Hermite representation",
+      "labels": [
+        "orig:cor:rankfree"
+      ],
+      "deps": [
+        "defect"
+      ]
+    },
+    {
+      "id": "cf",
+      "kind": "foundation",
+      "x": 455,
+      "y": 1275,
+      "title": "Linear Fourier stability",
+      "lines": [
+        "|φ_P(t) − φ_Qγ(t)| ≤ Cγ d(P)|t|³",
+        "Signed Hermite remainder control"
+      ],
+      "reference": "Linear Fourier-stability theorem",
+      "labels": [
+        "orig:thm:cf"
+      ],
+      "deps": [
+        "defect",
+        "cf_cert"
+      ]
+    },
+    {
+      "id": "resource",
+      "kind": "proof",
+      "x": 875,
+      "y": 1275,
+      "title": "Conserved resource and row acquisition",
+      "lines": [
+        "Fourier / moment budget; signed-phase repair",
+        "Confinement and an acyclic entry schedule"
+      ],
+      "reference": "Enclosure and acquisition lemmas",
+      "labels": [
+        "cut49:re:enclosure",
+        "cut49:re:signed-phase-repair",
+        "cut49:re:acquired"
+      ],
+      "deps": [
+        "contact",
+        "data49"
+      ]
+    },
+    {
+      "id": "data49",
+      "kind": "certificate",
+      "x": 1295,
+      "y": 1275,
+      "title": "Finite proof data for cutoff 49",
+      "lines": [
+        "Closed support, resource and local covers",
+        "Rational enclosures; sign and index gates"
+      ],
+      "reference": "Retained effective arithmetic supplement",
+      "labels": [
+        "cut49:short:arithmetic"
+      ],
+      "deps": []
+    },
+    {
+      "id": "defect",
+      "kind": "foundation",
+      "x": 35,
+      "y": 1505,
+      "title": "Exact two-point moment defect",
+      "lines": [
+        "d(P) = ρ(P) − ρ₂(γ(P)) ≥ 0",
+        "Equality, concentration and scale stability"
+      ],
+      "reference": "Moment-defect and transport results",
+      "labels": [
+        "orig:thm:defect",
+        "orig:cor:transport",
+        "orig:prop:m1"
+      ],
+      "bib": [
+        "Shevtsova2014",
+        "MattnerShevtsova2019"
+      ],
+      "deps": []
+    },
+    {
+      "id": "shev",
+      "kind": "external",
+      "x": 455,
+      "y": 1505,
+      "title": "Shevtsova: finite iid estimates",
+      "lines": [
+        "Distribution-free third-moment caps",
+        "Structural bounds .3322 and .3031"
+      ],
+      "reference": "Cited structural estimates",
+      "bib": [
+        "Shevtsova2013"
+      ],
+      "deps": []
+    },
+    {
+      "id": "contact",
+      "kind": "proof",
+      "x": 875,
+      "y": 1505,
+      "title": "Attainment, contact and Gaussian support",
+      "lines": [
+        "Critical-level extremizers; exterior control",
+        "All-threshold support and strip estimates"
+      ],
+      "reference": "Attainment, contact and support lemmas",
+      "labels": [
+        "cut49:global:attainment",
+        "cut49:global:contact",
+        "cut49:support:theorem"
+      ],
+      "deps": [
+        "shev",
+        "hc_contact",
+        "data49"
+      ]
+    },
+    {
+      "id": "data23",
+      "kind": "certificate",
+      "x": 1295,
+      "y": 1505,
+      "title": "Polynomial certificates for n = 2, 3",
+      "lines": [
+        "70 and 111 consecutive threshold rows",
+        "Exact rational Bernstein verification"
+      ],
+      "reference": "Polynomial-certificate verification",
+      "labels": [
+        "n2:eq:C1",
+        "n2:eq:C2",
+        "n3:sec:check"
+      ],
+      "deps": []
+    },
+    {
+      "id": "prawitz",
+      "kind": "external",
+      "x": 35,
+      "y": 1735,
+      "title": "Prawitz / Beurling smoothing",
+      "lines": [
+        "Signed half-line Fourier kernel",
+        "Cardinal folding and order bounds"
+      ],
+      "reference": "Prawitz; half-line kernel lemma",
+      "labels": [
+        "orig:lem:BPcardinal"
+      ],
+      "bib": [
+        "Prawitz1972"
+      ],
+      "deps": []
+    },
+    {
+      "id": "shape",
+      "kind": "certificate",
+      "x": 455,
+      "y": 1735,
+      "title": "Original compact shape input",
+      "lines": [
+        "187 rational intervals, analytic exterior tails",
+        "Uniform endpoint continuation"
+      ],
+      "reference": "Shape-contraction lemma",
+      "labels": [
+        "orig:lem:shapecontraction"
+      ],
+      "deps": []
+    },
+    {
+      "id": "cf_cert",
+      "kind": "certificate",
+      "x": 875,
+      "y": 1735,
+      "title": "Auxiliary Hermite/Bernstein bound",
+      "lines": [
+        "Exact positive Bernstein coefficients",
+        "Elementary exterior estimates"
+      ],
+      "reference": "Auxiliary Bernstein appendix",
+      "labels": [
+        "orig:lem:J2",
+        "orig:app:bernstein"
+      ],
+      "deps": []
+    },
+    {
+      "id": "hc_contact",
+      "kind": "external",
+      "x": 875,
+      "y": 1880,
+      "title": "He–Cheng: finite contact input",
+      "lines": [
+        "Contact identity and finite Gaussian bound",
+        "Preprint Lemma 4.3; Appendix A.1 (70)"
+      ],
+      "reference": "Cited at the point of use",
+      "bib": [
+        "HC"
+      ],
+      "deps": []
+    },
+    {
+      "id": "data4",
+      "kind": "certificate",
+      "x": 1295,
+      "y": 1735,
+      "title": "Three-point certificate at n = 4",
+      "lines": [
+        "Complete closed subdivision forest",
+        "Outward IEEE–754 + rational Gaussian table"
+      ],
+      "reference": "Restricted three-point finite certificate",
+      "labels": [
+        "n4:lem:bounded"
+      ],
+      "deps": []
+    },
+    {
+      "id": "data4_all",
+      "kind": "certificate",
+      "x": 1295,
+      "y": 1735,
+      "title": "Unrestricted four-summand certificate",
+      "lines": [
+        "ALL260 parents and complete child portfolios",
+        "Closed continuous cover; upper 4097/10000"
+      ],
+      "reference": "Complete bounded-law certificate",
+      "labels": [
+        "n4all:prop:certificate"
+      ],
+      "deps": []
+    }
+  ],
+  "packages": [
+    {
+      "id": "binary",
+      "members": [
+        "binary"
+      ],
+      "x": 35,
+      "y": 130,
+      "kind": "main",
+      "title": "Eventual two-point optimality",
+      "lines": [
+        "Cₙ = C_Q*(n) < C_E",
+        "n ≥ N; the threshold is qualitative"
+      ],
+      "reference": "Penalized stability theorem"
+    },
+    {
+      "id": "second",
+      "members": [
+        "second"
+      ],
+      "x": 455,
+      "y": 130,
+      "kind": "main",
+      "title": "Full second-order asymptotic",
+      "lines": [
+        "Cₙ = C_E − κ∞/n",
+        "− (κ₂ + A₂ωₙ²)/n² + o(n⁻²)",
+        "Complete arithmetic limit interval"
+      ],
+      "reference": "Full second-order corollary"
+    },
+    {
+      "id": "cutoff",
+      "members": [
+        "cutoff",
+        "retained31",
+        "conditional20",
+        "tail",
+        "base49"
+      ],
+      "x": 875,
+      "y": 130,
+      "kind": "main",
+      "title": "Effective bounds: 31 / conditional 20",
+      "lines": [
+        "Cₙ < C_E for every n ≥ 31",
+        "n ≥ 20 only under retained premises",
+        "Neither cutoff asserts binary optimality"
+      ],
+      "reference": "Effective theorem; conditional continuation"
+    },
+    {
+      "id": "small",
+      "members": [
+        "small"
+      ],
+      "x": 1295,
+      "y": 130,
+      "kind": "main",
+      "title": "Finite-index bounds",
+      "lines": [
+        "C₂ ≤ 2√2/7; C₃ ≤ 59√3/250",
+        "C₄ ≤ 4097/10000, unrestricted",
+        "C₄,≤₃ < 409/1000 on at most three points"
+      ],
+      "reference": "Finite-index theorems; scopes distinguished"
+    },
+    {
+      "id": "penalty",
+      "members": [
+        "penalty"
+      ],
+      "x": 35,
+      "y": 405,
+      "kind": "proof",
+      "title": "Penalized extremizers",
+      "lines": [
+        "Attainment and harmonic-series selection",
+        "Support control; local absorption"
+      ],
+      "reference": "Penalized-extremizer argument"
+    },
+    {
+      "id": "fifth",
+      "members": [
+        "fifth"
+      ],
+      "x": 455,
+      "y": 405,
+      "kind": "proof",
+      "title": "Fifth-order lattice optimization",
+      "lines": [
+        "Uniform saddle; integer node retained",
+        "Phase and parameter optimized together"
+      ],
+      "reference": "Lattice saddle and phase optimization"
+    },
+    {
+      "id": "finite",
+      "members": [
+        "ceilings",
+        "bar46",
+        "local47",
+        "smoothing"
+      ],
+      "x": 875,
+      "y": 405,
+      "kind": "proof",
+      "title": "Finite and local estimates",
+      "lines": [
+        "Predecessor ceilings; sharper index 46",
+        "Independent LOCAL47 and smoothing",
+        "Three losses close the base at 49"
+      ],
+      "reference": "Retained finite and local estimates"
+    },
+    {
+      "id": "small_reductions",
+      "members": [
+        "reduce23",
+        "reduce4_all",
+        "reduce4"
+      ],
+      "x": 1295,
+      "y": 405,
+      "kind": "proof",
+      "title": "Own finite-index reductions",
+      "lines": [
+        "Attainment, contact and bounded witnesses",
+        "n = 2,3: moment / iid identities",
+        "n = 4: unrestricted common-measure route",
+        "Separate at-most-three-point reduction"
+      ],
+      "reference": "Own finite-index analytic reductions"
+    },
+    {
+      "id": "outer",
+      "members": [
+        "outer"
+      ],
+      "x": 35,
+      "y": 680,
+      "kind": "proof",
+      "title": "Uniform outer Fourier envelope",
+      "lines": [
+        "Moment cap; signed defect control",
+        "Near-Esseen localization"
+      ],
+      "reference": "Uniform outer Fourier estimate"
+    },
+    {
+      "id": "first",
+      "members": [
+        "first"
+      ],
+      "x": 455,
+      "y": 680,
+      "kind": "proof",
+      "title": "First-order two-point asymptotic",
+      "lines": [
+        "Uniform central binomial saddle",
+        "C_Q*(n) = C_E − κ∞/n + o(n⁻¹)"
+      ],
+      "reference": "Uniform two-point asymptotic"
+    },
+    {
+      "id": "entry",
+      "members": [
+        "resource",
+        "contact"
+      ],
+      "x": 875,
+      "y": 680,
+      "kind": "proof",
+      "title": "Contact and resource acquisition",
+      "lines": [
+        "Gaussian support; one conserved budget",
+        "Signed-phase repair and confinement",
+        "Acyclic entry schedule"
+      ],
+      "reference": "Contact, support and acquisition lemmas"
+    },
+    {
+      "id": "small_data",
+      "members": [
+        "data23",
+        "data4_all",
+        "data4"
+      ],
+      "x": 1295,
+      "y": 680,
+      "kind": "certificate",
+      "title": "Finite-index arithmetic",
+      "lines": [
+        "n = 2,3: rational Bernstein certificates",
+        "n = 4: unrestricted ALL260 closed cover",
+        "Separate three-point subdivision forest",
+        "Outward arithmetic; Gaussian enclosures"
+      ],
+      "reference": "Complete finite-index certificates"
+    },
+    {
+      "id": "core",
+      "members": [
+        "defect",
+        "cf",
+        "response",
+        "cf_cert"
+      ],
+      "x": 35,
+      "y": 955,
+      "kind": "foundation",
+      "title": "Moment / Fourier foundations",
+      "lines": [
+        "Known sharp defect; quantitative estimates",
+        "Linear CF bound; coherent Hermite identity",
+        "Auxiliary Bernstein estimate"
+      ],
+      "reference": "Moment defect; Fourier and Hermite results"
+    },
+    {
+      "id": "classical",
+      "members": [
+        "prawitz",
+        "shev",
+        "schulz"
+      ],
+      "x": 455,
+      "y": 955,
+      "kind": "external",
+      "title": "Classical imported inputs",
+      "lines": [
+        "Shevtsova: finite moment estimates",
+        "Schulz: strict binomial bound / localization",
+        "Prawitz: signed smoothing"
+      ],
+      "reference": "Named literature inputs"
+    },
+    {
+      "id": "hc",
+      "members": [
+        "hc_seq",
+        "hc_contact",
+        "cut20_inputs"
+      ],
+      "x": 875,
+      "y": 955,
+      "kind": "external",
+      "title": "External and retained premises",
+      "lines": [
+        "He–Cheng: named smoothing / contact inputs",
+        "Conditional 20: analytic / history premises",
+        "Full inherited DAG / replay still unresolved"
+      ],
+      "reference": "Named inputs; retained-inputs assumption"
+    },
+    {
+      "id": "data49",
+      "members": [
+        "data49",
+        "data31"
+      ],
+      "x": 1295,
+      "y": 955,
+      "kind": "certificate",
+      "title": "Retained effective finite certificates",
+      "lines": [
+        "31: closed moment / actual-index covers",
+        "Retained 49 base and infinite-tail inputs",
+        "Rational gates; every shared endpoint"
+      ],
+      "reference": "Retained effective arithmetic supplement"
+    },
+    {
+      "id": "original",
+      "members": [
+        "original",
+        "oldlocal",
+        "shape"
+      ],
+      "x": 35,
+      "y": 1230,
+      "width": 785,
+      "kind": "secondary",
+      "title": "Separately retained original eventual-bound proof",
+      "lines": [
+        "Cₙ ≤ C_E for all sufficiently large n",
+        "Signed endpoint branches; marked LLT; cardinal gap; exact-lattice transfer",
+        "Includes the compact shape certificate and its analytic continuation"
+      ],
+      "reference": "Original qualitative eventual-bound theorem"
+    }
+  ],
+  "forbidden_edges": [
+    [
+      "original",
+      "binary"
+    ],
+    [
+      "original",
+      "cutoff"
+    ],
+    [
+      "binary",
+      "cutoff"
+    ],
+    [
+      "ceilings",
+      "local47"
+    ],
+    [
+      "local47",
+      "resource"
+    ],
+    [
+      "reduce23",
+      "cutoff"
+    ],
+    [
+      "reduce4",
+      "cutoff"
+    ]
+  ]
+}

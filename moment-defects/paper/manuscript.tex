@@ -51,7 +51,7 @@
 \title{Moment defects and sharp iid Berry--Esseen bounds\\
 \large Structure, lattice asymptotics, and effective estimates}
 \author{Kacper Rodziewicz \and Bartosz Ko{\l}odziejek}
-\date{Working draft --- 12 October 2026}
+\date{Working draft --- 17 October 2026}
 \begin{document}
 \maketitle
 \begin{center}\small
@@ -59,7 +59,7 @@ This is a working draft. A revised and corrected version is intended
 for submission to arXiv.
 \end{center}
 \begin{abstract}
-The known sharp third-moment inequality supplies an exact defect
+Shevtsova's sharp third-moment inequality supplies an exact defect
 that identifies the standardized two-point family and controls
 transport and characteristic functions. We develop the
 corresponding Fourier reduction and give the qualitative
@@ -69,13 +69,16 @@ cubic Wasserstein stability. A fifth-order lattice saddle gives the
 full oscillatory \(n^{-2}\) correction for the optimal constants.
 A separate effective argument proves \(C_n<C_{\mathrm E}\) for every
 \(n\ge31\), by finite-index certificates and a first-failure argument.
+A completed finite continuation at indices \(20,\ldots,24\) lowers
+the cutoff to 20 under the explicitly retained analytic and historical
+certificate premises stated in the paper.
 Exact polynomial certificates give bounds for two and three summands.
 For four summands, a common-measure Fourier comparison and rational
 certificates give the unrestricted bound \(C_4\le0.4097<C_{\mathrm E}\);
 a sharper estimate \(C_{4,\le3}<0.409\) holds on at most three points.
-The opening argument explains an elementary historical bound \(C\le0.45\)
-and the passage from a symmetric reference to the matching two-point law.
-Its finite arithmetic is recorded in an appendix.
+An elementary historical bound \(C\le0.45\) explains the passage from
+a symmetric reference to the matching two-point law; its finite
+arithmetic is recorded in an appendix.
 ChatGPT and Codex assisted the development of the proofs and computational
 certificates and the preparation of this manuscript, using the
 GPT-5.6 Sol, GPT-6.1 Sol and GPT-6 Astra models.
@@ -107,8 +110,10 @@ Theorem~\ref{stab:thm:penalty} proves this statement. The asymptotic
 refinement, including its arithmetic oscillation, is given in
 Corollary~\ref{main:full-second-order}. The effective theorem
 \(\,C_n<C_{\mathrm E}\) for \(n\ge31\) is
-Theorem~\ref{cut31:global:main}; it does not assert two-point
-optimality at every index from 31 onward.
+Theorem~\ref{cut31:global:main}. The finite continuation in
+Theorem~\ref{cut20:global:main} extends the cutoff to 20 under
+Assumption~\ref{cut20:retained-inputs}. Neither effective statement
+asserts two-point optimality from its stated cutoff onward.
 
 Part~\ref{part:structural} develops the defect, Fourier stability,
 coherent response and two-point saddle, followed by the quantitative
@@ -118,7 +123,9 @@ certificates. The unrestricted fourth-index bound,
 Theorem~\ref{n4all:thm:main}, localizes a hypothetical extremizer and
 retains one defect measure throughout the Fourier comparison.
 Literature inputs are stated where used. The unrestricted indices
-\(5,\ldots,30\) remain open in this work.
+\(5,\ldots,19\) remain open in this work; the extension through
+\(20,\ldots,30\) has the retained-premise status specified in
+Section~\ref{cut20:section}.
 
 He--Cheng \cite{HC2026v3} prove the eventual upper bound
 \(C_n\le\CE\), with the explicit threshold
@@ -131,6 +138,8 @@ The manuscript and reproducibility material are maintained in the
 \href{https://github.com/rodziewiczk/berry-esseen-045-certificate/tree/main/moment-defects}
 {\texttt{moment-defects} directory of the accompanying repository}.
 The original \(0.45\) certificate is preserved separately there.
+The finite extension to 20 and its retained-premise ledger are supplied
+in the separate continuation \cite{Cutoff20Continuation}.
 
 \clearpage
 \begingroup
@@ -187,7 +196,10 @@ Corollary~\ref{main:full-second-order}.
 \item \textbf{An effective unrestricted threshold.}
 \(\ C_n<\CE\) for every integer \(n\ge31\).
 Theorem~\ref{cut31:global:main}.
-This threshold concerns the strict upper bound, not two-point optimality.
+The completed finite continuation gives the cutoff 20 under
+Assumption~\ref{cut20:retained-inputs}; see
+Theorem~\ref{cut20:global:main}.
+These thresholds concern the strict upper bound, not two-point optimality.
 
 \item \textbf{Finite-index certificates.}
 \[
@@ -7632,6 +7644,262 @@ each root; $P$ and $n$ remain fixed. Let $k\to\infty$.
 
 \clearpage
 \part{Effective bounds and finite certificates}\label{part:effective}
+\section{The conditional refinement to twenty}\label{cut20:section}
+The new finite continuation \cite{Cutoff20Continuation} treats the actual
+indices \(20,21,22,23,24\). It is joined to the retained estimates at
+\(25,\ldots,30\) and the theorem from 31 onward proved in
+Section~\ref{cut31:section}. We state its inherited premises explicitly.
+The completed finite calculation does not by itself reconstruct every
+earlier analytic or computational dependency.
+
+\begin{assumption}[Retained inputs for the finite continuation]
+\label{cut20:retained-inputs}
+Let \(\mathcal A_{20}\) denote the conjunction of the following inputs,
+at the precise domains recorded in \cite{Cutoff20Continuation}.
+\begin{enumerate}[leftmargin=*,label=(\roman*)]
+\item At each actual index \(20\le n\le24\), a contrary inequality
+\(C_n\ge\CE\) supplies an attained unrestricted global maximizing law
+and a positive closed threshold, after reflection if necessary. The
+same-law contact, support, Fourier and conditional count implications
+used in its resource acquisition are valid.
+\item The inherited support and resource calculations for the low-moment
+bands and the Fourier exclusions for \(\rho\ge9/8\) are valid, with
+their original contact allowances, moment domains and normalizations.
+For \(21\le n\le24\), the independent auxiliary ceilings are
+\(C_n<419/1000\). The actual-index count inequalities convert the
+finite coefficient bounds into upper bounds for that same witness.
+\item The retained continuation gives \(C_n<\CE\) at each of
+\(n=25,\ldots,30\).
+\end{enumerate}
+This assumption retains the analytic and historical certificate
+premises of the supplied continuation; it is not an assertion that
+all of them have been independently reconstructed here. The result
+for \(n\ge31\) below is used separately.
+\end{assumption}
+
+\begin{theorem}[Conditional cutoff twenty]\label{cut20:global:main}
+Under Assumption~\ref{cut20:retained-inputs},
+\[
+ C_n<\CE\qquad\text{for every integer }n\ge20.
+\]
+The finite continuation is complete at all five actual indices
+\(20,\ldots,24\). This conclusion does not assert two-point optimality
+from index 20 onward.
+\end{theorem}
+
+\subsection{The moment price and the coupled noise budget}
+Here are the elementary inequalities used to contract the finite
+domains. Write
+\[
+ X=\frac{B+U-p}{\sqrt{v+s}},\qquad
+ B\sim\operatorname{Bernoulli}(p),\quad q=1-p,\quad v=pq,
+ \quad \E(U\mid B)=0.
+\]
+The sign classes are fixed by the original law. Put
+\[
+ b=q\E(U^2\mid B=0),\quad c=p\E(U^2\mid B=1),\quad s=b+c.
+\]
+Suppose the inward endpoints satisfy
+\(U\le a_0<p\) in class 0 and \(U\ge-a_1>-q\) in class 1,
+where \(a_0,a_1\ge0\) and \(a_0+a_1\le d\).
+The letter \(d\) in this subsection denotes this inward budget,
+not the third-moment defect of Part~\ref{part:structural}.
+
+\begin{lemma}[Inward moment price]\label{cut20:inward-price}
+If \(0<p\le1/2\) and \(d>0\), then
+\begin{equation}\label{cut20:scalar-I}
+ \rho\ge I(p,s,d):=
+ \frac{v(1-2v)+(3p-d)s+s^2/(qd)}{(v+s)^{3/2}}.
+\end{equation}
+Moreover,
+\begin{align}\label{cut20:scalar-derivative}
+ (v+s)^{5/2}I_s={}&v(6p-3p^2-d-3/2)\notag\\
+ &+\left(2p/d-(3p-d)/2\right)s+s^2/(2qd).
+\end{align}
+In particular, if \(d\le p\) and \(d\le6p-3p^2-3/2\), then
+\(\rho\ge\rho_B(p)=(1-2v)/\sqrt v\).
+At \(d=0\), both conditional variances vanish.
+\end{lemma}
+\begin{proof}
+The sign separation gives the exact identity
+\[
+ \rho(v+s)^{3/2}=v(1-2v)+3pb+3qc
+       -q\E(U^3\mid B=0)+p\E(U^3\mid B=1).
+\]
+The two-sided cubic bounds of Lemma~\ref{cut31:cubic:bounds} imply
+\[
+ \rho(v+s)^{3/2}\ge v(1-2v)+3pb+3qc-a_0b-a_1c
+              +\frac{b^2}{qa_0}+\frac{c^2}{pa_1}.
+\]
+A zero inward endpoint forces its centered noise to vanish;
+its term is omitted. If \(a_0+a_1=0\), then \(s=0\) and the
+claim is immediate. Otherwise Cauchy--Schwarz gives
+\[
+ \frac{b^2}{qa_0}+\frac{c^2}{pa_1}
+ \ge\frac{(b/\sqrt q+c/\sqrt p)^2}{a_0+a_1}
+ \ge\frac{s^2}{qd}.
+\]
+Also \(3pb+3qc\ge3ps\) and \(a_0b+a_1c\le ds\).
+This proves \eqref{cut20:scalar-I}; differentiation gives
+\eqref{cut20:scalar-derivative}. Under the stated gates every term
+in that derivative is nonnegative. Thus \(I(p,s,d)\ge I(p,0,d)\).
+If \(d=0\), each centered one-sided conditional variable is zero.
+\end{proof}
+
+The same price gives a finite necessary upper bound on the noise
+even when its linear coefficient has the unfavorable sign.
+\begin{lemma}[A quadratic noise cap]\label{cut20:quadratic-cap}
+Suppose \(p\in[l,u]\subset(0,1/2]\), \(0<d\le l\),
+\(\rho\le R\), and \(s\le S\). Put
+\[
+ \begin{gathered}
+ v_-=l(1-l),\quad v_+=u(1-u),\quad
+ \varepsilon=\max\{0,R-\rho_B(u)\},\\
+ f=6l-3l^2-d-3/2,\qquad
+ G=\frac1{(1-l)d}-\frac{3(1-2v_-)}{8v_-}.
+ \end{gathered}
+\]
+Then \(G\ge5/(8v_-)+3/4>0\) and
+\begin{equation}\label{cut20:quadratic-necessary}
+ Gs^2+fs\le\varepsilon(v_++S)^{3/2}.
+\end{equation}
+Consequently the larger root of this quadratic gives a necessary
+upper bound for \(s\), without assuming \(f\ge0\).
+\end{lemma}
+\begin{proof}
+For \(s\ge0\), Taylor's theorem gives
+\[
+ (v+s)^{3/2}\le v^{3/2}+\tfrac32\sqrt v\,s
+                       +\tfrac38s^2/\sqrt v.
+\]
+Subtract \(\rho_B(p)(v+s)^{3/2}\) from the numerator lower
+bound in \eqref{cut20:scalar-I}. The linear coefficient is
+\(6p-3p^2-d-3/2\), and the quadratic coefficient is
+\(1/(qd)-3(1-2v)/(8v)\). They are bounded below by \(f,G\).
+The other side is at most
+\(\max\{0,R-\rho_B(p)\}(v+s)^{3/2}
+ \le\varepsilon(v_++S)^{3/2}\).
+Finally \(d\le l\) proves the asserted positive lower bound on \(G\).
+\end{proof}
+
+An acquired joint resource has the physical form
+\[
+ d_{\rm actual}\le d_0(1-s/S_0),\qquad S_0=\Lambda/n.
+\]
+To test \(s\ge a\), \(0<a<S_0\), use
+\(d_{\rm actual}\le d_0(1-a/S_0)\) in
+Lemma~\ref{cut20:quadratic-cap}, whenever its positive-budget
+gates hold. A zero inward budget instead forces \(s=0\), without
+division; this also treats \(a=S_0\). If the necessary upper bound is
+strictly smaller than \(a\), this part of the noise interval is
+impossible. Every accepted contraction is a finite implication.
+The original \(S_0\), rather than the contracted endpoint, remains
+in the affine price. No convergence or monotonicity of a numerical
+resource algorithm is assumed. Reflection may fold \(p>1/2\) for
+these symmetric scalar inequalities; the original orientation
+remains in the conditional count event and its signed phase.
+
+\subsection{The three moment regions}
+For each actual index the closed regions are
+\begin{equation}\label{cut20:rho-cover}
+ B_0=[1,11/10],\qquad B_1=[11/10,9/8],\qquad
+ B_\infty=[9/8,\infty).
+\end{equation}
+These are restrictions on one unrestricted global contrary witness,
+not three moment-constrained optimization problems.
+Each low-moment band uses all 100 closed probability panels
+\([j/100,(j+1)/100]\), \(0\le j\le99\). A panel is either
+necessarily impossible, excluded by a strict scalar inequality,
+or covered by the full conditional count comparison. The latter
+retains all \(n+1\) original counts and the common phase of
+Lemma~\ref{cut31:common-phase}.
+
+The high-moment support enclosure uses another elementary
+consequence of signwise Cauchy--Schwarz. With
+\(\beta_s=\E[X|X|]\) and
+\(\mu=\E X_+=\E X_->0\),
+\begin{equation}\label{cut20:signed-moment}
+ \mu^2\le\frac{1-\beta_s^2}{4},\qquad
+ \rho\ge\frac{1+\beta_s^2}{2\mu},\qquad
+ \rho^2(1-\beta_s^2)\ge(1+\beta_s^2)^2.
+\end{equation}
+Indeed, putting \(m_\pm=\E X_\pm^2=(1\pm\beta_s)/2\),
+the probability bounds \(\mu^2/m_\pm\le\Pp(\pm X>0)\)
+prove the first inequality, including a possible atom at zero.
+The cubic bounds \(\E X_\pm^3\ge m_\pm^2/\mu\) prove the
+second. For a moment ceiling \(R\), the polynomial
+\(g(t)=(1+t)^2-R^2(1-t)\) increases for \(t\ge0\).
+Thus a rational \(0<b<1\) with \(g(b^2)\ge0\) gives
+\(|\beta_s|\le b\) on the entire band.
+
+On \([9/8,6/5]\) the retained support calculation and the
+supported Fourier enclosure exclude the contrary witness.
+For each of \(21,\ldots,24\), support in \([-3,3]\) is acquired
+at that actual index with zero predecessor allowance and both rays.
+For \(\rho\ge6/5\), the retained support-free Fourier bounds
+apply. For \(21,\ldots,24\), these high-moment bounds are at most
+\(4097/10000<\CE\).
+No support restriction is imposed on an arbitrary admissible law.
+
+\subsection{Finite coverage and composition}
+The selected low-moment count covers have the following sizes.
+These are count leaves; the separate support, resource and Fourier
+certificates remain necessary.
+\[
+\begin{array}{c|rrr}
+ n&B_0&B_1&\text{total}\\\hline
+ 20&37\,842&50\,144&87\,986\\
+ 21&9\,402&12\,555&21\,957\\
+ 22&6\,748&7\,694&14\,442\\
+ 23&5\,751&5\,322&11\,073\\
+ 24&4\,714&3\,848&8\,562\\\hline
+ \text{total}&&&144\,020
+\end{array}
+\]
+The supplied continuation records complete arithmetic acceptance
+of each selected count forest, with the exact original contract
+and a rational target \(\underline C_{\mathrm E}<\CE\).
+The remaining panels are covered by their necessary resource or
+scalar exclusions. In particular all eight low-moment bands at
+\(21,\ldots,24\) are complete. Closed cells retain every common
+endpoint, including both seams of \eqref{cut20:rho-cover}.
+
+\begin{proof}[Proof of Theorem~\ref{cut20:global:main}]
+Work under \(\mathcal A_{20}\). If \(C_{20}\ge\CE\), take
+its attained unrestricted positive closed maximizing witness.
+Jensen gives \(\rho\ge1\). The two complete low-moment covers
+and the high-moment exclusion exhaust \eqref{cut20:rho-cover}
+and contradict that witness. Hence \(C_{20}<\CE\).
+This base uses its own retained contact allowance; no sharp result
+at index 19 is assumed.
+
+Now let \(n\in\{21,22,23,24\}\) and suppose the preceding
+global conclusion \(C_{n-1}<\CE\) has been proved. A contrary
+\(C_n\ge\CE\) has
+\[
+ n(C_{n-1}-C_n)_+=0.
+\]
+Together with the independent own-score ceiling \(419/1000\),
+this licenses the actual-index support and resource calculations.
+The completed covers at this same \(n\) again exhaust all three
+moment regions and exclude its unrestricted contrary witness.
+This proves \(C_n<\CE\) successively at 21, 22, 23 and 24.
+Forests at index 20 are not relabelled for these steps.
+
+The retained estimates at 25 through 30 and
+Theorem~\ref{cut31:global:main} supply all remaining indices.
+This is a finite induction followed by an established infinite
+range, not an assumption of monotonicity of \(C_n\).
+\end{proof}
+
+The successful finite refinement combines the inward moment price,
+the original joint noise budget and the common-phase count bound.
+Subdivision in the conditional variance allocation completes the
+remaining arithmetic cases without changing their inequalities.
+The continuation does not independently reconstruct all inherited
+analytic and historical resource/Fourier calculations; these remain
+the explicit premises of Assumption~\ref{cut20:retained-inputs}.
+
 \section{The refinement to thirty-one}\label{cut31:section}
 The original effective argument below gives a self-contained threshold
 of 49. The refinement uses the same contact, support and Fourier
@@ -14530,6 +14798,12 @@ K.~Rodziewicz and B.~Ko{\l}odziejek, \emph{Effective finite-index
 continuation and certificates for the iid Berry--Esseen problem},
 supplementary proof material (2026).
 \url{https://github.com/rodziewiczk/berry-esseen-045-certificate/tree/044e93ec97f377752924fe32bd08e0bc6f4334b1/moment-defects}.
+\bibitem{Cutoff20Continuation}
+K.~Rodziewicz and B.~Ko{\l}odziejek, \emph{Finite continuation at
+indices 20--24 for the iid Berry--Esseen problem}, supplementary
+certificate material, 16 October 2026. Conditional on the retained
+analytic and historical premises specified in the accompanying report.
+\url{https://github.com/rodziewiczk/berry-esseen-045-certificate/tree/514f89e53005a13680518b2127f0e09cd1bd52f0/moment-defects/continuations/cutoff20-2026-10-16}.
 \bibitem{ZNC}
 A.~Zolotukhin, S.~Nagaev and V.~Chebotarev, On a bound of the
 absolute constant in the Berry--Esseen inequality for i.i.d.
