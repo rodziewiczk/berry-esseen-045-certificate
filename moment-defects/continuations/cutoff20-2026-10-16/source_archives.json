@@ -1,0 +1,45 @@
+{
+  "schema": "berry-esseen-source-archives-v1",
+  "repository": "rodziewiczk/berry-esseen-045-certificate",
+  "release_tag": "cutoff20-sources-2026-10-17",
+  "scope": "Original source archives and transport integrity, not a mathematical replay or a discharge of retained premises.",
+  "portable_end_to_end_replay_verified": false,
+  "archives": [
+    {
+      "name": "continuation_cutoff20_20261016_final.zip",
+      "bytes": 45213423,
+      "sha256": "1e3de8f03c28816d36258ddd84ee7f29166622b2390d5c3457eb1b193ef608b7",
+      "role": "Completed conditional actual-index 20--24 continuation"
+    },
+    {
+      "name": "cutoff20_20261016.zip",
+      "bytes": 31681776,
+      "sha256": "b1dd7e730187f62142faa1e82eff5a9fd13a879e933a2fafbd22af8a4709ef83",
+      "role": "Original actual-index 20 baseline"
+    },
+    {
+      "name": "cutoff25_continue_20261015.zip",
+      "bytes": 37200633,
+      "sha256": "2b848227a5f5e2f54f210a347829c6b3f1c56bd656ef0cf01482a7898e11d63a",
+      "role": "Original finite continuation through index 30"
+    },
+    {
+      "name": "cutoff25_rethink_20261015.zip",
+      "bytes": 6398244,
+      "sha256": "47503aa52408b24243e554a080730f3d546c7ad425a5480af16e40678310f43b",
+      "role": "Original Fourier and analytic refinement sources"
+    },
+    {
+      "name": "cutoff25_20261011.zip",
+      "bytes": 514958998,
+      "sha256": "17fa140f63c5134ac48f1fd1040f4c5ae4bebdb2b92b2d7ce69f4048293d1fcb",
+      "role": "Older full baseline; embeds release35, threshold31 and continuations10--11"
+    },
+    {
+      "name": "continuation_20261011_wrap.zip",
+      "bytes": 66582422,
+      "sha256": "c17670f2d4e6d4cd86786881a41be4461a1b518bcb5c9852af1a106af37ebbc7",
+      "role": "Separate original continuation11 snapshot; do not silently overwrite other epochs"
+    }
+  ]
+}

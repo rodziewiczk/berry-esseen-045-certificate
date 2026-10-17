@@ -70,12 +70,22 @@ does not change any conditional or false verification flag.
 
 ## Retained dependencies and replay
 
+All six currently available original source archives are published as assets
+of the [GitHub source release](https://github.com/rodziewiczk/berry-esseen-045-certificate/releases/tag/cutoff20-sources-2026-10-17).
+`source_archives.json` pins their exact bytes. To retrieve and inspect them
+without Drive access, use `python -B -S download_sources.py --download`.
+See [the reproducibility guide](REPRODUCIBILITY.md) for extraction, arithmetic
+entry points and the still-open distinction between source availability and
+a portable fresh whole-proof replay. The asset catalog is not advertised as
+a dependency-complete proof until its retained predecessors are reconciled.
+
 The archive's `CZYTAJ_NAJPIERW.txt`, `PROOF_STRUCTURE.txt`, `FINDINGS_REPORT.txt`
 and `RESTART_GUIDE.txt` describe its exact dependency and relocation scope.
 The continuation depends on the original cutoff-20 and cutoff-25 materials
 and earlier retained packages; it does not replace them. Source packages
-provided by the authors are available in the
-[shared source folder](https://drive.google.com/drive/folders/1QhCiRSWhZgUCvo1IXGNo9fBECwLHVWXW).
+were originally provided by the authors in the
+[shared source folder](https://drive.google.com/drive/folders/1QhCiRSWhZgUCvo1IXGNo9fBECwLHVWXW);
+the catalogued copies above are now hosted on GitHub.
 The exact imported continuation is
 [also preserved at its original location](https://drive.google.com/file/d/1q31QLSWHqEO1056NX4ogeO02Ylx2llWN/view).
 
