@@ -6,3 +6,4 @@ paper/*.pdf binary
 paper/*.tex -text
 continuations/**/*.zip -text
 continuations/**/reports/** -text
+diagnostics/*.py -text

@@ -94,8 +94,11 @@ Python and do not import archived mathematical code.
 
 The supplied final continuation explicitly retains parts of the older
 analytic/contact/resource/Fourier framework and historical computations.
-References to a `cutoff25_20261013` baseline are being reconciled against the
-available source archives; a matching filename alone is not sufficient.
+The completed [baseline-13 byte audit](../../diagnostics/README.md) did not
+locate the expected 1,748 source/certificate versions of that predecessor in
+the six scanned source archives. The full `cutoff25_20261013` baseline must be
+supplied or its relevant dependencies independently reconstructed/replaced.
+A matching filename alone is not sufficient.
 Missing recorded paths may correspond to relocated bytes, but locating equal
 bytes is not a fresh arithmetic replay or a proof of an analytic implication.
 
