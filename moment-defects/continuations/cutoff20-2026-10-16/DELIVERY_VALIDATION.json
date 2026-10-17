@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-17",
+  "scope": "Document compilation and source transport only; not mathematical end-to-end verification",
+  "manuscript": {
+    "tex_sha256": "5a882411cccc35554353187c3f3c31d8926575ef275d970a020875348a67171a",
+    "pdf_sha256": "b26c0801c5b73b2b4ed736d971569288ae02b99414501879067f5d4670080c3e",
+    "hexagon_source_zip_sha256": "f6f78173282a8b4447fca44d5e6da16c337d149cc18601d2d0df2223ec6686aa",
+    "abstract_sha256": "6002a15be6e032717ab1c4346111311c883a1431e7a99dbf9f7aa82745876771",
+    "desktop_compiler": "success",
+    "export_compiler": "Tectonic 0.17.0, success",
+    "missing_references": [],
+    "duplicate_labels": [],
+    "missing_citations": [],
+    "external_tex_or_figure_dependencies": [],
+    "abstract_matches_saved_source": true,
+    "new_pages_visually_checked": true,
+    "cutoff20_qualification_preserved": true
+  },
+  "github_source_release": {
+    "tag": "cutoff20-sources-2026-10-17",
+    "public": true,
+    "prerelease": true,
+    "source_archives": 6,
+    "total_archive_bytes": 702035496,
+    "server_size_and_sha256_digests_match_manifest": true,
+    "anonymous_real_download_test": "cutoff25_rethink_20261015.zip",
+    "anonymous_real_download_size_and_sha256_verified": true
+  },
+  "download_helper_tests": {
+    "passed": 28,
+    "failed": 0,
+    "fixtures": "Tiny offline ZIPs and mocked networking, no mathematical checker",
+    "source_sha256": "d14f806652cffb19c3473e19161b8f897d30d2f672f7cccf7b5c18bfd2f8c46c",
+    "test_source_sha256": "cdc0d698df737bfb7f510a05eb7e2df95cb14c685538d94d5c55a34a71368094"
+  },
+  "full_fresh_mathematical_replay_performed_here": false,
+  "all_retained_mathematical_premises_discharged_here": false,
+  "dependency_complete_source_capsule_claimed": false,
+  "portable_end_to_end_replay_verified": false
+}
