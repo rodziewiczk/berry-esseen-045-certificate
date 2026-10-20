@@ -1,111 +1,56 @@
-# Moment defects and sharp iid Berry--Esseen bounds
+# Berry--Esseen proof material
 
-Kacper Rodziewicz and Bartosz Kołodziejek. Working draft, 17 October 2026.
+Kacper Rodziewicz and Bartosz Kołodziejek.
 
-[Read the manuscript](paper/manuscript.pdf) · [LaTeX source](paper/manuscript.tex)
+## Current focused manuscript: 20 October 2026
 
-For a standardized iid marginal $P$, write
+[Five summands in the iid Berry--Esseen conjecture](five-summands-2026-10-20/README.md):
+[PDF](five-summands-2026-10-20/manuscript.pdf),
+[LaTeX](five-summands-2026-10-20/manuscript.tex),
+[abstract](five-summands-2026-10-20/abstract.txt),
+[dependency graph](five-summands-2026-10-20/dependency_graph.svg).
 
-$$
-R_n(P)=\frac{\sqrt n\,\Delta_n(P)}{\rho(P)},\qquad
-C_n=\sup_P R_n(P),\qquad
-C_E=\frac{3+\sqrt{10}}{6\sqrt{2\pi}}.
-$$
+The main fifth-index theorem is
 
-The six principal results are the exact matching-binary moment defect;
-linear Fourier stability; eventual two-point optimality
+$$C_4\le C_E\ \Longrightarrow\ C_5\le C_E.$$
 
-$$
-C_n=C_Q^*(n)<C_E;
-$$
+The four-summand input is the previously published Hexagon version 3,
+Theorem 26.1. Prawitz and Shevtsova are the other cited external inputs.
+All 16,576 files bound by the supplied final fifth-index receipt, including
+its 45 indexed continuous proof sources, were located and SHA-matched in the
+new source bundle. This is byte availability/integrity, not a fresh
+mathematical replay.
 
-the oscillatory second-order asymptotic; the effective strict cutoff
+The finite 6--9 chain and retained tail from 10 are presented separately
+with their explicit A6/F/T10 hypotheses. **No unconditional all-index
+solution or Lean formalization is claimed by this release.**
 
-$$
-C_n<C_E\quad(n\ge31);
-$$
+The [original source packages](https://github.com/rodziewiczk/berry-esseen-045-certificate/releases/tag/cutoff5-sources-2026-10-20)
+and a bounded downloader are linked from the focused manuscript directory.
+The Hexagon ZIP contains one self-contained TeX file, not proof code or data.
 
-and the unrestricted finite-index bounds
+## Preserved earlier work
 
-$$
-C_2\le\frac{2\sqrt2}{7},\qquad
-C_3\le\frac{59\sqrt3}{250},\qquad
-C_4\le\frac{4097}{10000}<C_E.
-$$
+The [full structural/asymptotic manuscript of 17 October](paper/manuscript.pdf)
+and [its source](paper/manuscript.tex) remain available. Its moment defects,
+eventual two-point optimality, lattice asymptotics, stability refinements and
+historical 0.45 exposition were not deleted. They are not included in the
+focused fifth-index paper merely because they exist.
 
-The [finite continuation of 16 October](continuations/cutoff20-2026-10-16/README.md)
-now adds a **conditional cutoff 20**, under its explicitly retained analytic
-and historical certificate premises. The actual-index chain 20--24 is complete;
-it joins the retained 25--30 estimates and the tail from 31. The new manuscript
-states these premises separately rather than silently promoting the archive's
-conditional flags to an unconditional theorem.
+The earlier [conditional cutoff20](continuations/cutoff20-2026-10-16/README.md),
+[archive diagnostics](diagnostics/README.md), [cutoff31 capsule](reproduction/CUTOFF31.md)
+and [finite-index arithmetic guide](reproduction/README.md) retain their own
+scope and reproduction boundaries. The new C5 proof does not silently
+discharge retained premises in those older continuation branches.
 
-Eventual two-point optimality is qualitative: **neither effective cutoff is a
-claimed cutoff for two-point optimality.** The unrestricted sharp bounds at
-indices 5--19 remain open here; the new 20--30 extension has the conditional
-status just specified. The earlier argument from 31 is preserved unchanged.
+The original 0.45 certificate project at the repository root is unchanged.
+Its dates, attribution and historical files are preserved.
 
-The opening section explains the elementary historical $C\le0.45$ argument,
-then passes from a fixed Rademacher reference to the binary law matching the
-third moment. Mattner--Shevtsova's comparison and Shevtsova's sharp moment
-inequality are explicitly credited. The appendix records the elementary
-interval-certificate argument. The original `0.45` project at the repository
-root is unchanged.
-
-## Reproduction
-
-Use ordinary Python 3.11 or newer, without `-O`. Start from this directory.
-The commands have deliberately different meanings:
-
-```sh
-# Transport integrity of the NEW conditional continuation only, not its mathematics.
-python -B -S continuations/cutoff20-2026-10-16/verify_archive.py
-
-# No imported proof code: check every archival cutoff-31 input byte.
-python -B -S reproduction/closure31.py
-
-# Extract the exact closure into a NEW directory, preserving its hierarchy.
-python -B -S reproduction/closure31.py --extract work/cutoff31
-
-# Small source/scalar and launcher fixtures; not a mathematical replay.
-python -B run_reproduction.py --tiny
-
-# Exact symbolic identities and scalar constants; installed SymPy required.
-python -B run_reproduction.py --scalars
-
-# Long, serial n2/n3 verification and TWO freshly computed entire ROOT4 passes.
-# Requires 64-bit Windows, g++ C++17 and Boost.Multiprecision.
-python -B run_reproduction.py --full
-```
-
-See [the arithmetic guide](reproduction/README.md) for the finite-index runner,
-and [the cutoff-31 guide](reproduction/CUTOFF31.md) for its actual acceptors and
-the distinction between integrity, composition and arithmetic replay. No source
-or data is downloaded by these verification commands.
-
-The cutoff-31 capsule contains **all 9,518 available inputs byte-bound by the
-final statement**, plus that statement itself. Its three binary parts are an
-ordered split ZIP, checked and joined by `closure31.py`; do not unzip a part
-alone. This is a dependency-complete archival capsule at the final record's
-explicit retained analytic/certificate scope. Packaging and hashing are not a
-fresh verification of the mathematics. The source archive retains earlier
-arithmetic acceptances and a documented substitution of available analytic
-sources for one unavailable historical manuscript. It does not contain the
-204 unavailable historical execution logs, and they have not been invented.
-
-**There is not yet a single freshly tested command replaying the entire
-historical cutoff-31 dependency DAG.** The full finite-index runner likewise
-does not verify the manuscript's uniform analytic or asymptotic proofs: those
-are written mathematical arguments, with their cited literature inputs.
-These limits are explicit rather than hidden behind an `ACCEPTED` label.
-
-## Authors, tools, and licenses
+## Tools and licensing
 
 ChatGPT and Codex assisted mathematical development, certificate work and
-manuscript preparation, using GPT-5.6 Sol, GPT-6.1 Sol and GPT-6 Astra. The
-authors remain responsible for the claims and final text. This is a draft, not
-a claim of peer review or a new whole-paper Lean verification.
+manuscript preparation using GPT-5.6 Sol, GPT-6.1 Sol and GPT-6 Astra. The
+authors remain responsible for the claims and final text.
 
-Code follows the repository's MIT license. External dependencies and archival
-documents retain their own applicable licenses and attribution. This catalog
-does not change the historical `0.45` project or its archival date.
+Code follows the repository MIT license. Archived external documents and
+dependencies retain their applicable rights and attribution.

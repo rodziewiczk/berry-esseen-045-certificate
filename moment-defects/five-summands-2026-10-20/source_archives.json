@@ -1,0 +1,28 @@
+{
+  "schema": "berry-esseen-source-archives-v1",
+  "repository": "rodziewiczk/berry-esseen-045-certificate",
+  "release_tag": "cutoff5-sources-2026-10-20",
+  "scope": "Original source packages; retrieval and byte integrity are not mathematical replay.",
+  "portable_end_to_end_replay_verified": false,
+  "prior_source_release": "https://github.com/rodziewiczk/berry-esseen-045-certificate/releases/tag/cutoff20-sources-2026-10-17",
+  "archives": [
+    {
+      "name": "cutoff5_20261020.zip",
+      "bytes": 141304365,
+      "sha256": "8428002462d4e650613ea6e2ff673cb1e69c2079572cc40546d125349d582419",
+      "role": "Isolated C5 <= CE from cited C4, Prawitz and Shevtsova; includes the extracted complete C5 proof-source bundle."
+    },
+    {
+      "name": "cutoff6_20261020.zip",
+      "bytes": 69459175,
+      "sha256": "d45b1f99ca01ea4d1cfad445fdab3c48a508adf9fdcda17b6cded5236d77b8d6",
+      "role": "Finite 6--9 continuation, explicitly conditional on retained A/F/T10; not an unconditional full conjecture proof."
+    },
+    {
+      "name": "cutoff5_10_15.zip",
+      "bytes": 224483065,
+      "sha256": "268f71662171764d7ebe116910b5df82dfd58cadb2de2a7ef82db7da98b66dae",
+      "role": "October 19 snapshot: conditional cutoff15/cutoff10 and earlier partial cutoff6."
+    }
+  ]
+}

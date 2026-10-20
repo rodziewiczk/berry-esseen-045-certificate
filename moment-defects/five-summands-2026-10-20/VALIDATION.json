@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-20",
+  "manuscript_statement": "C5 <= CE from cited C4, Prawitz and Shevtsova",
+  "strict_C5_claimed": false,
+  "unconditional_full_conjecture_claimed": false,
+  "n_ge_6_requires": ["A6", "F", "T10"],
+  "lean_formalized": false,
+  "source_sha256": "5301d4715c29c6b48274eb734be5ed576b1a386a562b471a8f7d29c1500188a4",
+  "pdf": {
+    "pages": 12,
+    "bytes": 115525,
+    "sha256": "3ce155825dc77276ce370ab23b3e6d64ad590426c163c6168394c878a051d9db",
+    "desktop_compiler_success": true,
+    "tectonic_version": "0.17.0",
+    "undefined_refs_or_overfull_boxes": false,
+    "visual_pages_inspected": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  },
+  "hexagon_source_zip": {
+    "bytes": 13264,
+    "sha256": "1a31a622e08bc3029b6ff34e4a85c1c1d11ecbcb6c0adc55ae531983004eb3e3",
+    "entries": ["manuscript.tex"],
+    "source_bytes_equal": true,
+    "contains_Lean_PDF_code_or_proof_data": false
+  },
+  "abstract_body_matches_source": true,
+  "C5_source_availability": {
+    "final_receipt_sha256": "923a0d0cf3c481ae60c5e2b69d886098a7501f916a52668b37b0198f26fde4a0",
+    "bound_files": 16576,
+    "located_and_sha_matched": 16576,
+    "missing": 0,
+    "mismatches": 0,
+    "indexed_continuous_proofs": 45,
+    "continuous_proofs_located_and_sha_matched": 45,
+    "streamed_uncompressed_bytes": 471616066,
+    "scope": "Availability and exact byte integrity, not numerical certificate acceptance or mathematical verification."
+  },
+  "fresh_full_arithmetic_replay_performed_locally": false
+}

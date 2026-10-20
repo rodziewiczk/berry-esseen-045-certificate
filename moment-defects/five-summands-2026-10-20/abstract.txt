@@ -1,0 +1,15 @@
+Using Prawitz's smoothing inequality and Shevtsova's iid estimates, we prove
+\(C_5\le C_{\mathrm E}=(3+\sqrt{10})/(6\sqrt{2\pi})\) from the published
+four-summand bound. A fixed-index extremal argument gives an attained
+closed-CDF witness and bounded support before higher moments are used.
+Complete moment and sign-probability covers reduce the remaining gapped
+regions to exact rational count inequalities. A direct conditional-binomial
+and Cantelli comparison treats the final corner without a support-gap,
+Fourier or predecessor assumption. Endpoint atoms, closed seams and both
+infinite threshold rays are retained throughout. The fifth-index argument
+uses no eventual-in-\(n\) theorem. Under separately stated analytic and
+historical continuation hypotheses, a finite chain also gives
+\(C_n<C_{\mathrm E}\) for every \(n\ge6\); these hypotheses are kept explicit
+in the dependency diagram. ChatGPT and Codex assisted the development of
+the proofs and computational certificates and the preparation of this
+manuscript, using the GPT-5.6 Sol, GPT-6.1 Sol and GPT-6 Astra models.

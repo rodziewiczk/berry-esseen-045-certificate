@@ -1,0 +1,779 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,booktabs,array,longtable}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{microtype,enumitem}
+\usepackage[hidelinks,hypertexnames=false]{hyperref}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Pp}{\mathbb P}
+\newcommand{\CE}{C_{\mathrm E}}
+\newcommand{\ind}{\mathbf 1}
+\title{Five summands in the iid Berry--Esseen conjecture\\
+\large A sign-count proof and the finite-index dependency chain}
+\author{Kacper Rodziewicz \and Bartosz Ko{\l}odziejek}
+\date{Working draft --- 20 October 2026}
+\begin{document}
+\maketitle
+\begin{center}\small
+A revised and corrected version is intended for submission to arXiv.
+\end{center}
+\begin{abstract}
+Using Prawitz's smoothing inequality and Shevtsova's iid estimates, we prove
+\(C_5\le C_{\mathrm E}=(3+\sqrt{10})/(6\sqrt{2\pi})\) from the published
+four-summand bound. A fixed-index extremal argument gives an attained
+closed-CDF witness and bounded support before higher moments are used.
+Complete moment and sign-probability covers reduce the remaining gapped
+regions to exact rational count inequalities. A direct conditional-binomial
+and Cantelli comparison treats the final corner without a support-gap,
+Fourier or predecessor assumption. Endpoint atoms, closed seams and both
+infinite threshold rays are retained throughout. The fifth-index argument
+uses no eventual-in-\(n\) theorem. Under separately stated analytic and
+historical continuation hypotheses, a finite chain also gives
+\(C_n<C_{\mathrm E}\) for every \(n\ge6\); these hypotheses are kept explicit
+in the dependency diagram. ChatGPT and Codex assisted the development of
+the proofs and computational certificates and the preparation of this
+manuscript, using the GPT-5.6 Sol, GPT-6.1 Sol and GPT-6 Astra models.
+\end{abstract}
+
+\section{Statement and precise scope}
+For a real law $P$ with $\E X=0$, $\E X^2=1$ and $\rho=\E|X|^3<\infty$, let
+\[
+ R_n(P)=\frac{\sqrt n}{\rho}\sup_{t\in\mathbb R}
+ \left|\Pp(X_1+\cdots+X_n\le t)-\Phi(t/\sqrt n)\right|,
+ \qquad C_n=\sup_P R_n(P),
+\]
+where the $X_i$ are independent with the \emph{same} law $P$. Write
+\[
+ \CE=\frac{3+\sqrt{10}}{6\sqrt{2\pi}}
+       =0.40973218\ldots.
+\]
+We prove the unrestricted assertion $C_5\le\CE$ from the four-summand input.
+We use the published bound $C_4\le\CE$ from
+\cite[Theorem~26.1, p.~174]{RK}. That theorem states the stronger
+$C_4\le0.4097$; the stronger value is not needed here.
+
+\begin{theorem}\label{thm:composition}
+Assume $C_4\le\CE$. Then $C_5\le\CE$.
+\end{theorem}
+
+This is a computer-assisted proof. Its continuous inequalities, finite
+certificates, and complete domain coverage are separate proof obligations.
+The final verification record identifies the exact successful
+proof objects, their domains, and their input files. The continuous
+support, Fourier, resource and count arguments are supplied in the companion
+proof sources indexed in Section~\ref{sec:sources}. This note explains the
+composition and proves the new gap-free part in detail; it does not replace
+those companion proofs by numerical success messages. No eventual-in-$n$ theorem or monotonicity of $C_n$ is used.
+
+Besides $C_4\le\CE$, the cited inputs are Prawitz smoothing in the
+normalization of \cite[Lemma~4.1, p.~262]{S2012} and the iid bounds of
+\cite[p.~125]{S2013}. The continuous reductions and exact arithmetic certificates are supplied
+in the accompanying proof supplement \cite{C5ProofSupplement}.
+
+\section{Why a contrary law is a legitimate object}
+\begin{lemma}[Fixed-index attainment and the correct jump edge]\label{lem:attain}
+For every fixed integer $n\ge1$, $C_n$ is attained. After reflection of the
+whole marginal if necessary, there are an attaining standardized law $P$
+and a finite raw threshold $H$ such that
+\[
+ C_n=\frac{\sqrt n}{\rho}\{\Pp(S_n\le H)-\Phi(H/\sqrt n)\}>0.
+\]
+\end{lemma}
+\begin{proof}
+The symmetric two-point law gives a positive lower bound for $C_n$, while
+$R_n(P)\le\sqrt n/\rho$. Consequently a maximizing sequence has bounded
+third absolute moments. It is tight. On a weakly convergent subsequence,
+first and second moments pass to the limit, since their tail expectations
+are at most $M/L^2$ and $M/L$, respectively. If $\rho_j\to r$, lower
+semicontinuity gives $\rho(P)\le r$. No uniform integrability of third
+moments has been assumed.
+
+Because $n$ is fixed, the $n$-fold product laws, and hence their sums,
+converge weakly. All normalized sums have variance one, so near-maximizing
+thresholds stay bounded by Chebyshev's inequality and the Gaussian tails.
+For a convergent sequence of thresholds $z_j\to z$ the exact bounds are
+\[
+ \limsup F_j(z_j)\le F(z),\qquad
+ \liminf F_j(z_j)\ge F(z-).
+\]
+Both right and left jump errors are bounded by the Kolmogorov distance from
+the continuous Gaussian CDF. Thus
+$\limsup\Delta_n(P_j)\le\Delta_n(P)$. It follows that
+\[
+ C_n r\le\sqrt n\Delta_n(P)\le C_n\rho(P)\le C_n r.
+\]
+Equality proves attainment, including equality of the limiting third
+moments.
+
+The functions $F(z)-\Phi(z)$ and $\Phi(z)-F(z-)$ are upper
+semicontinuous and vanish at infinity. Their positive maxima are attained.
+Reflection converts the second branch exactly into the first, because
+$F_{-S}(-H)=1-F_S(H-)$. The endpoint atom is retained.
+\end{proof}
+
+Assume now that $C_5>\CE$, and choose the witness from Lemma~\ref{lem:attain}.
+For this same marginal its predecessor score satisfies $R_4(P)\le C_4$.
+The contact allowance is therefore
+\begin{equation}\label{eq:qzero}
+ q_5=5\bigl(R_4(P)-C_5\bigr)_+=0.
+\end{equation}
+Equation~\eqref{eq:qzero} is the only use of the four-summand input.
+It does not assert $C_5\le C_4$.
+
+\subsection{Contact before any higher moment is used}
+Put $z=H/\sqrt5$, $F=\Pp(S_5\le H)$, $a=(F-\Phi(z))/\rho>0$,
+$\beta=\E[X|X|]$, and $h(x)=\Pp(S_4\le H-x)$.
+Contaminate the common marginal by an atom at an arbitrary real $x$ and
+then center and scale the entire mixture. The raw event $S_5\le H$ is
+kept fixed. Its first derivative is $5(h(x)-F)$, so atoms cause no CDF
+differentiation issue. The central third moment derivative is
+$|x|^3-\rho-3x\beta$, with the variance normalization adding
+$-3\rho(x^2-1)/2$. Global maximality yields
+\begin{equation}\label{eq:contact}
+ 5h(x)\le a|x|^3+q_0+q_1x+q_2x^2,
+\end{equation}
+where
+\[
+ q_0=5F+\tfrac12(a\rho+z\phi(z)),\quad
+ q_1=-\sqrt5\phi(z)-3a\beta,\quad
+ q_2=-\tfrac12(3a\rho+z\phi(z)).
+\]
+The nonnegative slack has expectation zero. It is lower semicontinuous,
+so equality holds at every support point. Since the cubic coefficient
+$a$ is positive and $0\le5h\le5$, the support is bounded. Higher moments
+are used only after this conclusion.
+
+Quantitative support follows by inserting the all-threshold predecessor
+bound into this contact equality and using \eqref{eq:qzero}. Its numerical
+certificate covers both support rays and the whole threshold line,
+including both infinite threshold tails. A finite mesh without its
+curvature remainder would not be sufficient.
+
+\section{The complete moment-domain cover}\label{sec:cover}
+Let $\beta=\E[X|X|]$. An elementary moment restriction is
+\begin{equation}\label{eq:beta}
+ \rho\ge\frac{1+\beta^2}{\sqrt{1-\beta^2}}.
+\end{equation}
+Indeed, if $m=\E X_+=\E X_-$ and $a_\pm=(1\pm\beta)/2$, signwise
+Cauchy inequalities give $m\le\sqrt{a_+a_-}$ and
+$\rho\ge(a_+^2+a_-^2)/m$. Define
+\[
+ b(r)=\left(\frac{r\sqrt{r^2+8}-r^2-2}{2}\right)^{1/2}.
+\]
+Every law with $\rho\le r$ satisfies $|\beta|\le b(r)$.
+The certificates use the rational upper enclosures
+\[
+ b_2=\frac{84729828287999}{250000000000000}\ge b(237/200),
+ \qquad
+ b_3=\frac{35139006743001}{10^{14}}\ge b(6/5).
+\]
+These enclosing inequalities are checked exactly.
+
+The low-moment cover is as follows. Each gapped row has a complete
+100-panel partition of $p=\Pp(X>0)$; the last column is the number of
+panels requiring count forests. Every other panel is excluded by its
+acquired INITIAL constraints or a separately checked moment contradiction.
+The beta scopes are signed and are not identified by reflection.
+
+\begin{center}\small
+\begin{tabular}{@{}llllr@{}}\toprule
+Region & $\rho$ interval & $\beta$ interval & Method & Forests\\\midrule
+B0 & $[1,11/10]$ & full & resources/counts &24\\
+BN & $[11/10,23/20]$ & full & resources/counts &32\\
+B2 S0 & $[23/20,467/400]$ & $[-b_2,1/5]$ & resources/counts &32\\
+B2 S1 & $[23/20,467/400]$ & $[1/5,b_2]$ & resources/counts &18\\
+B2 S2 & $[467/400,237/200]$ & $[-b_2,1/5]$ & resources/counts &34\\
+B2 S3 & $[467/400,237/200]$ & $[1/5,b_2]$ & resources/counts &20\\
+B3 S0 & $[237/200,477/400]$ & $[-b_3,1/5]$ & resources/counts &35\\
+B3 T0 & $[237/200,477/400]$ & $[1/5,3/10]$ & resources/counts &22\\
+B3 T1 & $[237/200,477/400]$ & $[3/10,b_3]$ & resources/counts &9\\
+B3 S2 & $[477/400,6/5]$ & $[-b_3,1/5]$ & resources/counts &36\\
+B3 T2 & $[477/400,6/5]$ & $[1/5,3/10]$ & resources/counts &22\\
+B3 lower & $[477/400,6/5]$ & $[3/10,17/50]$ & resources/counts &11\\
+B3 corner & $[477/400,6/5]$ & $[17/50,b_3]$ & gap-free &---\\\bottomrule
+\end{tabular}
+\end{center}
+All intervals are closed. In particular the new boundary $17/50$ belongs
+to both adjacent pieces. There are 295 gapped count forests in the
+complete cover. Each retains all six original nearest-count roots.
+All 1,770 roots are present, with 148,586 nodes and 75,178 leaves.
+The other 905 panel instances have acquired resource exclusions.
+The final verification record joins every row to its accepted proof objects.
+
+For $\rho\in[6/5,7361/4000]$, 41 closed Fourier strips give an upper bound
+below $4097/10000$. Their six support regions are
+\begin{center}
+\begin{tabular}{@{}lc@{}}\toprule
+$\rho$ interval & Support radius $R$\\\midrule
+$[6/5,5/4]$ & $13/5$\\
+$[5/4,7/5]$ & $117/40$\\
+$[7/5,3/2]$ & $25/8$\\
+$[3/2,8/5]$ & $133/40$\\
+$[8/5,17/10]$ & $7/2$\\
+$[17/10,7361/4000]$ & $15/4$\\\bottomrule
+\end{tabular}
+\end{center}
+The support has been acquired before these supported Fourier bounds are
+applied. The final finite-strip maximum is less than $0.409674$.
+For the remaining tail, the published iid estimate gives
+\[
+ R_5(P)\le\frac{3031}{10000}\left(1+\frac{323}{500\rho}\right)
+ \le\frac{819}{2000}=0.4095\quad(\rho\ge7361/4000).
+\]
+The exact endpoint substitution and monotonicity join the infinite tail
+without a missing boundary.
+
+\section{A direct sign-count inequality without a support gap}
+This section contains the new step. It applies to every standardized common
+iid marginal in its stated moment region, with no extremality, contact,
+bounded-support or predecessor premise.
+
+Put $p=\Pp(X>0)$, $q=1-p$, $m=\E X_+=\E X_->0$, $v=pq$ and $h=v/m$.
+Zero atoms are assigned to the nonpositive class. Set
+\[
+ B=\ind_{\{X>0\}},\qquad Y=p+hX,\qquad W=Y-B.
+\]
+Then $\E[W\mid B]=0$. The two conditional variances are exactly
+\begin{align}
+ v_0&=p^2\left(\frac{q(1-\beta)}{2m^2}-1\right),\label{eq:v0}\\
+ v_1&=q^2\left(\frac{p(1+\beta)}{2m^2}-1\right).\label{eq:v1}
+\end{align}
+For $J=B_1+\cdots+B_5$, conditional independence gives
+\[
+ \Pp(J=j)=b_j(p):=\binom5j p^jq^{5-j},\qquad
+ V_j:=\operatorname{Var}\Bigl(\sum_iW_i\mid J=j\Bigr)=(5-j)v_0+jv_1.
+\]
+Conditioning on a particular sign vector gives independent conditional
+variables. Every vector with the same count $j$ gives the same sum law,
+which justifies conditioning only on the count.
+
+\begin{lemma}[Gap-free count bound]\label{lem:cantelli}
+Define
+\[
+ T(V,d)=\begin{cases}1,&d\le0,\\ V/(V+d^2),&d>0.\end{cases}
+\]
+For every real $z$,
+\begin{equation}\label{eq:count}
+ \Pp\Bigl(\sum_{i=1}^5Y_i\le z\Bigr)
+ \le Q(z):=\min\left\{1,\sum_{j=0}^5 b_j(p)T(V_j,j-z)\right\}.
+\end{equation}
+Consequently, at $H=(z-5p)/h$, the normalized positive CDF error is at most
+\begin{equation}\label{eq:score}
+ \frac{\sqrt5}{\rho}
+ \left[Q(z)-\Phi\left(\frac{(z-5p)m}{\sqrt5\,pq}\right)\right].
+\end{equation}
+\end{lemma}
+\begin{proof}
+A centered random variable $U$ with variance $V$ obeys
+$\Pp(U\le-d)\le V/(V+d^2)$ for $d>0$. For $V>0$ this follows by
+applying Markov's inequality to $(U-V/d)^2$ on that event; for $V=0$
+the event is empty. At $d=0$ the safe bound is one, including $V=0$.
+Apply this separately to each conditional sum and use its actual binomial
+probability. Finally $\sum Y_i=5p+hS_5$ gives the normal coordinate.
+\end{proof}
+
+The convention $T(0,0)=1$ is essential. Substituting zero would omit a
+possible atom exactly on an integer count boundary.
+
+\subsection{Reducing the corner to two-dimensional boxes}
+The additional moment constraints are
+\begin{equation}\label{eq:moments}
+ m\ge\frac{1+\beta^2}{2\rho},\qquad
+ \frac{2m^2}{1+\beta}\le p\le1-\frac{2m^2}{1-\beta},\qquad m^2\le pq.
+\end{equation}
+The first two follow from the signwise Cauchy inequalities already used.
+For the last, conditional second moments give
+$1\ge m^2/p+m^2/q=m^2/(pq)$.
+
+Consider a closed beta slab $[b_l,b_u]$ in $[17/50,b_3]$, keeping the
+whole moment interval $\rho\in[477/400,6/5]$. Set
+\[
+ m_l=\frac{1+b_l^2}{2(6/5)},\quad
+ p_l=\frac{2m_l^2}{1+b_u},\quad
+ p_u=1-\frac{2m_l^2}{1-b_l}.
+\]
+Every law lies in this $p$ interval; all the selected intervals are contained
+in $(0,1/2)$. For a closed subbox $p\in[l,u]$, $z\in[a,b]$, use
+\begin{align*}
+ \bar v_0&=\max\left\{0,u^2\left(\frac{(1-l)(1-b_l)}{2m_l^2}-1\right)\right\},\\
+ \bar v_1&=\max\left\{0,(1-l)^2\left(\frac{u(1+b_u)}{2m_l^2}-1\right)\right\}.
+\end{align*}
+These bound \eqref{eq:v0}--\eqref{eq:v1} above: each actual bracket is
+nonnegative, and each positive factor has been enlarged. A negative
+upper bracket means that the actual-law domain is empty; clipping it to
+zero remains safe. The exact upper binomial mass is attained at
+$p_j=\min(u,\max(l,j/5))$. Hence an upper CDF on this whole box is
+\[
+ \bar Q=\min\left\{1,\sum_{j=0}^5 b_j(p_j)
+ T\bigl((5-j)\bar v_0+j\bar v_1,j-b\bigr)\right\}.
+\]
+
+Let $\nu=a-5u$. A lower bound for the normal argument is
+\begin{equation}\label{eq:normal}
+ x_l=\begin{cases}
+ \nu m_l/(\sqrt5\,u(1-u)),&\nu\ge0,\\
+ \nu/\sqrt{5u(1-u)},&\nu<0.
+ \end{cases}
+\end{equation}
+The first branch uses the lower mean and upper variance factor. In the
+second branch use $m\le\sqrt{pq}$; if the actual numerator is positive
+the negative lower bound is automatic. Otherwise note that for $z\ge0$
+and $p<1/2$,
+\[
+ \frac{d}{dp}\frac{z-5p}{\sqrt{p(1-p)}}
+ =-\frac{5p+z(1-2p)}{2[p(1-p)]^{3/2}}<0.
+\]
+Thus \eqref{eq:normal} holds on the entire box. When evaluating it exactly,
+the negative numerator is divided by a \emph{lower} square root. Reversing
+that rounding direction would invalidate the bound.
+
+The resulting whole-box score bound is
+\[
+ \frac{\sqrt5}{477/400}\max\{0,\bar Q-\Phi(x_l)\}.
+\]
+Taking the positive part before multiplication avoids an incorrect
+upper-factor substitution on a negative difference.
+
+\subsection{The finite certificate and the infinite phase rays}
+The twelve closed beta slabs have endpoints
+\[
+ 0.340,0.341,\ldots,0.351,b_3.
+\]
+For each slab, the $p$ interval is rounded outward to a $10^{-6}$ grid.
+The five phase intervals $[0,1],\ldots,[4,5]$ give 60 initial boxes.
+Recursive midpoint splits in $p$ and $z$ produce a complete forest with
+1,994 nodes and 1,027 leaves. Exact acceptance recomputes every leaf and
+checks both children of every split. Its maximum stored score upper is
+\[
+ \frac{20484834187}{50000000000}=0.40969668374<0.4097<\CE.
+\]
+A separately implemented rational Gaussian evaluator checks every leaf;
+its maximum is $204848338979/500000000000$, no larger than the stored
+bounds. It does not import the original numerical oracle.
+
+For completeness let $m_L,p_L,p_U$ denote the same moment bounds for the
+\emph{whole} corner $\beta\in[17/50,b_3]$. Set
+\[
+ v_U=p_U(1-p_U),\quad s_U=v_U^2/m_L^2-v_U,\quad
+ V^U_j=\max\left\{\frac j{p_L},\frac{5-j}{1-p_U}\right\}s_U.
+\]
+Here $s=\E W^2=v^2/m^2-v\le s_U$: on $v\ge m_L^2$ the function
+$v^2/m_L^2-v$ is increasing. Also
+$b_j(p)\le\binom5j p_U^j(1-p_L)^{5-j}$.
+For $z\le0$, drop the nonnegative normal CDF and apply monotonicity at
+zero. This gives the uniform bound
+\[
+ \frac{\sqrt5}{477/400}
+ \left[(1-p_L)^5+\sum_{j=1}^5\binom5j p_U^j(1-p_L)^{5-j}
+ \frac{V^U_j}{V^U_j+j^2}\right]<0.331.
+\]
+For $z\ge5$, $F\le1$ and the normal argument at five is
+$\sqrt5\,m/p$. Cantelli for the standard normal gives the bound
+\[
+ \frac{\sqrt5}{477/400}\frac1{1+5m_L^2/p_U^2}<0.187.
+\]
+Both displayed inequalities are verified over exact rationals with an
+outward square root of five. The two rays and the compact closed interval
+cover every real threshold.
+
+\begin{proposition}[Independently certified gap-free corner]
+For every standardized iid marginal with
+\[
+ \rho\in[477/400,6/5],\qquad\beta\in[17/50,b_3],
+\]
+and every raw threshold $H$, the normalized positive CDF error is strictly
+less than $4097/10000$. No $C_4$, support, contact, or physical-gap assumption
+is needed for this proposition.
+\end{proposition}
+
+\section{What the other certificates prove}
+The remaining low-moment regions concern the attained contrary witness.
+Their chain is
+\[
+\begin{aligned}
+ \text{contact and }q_5=0
+ &\;\Longrightarrow\;\text{support and Fourier bounds}\\
+ &\;\Longrightarrow\;\text{INITIAL}\;\Longrightarrow\;\text{resources}
+ \;\Longrightarrow\;\text{counts}.
+\end{aligned}
+\]
+Each arrow has a continuous proof as well as a source-specific arithmetic
+obligation. INITIAL is a finite induction started with \emph{no} physical
+defect or gap seed. All surviving final cells must acquire a genuine
+central support gap; repeated improvement without that gate proves
+nothing about a gap.
+
+The defect used in this induction is
+\[
+ D=(3+\sqrt{10})\rho-\gamma-3J,\qquad
+ \gamma=\E X^3,\quad J=\sum_{(a,b)}\tau_{a,b}(b-a)^2,
+\]
+where the sum runs over bounded gaps of the support and
+$\tau(t)=\E[X\ind_{\{X\ge t\}}]$ is constant on each gap.
+The independently derived conserved identity comes from integrating the
+same contact slack against $\tau$ in two ways and using compensated smooth
+Fourier inversion. It includes the complete high-frequency tail and
+keeps the half-open gap convention at atoms. Its proof does not use an
+asymptotic expansion in $n$.
+
+Once a central gap $(-A,B)$ is acquired, the resource induction keeps
+bounds on the same marginal's moments, endpoint locations, and conditional
+noise. One small but necessary repair retains the already available price
+\[
+ 6mAB\ge6m_L a b>0\qquad(m\ge m_L,\ A\ge a,\ B\ge b).
+\]
+It can be combined with another lower price by taking their maximum.
+Since $4AB\le(A+B)^2$, a lower price $P$ gives
+$A+B\ge\sqrt{2P/(3m_U)}$ when $m\le m_U$.
+The new term alone satisfies
+\[
+ \frac{2(6m_Lab)}{3m_U}\le4ab\le(a+b)^2.
+\]
+It therefore retains a gap already proved; it does not manufacture a
+physical gap from a failed INITIAL calculation.
+
+\subsection{The actual iid count probability}
+For the same representation as in Section~4 and a nearest-count phase
+$z=k+u$, let $W_j$ denote the sum of the five noises conditional on
+exactly $j$ positive signs. The closed CDF obeys
+\begin{equation}\label{eq:outgoing}
+ \Pp(S_5\le H)\le F_{\mathrm{Bin}(5,p)}(k)
+ -b_k(p)\Pp(W_k>u)
+ +\sum_{j>k}b_j(p)\Pp(W_j\le u-(j-k)).
+\end{equation}
+The outgoing event is \emph{strict}, the incoming event is closed. Atoms
+on the event plane must not be subtracted twice.
+Incoming bounds use Cantelli or exponential estimates. An outgoing
+minorant follows from
+\[
+ G_a(x)=-x^4+3a^2x^2+2a^3x=x(x+a)^2(2a-x),\qquad a>0.
+\]
+It is nonpositive for $x\le0$ and has global maximum
+$(9/4+3\sqrt3/2)a^4$. Therefore
+\[
+ \Pp(U>u)\ge\frac{\E G_a(U-u)}{(9/4+3\sqrt3/2)a^4}.
+\]
+Bounded support and common conditional moment constraints control the
+expectation. The two conditional third moments remain common variables
+through all constraints. Linear or positive-denominator affine-ratio
+objectives are maximized over the resulting bounded polygon at its
+vertices. This is a relaxation containing every actual law; feasibility
+of a relaxed point is never asserted to produce a convolution law.
+
+The exact forest tests include the coupled moment and physical-defect
+constraints, phase polynomials and Gaussian enclosures. A leaf closes
+only through a proved emptiness predicate or an upper score strictly below
+the fixed rational lower enclosure of $\CE$. Every original nearest-count
+root $k=0,\ldots,5$ is present. Its domain is derived from acquired mean,
+scale and threshold bounds, so thresholds outside the original roots are
+not silently discarded.
+
+\section{Closing the contradiction}
+\begin{proof}[Proof of Theorem~\ref{thm:composition}]
+Suppose $C_5>\CE$. Lemma~\ref{lem:attain} supplies a positive closed-edge
+maximizer, and \eqref{eq:qzero} supplies its zero predecessor allowance.
+Its moments satisfy $\rho\ge1$ and \eqref{eq:beta}.
+
+If $\rho\ge6/5$, the complete Fourier cover and the cited tail bound
+exclude it. Otherwise it belongs to one of the closed rows in the
+low-moment table. Every gapped row is excluded by the fully acquired
+resource/count composition. The one remaining row is excluded directly
+by the gap-free proposition. All seams are covered, including
+$\rho=477/400$, $\rho=6/5$, and $\beta=17/50$. Thus no contrary
+maximizer exists, and $C_5\le\CE$.
+\end{proof}
+
+The proof needs only a single fixed sample size. It avoids the long
+local-domination and propagation chain used for eventual cutoffs. Combining
+this result with any separate theorem for other indices requires checking
+that theorem's own scope; it is not part of the present conclusion.
+
+
+\section{The finite continuation to six}
+\label{cut6:section}
+
+Write \(G_n\) for the assertion \(C_n<\CE\), with the supremum in
+\(C_n\) taken over all centered, unit-variance laws having a finite
+third absolute moment. The finite continuation \cite{Cutoff6Continuation}
+establishes the implications below. Its analytic hypotheses are retained
+explicitly; they are not consequences of the finite arithmetic.
+
+\begin{assumption}[Retained finite-index inputs]
+\label{cut6:ass:inputs}
+Let \(n\in\{6,7,8,9\}\).
+\begin{enumerate}[label=(\roman*),leftmargin=*]
+\item \(\mathcal A_6\): the inherited LOW, physical-gap, resource,
+charged-score and count reductions hold with their stated same-law
+hypotheses. In particular, their finite acquisitions apply to an
+unrestricted maximizing witness on the contrary branch \(C_n\ge\CE\).
+The initial acquisition assumes no defect seed: each stage covers its
+whole closed moment domain and uses only previously established bounds.
+The resulting probability panels and all \(n+1\) original count roots
+cover every surviving witness, and the acquired count majorant bounds
+that witness's normalized score.
+\item \(\mathcal F\): the smoothing inequalities, profile bounds and
+elementary enclosures used in the supported Fourier estimates hold
+uniformly on their stated domains, with their stated remainder bounds.
+This includes the literature inputs, not merely evaluations at selected
+parameter values.
+\end{enumerate}
+The separate tail hypothesis \(\mathcal T_{10}\) is
+\[
+ C_n<\CE\qquad\text{for every integer }n\ge10.
+\]
+Here \(\mathcal T_{10}\) denotes the earlier conditional continuation,
+including its retained analytic and historical certificate premises.
+\end{assumption}
+
+Fixed-index attainment, reflection at an atom, the contact inequality and
+the continuous support criterion have separate analytic proofs. They
+are distinguished from the retained LOW and count reductions in
+Assumption~\ref{cut6:ass:inputs}. The coarse global estimate
+\begin{equation}
+ C_5<\frac{429}{1000}
+ \label{cut6:eq:coarse5}
+\end{equation}
+is acquired independently of \(G_5\), within the same analytic and
+Fourier framework. No sharp fifth-index conclusion is used to initiate
+the continuation.
+
+\begin{theorem}[Conditional finite continuation]
+\label{cut6:thm:finite}
+Under \(\mathcal A_6\) and \(\mathcal F\),
+\[
+ G_6\wedge G_7\wedge G_8\wedge G_9.
+\]
+Under the additional hypothesis \(\mathcal T_{10}\),
+\[
+ C_n<\CE\qquad(n\ge6).
+\]
+\end{theorem}
+
+\begin{proof}
+Suppose first that \(C_6\ge\CE\). Attainment and whole-law reflection
+give a maximizing law and a positive CDF branch at a finite raw threshold.
+Reflection interchanges the right CDF with the corresponding left limit;
+atoms require no continuity assumption. All subsequent acquisitions
+refer to this one unrestricted maximizing law.
+
+The contact allowance is licensed by \eqref{cut6:eq:coarse5}:
+\[
+ 6\bigl(R_5(P)-C_6\bigr)_+
+ <6\left(\frac{429}{1000}-\frac{4097}{10000}\right)
+ =\frac{579}{5000},
+ \qquad \frac{4097}{10000}<\CE.
+\]
+Use \(q_6=579/5000\) in the support criterion. Its full-ray estimates
+are uniform in the raw threshold. The nine acquired closed moment ranges
+cover \([1,1.84025]\); support is established before each supported
+Fourier estimate is applied.
+The supported Fourier bounds exclude \(1.185\le\rho\le1.84025\)
+by the ceiling \(4097/10000<\CE\). Shevtsova's inequality
+\cite{S2013} gives, for \(\rho\ge1.84025\),
+\[
+ R_n(P)\le0.3031\left(1+\frac{0.646}{\rho}\right)
+ \le0.4095<\CE.
+\]
+Thus the remaining closed bands, with support acquired before its use,
+are
+\begin{center}
+\begin{tabular}{@{}ccc@{}}
+\toprule
+Band&Third moment&Support\\
+\midrule
+\(B_0\)&\([1,11/10]\)&\(|X|\le23/10\)\\
+\(B_N\)&\([11/10,23/20]\)&\(|X|\le12/5\)\\
+\(B_2\)&\([23/20,237/200]\)&\(|X|\le5/2\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+Every moment seam belongs to both adjacent closed domains.
+
+Within these bands the complete INITIAL acquisitions yield the physical
+gap and resource bounds. Each of the 100 closed probability panels is
+then excluded either by a whole-panel contradiction or by complete
+count forests. Every original root is retained; subdivisions cover both
+closed children. Each terminal score bound is strictly below a fixed
+rational lower bound for \(\CE\). Assumption~\ref{cut6:ass:inputs}
+therefore excludes the maximizing witness. Hence \(G_6\).
+
+Proceed successively at \(n=7,8,9\). On the contrary branch
+\(C_n\ge\CE\), the already proved global predecessor \(G_{n-1}\)
+gives, for the same maximizing law,
+\[
+ n\bigl(R_{n-1}(P)-C_n\bigr)_+=0.
+\]
+Use \(q_n=0\) in that index's own support acquisition, Fourier bound,
+INITIAL acquisition and count cover. The preceding argument applies
+separately at each index. It includes equality \(C_n=\CE\), uses no
+monotonicity in \(n\), and proves \(G_7,G_8,G_9\), in that order.
+Attaching \(\mathcal T_{10}\) proves the second assertion.
+\end{proof}
+
+\subsection*{An elementary compression of the finite cover}
+
+\begin{lemma}[Sign probability]
+\label{cut6:lem:sign}
+If \(\E X=0\), \(\E X^2=1\), and \(\rho=\E|X|^3<\infty\), then
+\[
+ \Pp(X>0)\rho^2,\ \Pp(X<0)\rho^2
+ \ge\kappa:=\frac8{27}(7\sqrt7-17)>\frac{11261}{25000}.
+\]
+\end{lemma}
+\begin{proof}
+Put \(p=\Pp(X>0)\), \(m=\E X_+=\E X_->0\), and
+\(a=\E X_+^2\in(0,1)\). Cauchy on each sign gives
+\[
+ m^2\le pa,\qquad a^2+(1-a)^2\le m\rho,
+\]
+and consequently
+\[
+ p\rho^2\ge\frac{(2a^2-2a+1)^2}{a}.
+\]
+The derivative of the expression on the right is
+\((2a^2-2a+1)(6a^2-2a-1)/a^2\); its minimum is attained at
+\(a=(1+\sqrt7)/6\) and equals \(\kappa\). Reflection gives the
+other sign. An atom at zero does not affect either inequality.
+\end{proof}
+
+For \(\rho\le r\), this confines \(p=\Pp(X>0)\) to
+\[
+ \frac{11261}{25000r^2}\le p\le1-\frac{11261}{25000r^2}.
+\]
+Strict endpoint comparisons discard whole closed probability panels.
+The residual resource exclusions have two terminal forms. In the first,
+acquired nonnegative coefficients and a physical defect give
+\[
+ D\ge d\ge a(1-\theta)^{3/2}+b\theta,
+ \qquad 0\le\theta\le1,\qquad a>D,\quad b\ge\tfrac32a.
+\]
+Convexity makes the right side at least
+\(a+(b-3a/2)\theta\ge a>D\), a contradiction. In the second,
+the acquired rational bounds \(\rho_-\le\rho\le\rho_+\) satisfy
+\(\rho_->\rho_+\). The complete four-index cover is
+\begin{center}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+&Sign&Tangent&Inconsistent \(\rho\)&Count forests&Total\\
+\midrule
+\(n=6,7,8,9\)&824&52&40&284&1200\\
+\bottomrule
+\end{tabular}
+\end{center}
+The count forests have 2,362 original roots and 257,089 leaves.
+This compression removes redundant exposition, not the acquisitions
+used inside the surviving resource and count arguments.
+
+\subsection*{Dependency boundary}
+The sharp fifth-index argument and the finite continuation have different
+roles. Their logical arrangement is
+\[
+\begin{gathered}
+\text{published inequalities}+\mathcal A_6,\mathcal F
+ \Longrightarrow C_5<429/1000\\
+\Downarrow\\[-2pt]
+G_6\Longrightarrow G_7\Longrightarrow G_8\Longrightarrow G_9\\[3pt]
+(G_6\wedge\cdots\wedge G_9)+\mathcal T_{10}
+ \Longrightarrow (G_n)_{n\ge6},\\[3pt]
+\text{separately: fifth-index argument, with its own inputs}
+ \Longrightarrow (C_5\le\CE).
+\end{gathered}
+\]
+The right-hand chain uses only the coarse fifth-index seed, not the sharp
+fifth-index bound.
+Conversely, the fifth-index argument does not require this tail branch.
+An eventual or finite-tail theorem cannot replace a missing fifth-index
+proof. Theorem~\ref{thm:composition} proves \(C_5\le\CE\), not
+the strict assertion \(G_5\).
+
+
+\section{Continuous reductions and arithmetic certificates}\label{sec:sources}
+The proof of Theorem~\ref{thm:composition} consists of the following
+implications:
+\[
+\begin{gathered}
+ C_4\le\CE,\quad C_5>\CE
+ \ \Longrightarrow\ \text{attained positive closed witness},\\
+ \text{contact with }q_5=0
+ \ \Longrightarrow\ \text{support before higher moments},\\
+ \text{support and the same-law Fourier bounds}
+ \ \Longrightarrow\ \text{finite moment and probability covers},\\
+ \text{gapped count bounds or the direct gap-free comparison}
+ \ \Longrightarrow\ \text{contradiction}.
+\end{gathered}
+\]
+The direct gap-free proposition is valid for arbitrary laws in its
+moment rectangle and has no incoming contact or support edge.
+The conditional tail in Section~\ref{cut6:section} has no incoming edge
+into this fifth-index proof.
+
+The companion proof supplement \cite{C5ProofSupplement} supplies the
+continuous support criterion, compensated Fourier inversion and
+conserved identity, the complete LOW and HIGH inequalities, the finite
+resource induction and the conditional count majorants used in the
+gapped rows. These derivations are part of the proof, not consequences
+of a successful numerical calculation. Every quantitative acquisition
+is tied to the same unrestricted contrary witness and to its original
+closed parameter domains.
+
+For each accepted count forest, exact acceptance checks every initial
+root, both children of every split and every terminal inequality.
+A terminal region is either necessarily empty or has a rational score
+upper bound below a fixed rational lower enclosure of $\CE$.
+Thus the finite trees prove inequalities over continuous domains, not
+over sampled points. Square roots are enclosed by integer squaring.
+Gaussian, exponential and trigonometric values use finite series with
+explicit remainder bounds. The gap-free corner has, in addition, a
+separate rational evaluation of every leaf and both unbounded rays.
+
+The mathematical derivations, source code and complete finite
+certificates are available in the
+\href{https://github.com/rodziewiczk/berry-esseen-045-certificate/tree/main/moment-defects}
+{accompanying repository}.
+The two archived source packages \cite{C5ProofSupplement,Cutoff6Continuation}
+retain their distinct theorem scopes. In particular the conditional
+tail hypotheses of Assumption~\ref{cut6:ass:inputs} are not discharged
+merely by adjoining the fifth-index certificate.
+
+\section*{AI assistance declaration}
+ChatGPT and Codex were used in developing the mathematical arguments
+and proofs, constructing and checking computational certificates, and
+drafting and revising the manuscript. This included the GPT-5.6 Sol,
+GPT-6.1 Sol and GPT-6 Astra models. Kacper Rodziewicz and Bartosz
+Ko{\l}odziejek remain responsible for the mathematical claims and final text.
+
+\begin{thebibliography}{9}
+\bibitem{RK} K.~Rodziewicz and B.~Ko{\l}odziejek,
+\emph{Moment defects and sharp iid Berry--Esseen bounds},
+Hexagon 2610.00147, version~3. Four-summand input:
+Theorem~26.1, p.~174.
+\url{https://hexagonmath.org/2610.00147v3}.
+\bibitem{S2012} I.~Shevtsova,
+\emph{Moment-type estimates with asymptotically optimal structure for the
+accuracy of the normal approximation},
+Annales Mathematicae et Informaticae \textbf{39} (2012), 241--307.
+Prawitz smoothing: Lemma~4.1, p.~262.
+\url{https://publikacio.uni-eszterhazy.hu/3231/1/AMI_39_from241to307.pdf}.
+\bibitem{S2013} I.~G.~Shevtsova,
+\emph{On the absolute constants in the Berry--Esseen inequality and its
+structural and nonuniform improvements},
+Informatika i ee Primeneniya \textbf{7}(1) (2013), 124--125.
+\url{https://www.mathnet.ru/eng/ia252}.
+\bibitem{C5ProofSupplement} K.~Rodziewicz and B.~Ko{\l}odziejek,
+\emph{The fifth iid Berry--Esseen constant: continuous reductions and
+exact finite certificates}, proof supplement, 20 October 2026.
+\url{https://github.com/rodziewiczk/berry-esseen-045-certificate/releases/tag/cutoff5-sources-2026-10-20}.
+\bibitem{Cutoff6Continuation} K.~Rodziewicz and B.~Ko{\l}odziejek,
+\emph{Conditional finite continuation at indices six through nine},
+proof supplement, 20 October 2026. The retained analytic and tail
+hypotheses are stated in Section~\ref{cut6:section}.
+\url{https://github.com/rodziewiczk/berry-esseen-045-certificate/releases/tag/cutoff5-sources-2026-10-20}.
+\end{thebibliography}
+\end{document}
