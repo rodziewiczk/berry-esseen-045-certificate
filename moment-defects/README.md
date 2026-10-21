@@ -2,6 +2,16 @@
 
 Kacper Rodziewicz and Bartosz Kołodziejek.
 
+## Fresh replay tooling: 21 October 2026
+
+The [fresh arithmetic reproduction guide](reproduction/all_indices/README.md)
+documents the new `reproduce.py` entry point, pinned source inputs, serial
+resource-bounded workers, and explicit proof-obligation coverage. It includes
+n2, native C++ or Python n3, n4, and selected C5 arithmetic adapters.
+**Full all-index replay remains incomplete**; missing adapters and seven n25
+forests are reported rather than silently accepted. Source integrity alone is
+not a mathematical replay. Existing historical material is unchanged.
+
 ## Current focused manuscript: 20 October 2026
 
 [Five summands in the iid Berry--Esseen conjecture](five-summands-2026-10-20/README.md):
