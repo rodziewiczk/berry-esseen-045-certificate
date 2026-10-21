@@ -9,16 +9,23 @@ def run_recorded(runner, argv, work, label, cpu_limit, memory_limit, **kwargs):
         return runner.run_child(argv,work,label,cpu_limit,memory_limit,**kwargs)
     except Exception as exc:
         trace, frame = exc.__traceback__, None
+        guard_file = None
         while trace is not None:
             candidate = trace.tb_frame
+            if (candidate.f_code.co_name == 'parent_guard' and
+                    Path(candidate.f_code.co_filename).resolve() == Path(runner.__file__).resolve()):
+                value = candidate.f_locals.get('file')
+                if isinstance(value,Path):
+                    guard_file = str(value)
             if (candidate.f_code.co_name == "run_child" and
                     Path(candidate.f_code.co_filename).resolve() == Path(runner.__file__).resolve()):
                 frame = candidate
-                break
             trace = trace.tb_next
         details = {"scope":"FAILED_STAGE_DIAGNOSTICS_ONLY","stage":label,
                    "error":str(exc),"arithmetic_accepted":False,
                    "all_index_conclusion_verified":False}
+        if guard_file is not None:
+            details['guard_file_at_failure'] = guard_file
         if frame is not None:
             local = frame.f_locals
             outputs = local.get("outputs",{})

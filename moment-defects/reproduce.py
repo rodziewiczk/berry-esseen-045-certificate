@@ -24,6 +24,7 @@ IMPLEMENTED = {
     "n4": ("finite.py", ["--stage","n4"]),
     "c5.counts": ("c5_counts.py", []),
     "c5.gapfree": ("c5_gapfree.py", []),
+    "c5.support": ("c5_support.py", []),
 }
 
 
@@ -91,7 +92,7 @@ def main():
         use_cpp = args.backend == "cpp" or (args.backend == "auto" and compiler is not None)
         extra = ["--stage", "n3" if use_cpp else "n3-python"]
     command = [sys.executable,"-B","-S",str(BASE/"reproduction/all_indices"/name),*extra]
-    if args.component in ("c5.counts","c5.gapfree"):
+    if args.component in ("c5.counts","c5.gapfree","c5.support"):
         if args.archive is None:
             parser.error("This component requires --archive; use the pinned public source asset")
         command += ["--archive",str(args.archive.resolve())]
