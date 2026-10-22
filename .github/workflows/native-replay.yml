@@ -1,0 +1,59 @@
+name: Native mathematical replay
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-mathematical-replay
+  cancel-in-progress: false
+
+jobs:
+  original-be49-full:
+    name: Original BE49 full selected arithmetic (not the all-index theorem)
+    runs-on: windows-2022
+    timeout-minutes: 165
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: moment-defects
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONNOUSERSITE: '1'
+    steps:
+      - name: Check out the exact selected revision
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          persist-credentials: false
+
+      - name: Set up Python 3.12.4
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: 3.12.4
+
+      - name: Test controller schemas and failure cases (not mathematics)
+        working-directory: moment-defects/reproduction
+        run: python -B -S -m unittest uniform_tail.test_tail_adapters uniform_tail.test_component40 -v
+
+      - name: Fetch and hash-check the immutable original source capsule
+        run: python -B -S reproduction/uniform_tail/download_sources.py --download --directory reproduction_inputs/uniform-tail-archives
+
+      - name: Execute the unchanged FULL native suite without quick mode
+        run: |
+          python -B -S reproduction/uniform_tail/archive49_replay.py --archive reproduction_inputs/uniform-tail-archives/BE_cutoff49_20260930.zip --run
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Preserve fresh outputs and failure diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: original-be49-full-${{ github.run_id }}-${{ github.run_attempt }}
+          path: moment-defects/work/
+          if-no-files-found: warn
+          retention-days: 30
+
+# A green job means only the complete original selected BE49 numerical suite
+# was freshly executed. It does not discharge analytic/literature assumptions,
+# the stronger n31--48 chain, the missing n25 trees, or all-index composition.

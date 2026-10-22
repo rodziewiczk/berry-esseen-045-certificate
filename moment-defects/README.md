@@ -12,6 +12,22 @@ n2, native C++ or Python n3, n4, and selected C5 arithmetic adapters.
 forests are reported rather than silently accepted. Source integrity alone is
 not a mathematical replay. Existing historical material is unchanged.
 
+### Additional replay controllers: 22 October 2026
+
+The [uniform-tail guide](reproduction/uniform_tail/README.md) adds an explicit
+FULL replay of the unchanged original cutoff49 capsule, plus the 402 selected
+strict-count jobs at n31--39 and ten native n40--42 components. The original
+cutoff49 source archive is pinned and publicly downloadable. A manual
+[native replay workflow](../.github/workflows/native-replay.yml) runs its full
+suite on a separate Windows runner and preserves fresh results or failure
+diagnostics; adding or dispatching that workflow is not itself acceptance.
+
+The [finite-continuation controllers](reproduction/continuations/) and
+[C5 domain composition checks](reproduction/c5_composition/README.txt) retain
+their conditional parent obligations explicitly. Structural tests check code
+and corruption cases, not the numerical proof. These additions do not make
+the all-index entry point complete.
+
 ## Current focused manuscript: 20 October 2026
 
 [Five summands in the iid Berry--Esseen conjecture](five-summands-2026-10-20/README.md):
