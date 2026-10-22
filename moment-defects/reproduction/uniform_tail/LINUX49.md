@@ -25,7 +25,10 @@ The host starts the container with `--memory=512m`,
 the source archive directory at `/archives` read-only, and a dedicated empty
 work directory at `/src/moment-defects/work` read-write. Create that nested
 mountpoint before mounting the repository read-only. Invoke Python directly,
-not through an intervening shell. No Docker engine or host launch is provided
+not through an intervening shell. Run with the host work-directory owner's
+UID/GID (`--user "$(id -u):$(id -g)"`): after dropping all capabilities, an
+unmatched container root cannot override host bind-mount permissions.
+No Docker engine or host launch is provided
 by this Python adapter; the manual GitHub Actions workflow defines the host
 container invocation.
 

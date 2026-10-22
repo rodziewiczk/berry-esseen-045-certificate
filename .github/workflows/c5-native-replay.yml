@@ -1,0 +1,79 @@
+name: Selected C5 native arithmetic replay
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: Complete selected arithmetic block (not the C5/all-index theorem)
+        required: true
+        default: owncaps
+        type: choice
+        options:
+          - owncaps
+          - initial
+          - resources
+          - complement
+          - counts
+          - support
+          - high
+
+permissions:
+  contents: read
+
+concurrency:
+  group: selected-c5-native-arithmetic
+  cancel-in-progress: false
+
+jobs:
+  selected-c5-arithmetic:
+    name: C5 ${{ inputs.stage }} arithmetic only
+    runs-on: windows-2022
+    timeout-minutes: 355
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: moment-defects
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONNOUSERSITE: '1'
+    steps:
+      - name: Check out the exact selected revision
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          persist-credentials: false
+
+      - name: Set up Python 3.12.4
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: 3.12.4
+
+      - name: Test controller metadata and guards (not mathematics)
+        timeout-minutes: 5
+        run: python -B -S -m unittest reproduction.test_hosted_c5 reproduction.continuations.test_archive_guard -v
+
+      - name: Fetch only C5, prepare guarded inputs, execute the selected complete block
+        timeout-minutes: 330
+        env:
+          C5_NATIVE_STAGE: ${{ inputs.stage }}
+        run: |
+          python -B -S reproduction/hosted_c5.py --run --stage $env:C5_NATIVE_STAGE
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Collect bounded public proof outputs and failure logs
+        if: always()
+        timeout-minutes: 10
+        run: python -B -S reproduction/hosted_c5.py --collect-artifacts
+
+      - name: Preserve bounded work and logs, including failures
+        if: always()
+        timeout-minutes: 15
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: c5-${{ inputs.stage }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: moment-defects/hosted_artifacts/
+          if-no-files-found: warn
+          retention-days: 30
+
+# A green component means its existing selected arithmetic ran under the
+# original native guards. Analytic/literature inputs and fresh-parent/global
+# composition are separate. No Lean proof or all-index theorem is claimed.

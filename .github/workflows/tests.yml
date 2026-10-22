@@ -36,6 +36,10 @@ jobs:
         working-directory: moment-defects
         run: python -B -S -m unittest reproduction.uniform_tail.test_tail_adapters reproduction.uniform_tail.test_component40 reproduction.uniform_tail.test_linux_cgroup reproduction.c5_composition.test_semantics -v
 
+      - name: Test hosted C5 source selection and arithmetic scopes
+        working-directory: moment-defects
+        run: python -B -S -m unittest reproduction.test_hosted_c5 -v
+
   unit-tests:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
