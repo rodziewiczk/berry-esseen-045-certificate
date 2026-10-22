@@ -205,7 +205,7 @@ def plan():
             "all_index_conclusion_verified": False}
 
 
-def inspect_job(cache, graph, job, checked=None, guard=lambda: None):
+def inspect_job(cache, graph, job, checked=None, guard=lambda: None, include_sources=False):
     """Verify only exact bytes, runtime closure and the selected immutable plan."""
     checked = {} if checked is None else checked
     def bound(name):
@@ -262,12 +262,15 @@ def inspect_job(cache, graph, job, checked=None, guard=lambda: None):
         need(closure.get(name) == pin, "Complete mandatory prepared input closure")
     total = sum(bound(name).stat().st_size for name in closure)
     need(total <= 128 * 1024**2, "Selected mirror inputs leave room under original256MiB scratch quota")
-    return {"job_id": job.job_id, "source_index_sha256": graph[job.source_index],
+    result = {"job_id": job.job_id, "source_index_sha256": graph[job.source_index],
             "prepared_sha256": graph[job.prepared],
             "verified_source_index_files": len(primary), "mirror_source_files": len(closure),
             "mirror_input_bytes": total,
             "fresh_output_paths_excluded": sorted(excluded),
             "fresh_parent_fact_joins_required": True, "arithmetic_executed": False}
+    if include_sources:
+        result['source_files_sha256'] = dict(closure)
+    return result
 
 
 def main():

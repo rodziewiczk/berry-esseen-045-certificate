@@ -29,6 +29,15 @@ IMPLEMENTED = {
     "c5.owncaps": ("c5_owncaps.py", []),
 }
 
+# Executable numerical substeps are not necessarily acquired proof nodes.
+# In particular, these replays retain immutable historical parent references;
+# a separate exact implication join must discharge every parent premise.
+ARITHMETIC_ONLY = {
+    "c5.initial": ("c5_initial_arithmetic.py", "--prepare-only"),
+    "c5.resources": ("c5_resources_arithmetic.py", "--inspect-only"),
+    "c5.complement": ("c5_complement.py", "--prepare-only"),
+}
+
 
 def plan():
     nodes = obligations()
@@ -47,6 +56,11 @@ def plan():
             "https://github.com/rodziewiczk/berry-esseen-045-certificate/releases/tag/cutoff25-base-sources-2026-10-22",
         ],
         "composition_or_hashes_are_not_arithmetic_replay":True,
+        "conditional_arithmetic_adapters": {
+            name: {"script": script, "parent_premises_discharged": False,
+                   "registered_as_complete_proof_node": False}
+            for name, (script, _) in ARITHMETIC_ONLY.items()
+        },
     }
 
 
@@ -56,6 +70,8 @@ def main():
     modes.add_argument("--plan", action="store_true")
     modes.add_argument("--all", action="store_true")
     modes.add_argument("--component", choices=tuple(IMPLEMENTED))
+    modes.add_argument("--arithmetic-only", choices=tuple(ARITHMETIC_ONLY),
+                       help="Recompute a conditional substep; does NOT discharge its parent premises")
     parser.add_argument("--archive", type=Path,
                         help="Exact public cutoff5_20261020.zip for c5.counts")
     parser.add_argument("--inspect", action="store_true",
@@ -75,6 +91,26 @@ def main():
                               "all_computational_obligations_verified":False},indent=2))
             return 2
         raise RuntimeError("Global executor must be explicitly reviewed before enabling --all")
+    if args.arithmetic_only:
+        if args.archive is None:
+            parser.error("--arithmetic-only requires the pinned C5 --archive")
+        archive = args.archive.resolve()
+        script, inspect_flag = ARITHMETIC_ONLY[args.arithmetic_only]
+        directory = BASE/"reproduction/all_indices"
+        from all_indices.c5_counts import ARCHIVE_SHA
+        cache = BASE/"reproduction_inputs"/("c5-"+ARCHIVE_SHA[:16])
+        prepared = subprocess.call([sys.executable,"-B","-S",str(directory/"c5_inputs.py"),
+                                    "--archive",str(archive),"--destination",str(cache)],cwd=BASE)
+        if prepared:
+            return prepared
+        command = [sys.executable,"-B","-S",str(directory/script),"--cache",str(cache)]
+        if args.inspect:
+            command.append(inspect_flag)
+        print(json.dumps({"event":"starting_conditional_arithmetic_only",
+                          "component":args.arithmetic_only,
+                          "fresh_parent_fact_joins_verified":False,
+                          "all_computational_obligations_verified":False}),flush=True)
+        return subprocess.call(command,cwd=BASE)
     if not args.component:
         print(json.dumps(plan(),indent=2))
         return 0

@@ -56,6 +56,27 @@ class ReproducerTests(unittest.TestCase):
         self.assertFalse(packet['all_computational_obligations_verified'])
         self.assertTrue(packet['missing_adapters'])
 
+    def test_conditional_arithmetic_is_not_registered_as_complete_node(self):
+        root = Path(__file__).resolve().parents[2]
+        result = subprocess.run([sys.executable, '-B', '-S', str(root/'reproduce.py'), '--plan'],
+                                capture_output=True, text=True, timeout=20)
+        self.assertEqual(result.returncode, 0)
+        packet = json.loads(result.stdout)
+        nodes = {row['id']: row for row in packet['nodes']}
+        for name in ('c5.initial', 'c5.resources', 'c5.complement'):
+            self.assertFalse(nodes[name]['executable_adapter_present'])
+            conditional = packet['conditional_arithmetic_adapters'][name]
+            self.assertFalse(conditional['parent_premises_discharged'])
+            self.assertFalse(conditional['registered_as_complete_proof_node'])
+
+    def test_conditional_arithmetic_requires_explicit_archive(self):
+        root = Path(__file__).resolve().parents[2]
+        result = subprocess.run([sys.executable, '-B', '-S', str(root/'reproduce.py'),
+                                 '--arithmetic-only', 'c5.initial'],
+                                capture_output=True, text=True, timeout=20)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn('requires the pinned C5 --archive', result.stderr)
+
 
 if __name__ == '__main__':
     unittest.main()

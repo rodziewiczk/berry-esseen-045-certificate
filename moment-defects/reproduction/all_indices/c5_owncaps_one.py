@@ -108,7 +108,10 @@ def persist_capture(epoch, directory, capture_relative, command, input_pins,
              and Path(command[4]).is_absolute(), "Exact coarse absolute plan/result paths")
     need(directory.resolve().is_relative_to(epoch.resolve()), "Owned current native cwd")
     for name, pin in input_pins.items():
-        path = epoch.joinpath(*safe_relative(name)) if workspace_inputs else directory / name
+        # Original readback captures include str(relative_to(ROOT)) keys,
+        # hence backslashes on Windows. Interpret that spelling locally;
+        # preserve the actual native key bytes in metadata.input_sha256.
+        path = epoch.joinpath(*safe_relative(name.replace("\\", "/"))) if workspace_inputs else directory / name
         need(workspace_inputs or Path(name).name == name, "Local captured source name")
         need(digest(path) == pin, "Actual native inputs unchanged after execution")
     capture = epoch.joinpath(*safe_relative(capture_relative))

@@ -202,13 +202,76 @@ controls remain. Separate distinct result identifiers prevent a new V14
 acceptance from masquerading as a historical V12/V14 receipt. An incomplete
 tree is never accepted, even if all source tests pass.
 
-## Remaining acquisition controller
+## Conditional acquisition arithmetic
 
 `c5_acquisition_plan.py` records the exact 12 selected INITIAL jobs and 15
 resource replay/accept jobs, including the full 1200-panel resource partition.
 Its `--inspect-cache PATH` mode checks their pinned source closures only.
 All 27 closures were located; each minimal per-job mirror is below 40 MiB.
-This does **not** implement or verify the remaining mathematical acquisitions.
-Their fresh parent-fact joins, full numerical replay and final composition
-are still required. Historical parent receipts must not be overwritten or
-silently counted as new computation.
+The numerical substeps now have separate guarded entry points:
+
+```console
+python -B -S reproduce.py --arithmetic-only c5.initial --archive PATH/cutoff5_20261020.zip
+python -B -S reproduce.py --arithmetic-only c5.resources --archive PATH/cutoff5_20261020.zip
+python -B -S reproduce.py --arithmetic-only c5.complement --archive PATH/cutoff5_20261020.zip
+```
+
+Append `--inspect` to check inputs only. These commands intentionally do not
+register `c5.initial` or `c5.resources` as acquired proof nodes. They recompute
+the original finite arithmetic while leaving exact joins to genuinely
+replayed support, HIGH, owncap and INITIAL parent facts outstanding. Historical
+parent receipts are immutable candidate references, not new computations.
+Neither the existence of these adapters nor their unit tests establishes a
+successful numerical run.
+
+The complement substep runs the original complete integration twice (all 41
+closed strips and 42 attempted meshes), the pinned native arithmetic verifier
+and its 10 mutation controls, and the independent Fourier arithmetic readback
+with 16 Fourier/JSON controls. Its three support-corruption controls and all
+fresh support/Fourier/contact parent joins are explicitly outside this substep;
+no full native complement acceptance is claimed.
+
+INITIAL runs all 12 original complete candidates, including every finite
+transition, moment cell, probability panel and native mutation control. The
+resource command runs all 15 selected jobs and all 1200 panel obligations.
+Its original checker is executed through an explicitly declared, pinned
+metadata-only source port: POSIX source-map keys, the emitted INITIAL path,
+and one separately prevalidated semantic-command reference. Actual operating
+system commands are captured under their real names; source bytes, old JSON,
+numerical expressions and native corruption controls are not rewritten.
+Every original source and the finite AST-edit inventory are checked. This
+is not advertised as unchanged native Windows acceptance.
+
+`c5_initial_join.py` checks exact support/HIGH/owncap implications for an
+INITIAL artifact, including the whole closed rho/support domain, the candidate
+input SHA, all finite transitions and the complete final cover. Its companion
+`c5_parent_evidence.py` rechecks artifact/source/capture bindings. These are
+post-hoc readers, not an authenticated execution history: their output leaves
+`execution_observed_by_this_reader` and `fresh_parent_fact_joins_verified`
+false. A separate executing controller must observe the numerical runs before
+using those implications in a fresh proof composition. C4, attainment/contact
+and the stated analytic Fourier/literature inputs remain explicit premises.
+
+## Whole-proof obligations still outstanding
+
+The missing work is broader than seven forest files. At this checkpoint:
+
+- n4 still needs its two complete new 260-class ROOT passes.
+- C5 needs fresh INITIAL/resource runs, their exact parent joins, the complete
+  295-forest count run (75,178 leaf evaluations), the Fourier complement and
+  the final same-law domain composition. The three completed C5 blocks above
+  do not discharge these obligations.
+- The currently selected n25 proof additionally needs seven complete native
+  B3/B4 forest acceptances; checkpoints and newly prepared V14 source epochs
+  are not those acceptances.
+- The public guarded dispatcher does not yet implement the complete numerical
+  continuation n6 through n30, the 31--34 base, the 35--48 bridge, or the
+  support/resource/confinement/local stages of the genuinely uniform tail.
+  Archived source entry points and identity-only closure checks are not a
+  substitute for executing those stages and checking their parent domains.
+- A global executing controller must compose all completed stages. It remains
+  disabled; `--all` reports missing obligations and exits unsuccessfully.
+
+Published literature and the manuscript's analytic reductions remain explicit
+mathematical inputs. No claim of a Lean proof or a completed all-index replay
+is made by this directory.

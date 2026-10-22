@@ -95,6 +95,27 @@ class OwncapEpochTests(unittest.TestCase):
             self.assertEqual(metadata["input_sha256"], pins)
             self.assertEqual(metadata["changed_inputs"], [])
 
+    def test_coarse_native_windows_keys_are_not_rewritten(self):
+        with tempfile.TemporaryDirectory() as name:
+            root = Path(name)
+            relative, directory, _ = self.fixture(root)
+            capture_relative = "runs/cutoff6_20261018/fourier/auxiliary5_v2/replay01"
+            capture = root / capture_relative
+            capture.mkdir(parents=True)
+            result = capture / "RESULT.json"
+            result.write_bytes(b"fixture result, not numerical acceptance")
+            plan = directory / "PLAN.json"
+            stdout = directory / "actual.stdout.txt"
+            stdout.write_bytes(b"fixture captured output\n")
+            native_key = (relative + "PLAN.json").replace("/", "\\")
+            pins = {native_key: own.digest(plan)}
+            command = [sys.executable, "-B", "protocol.py", "replay", str(plan), str(result)]
+            own.persist_capture(root, directory, capture_relative, command, pins,
+                                stdout, "fixture", 0.1, workspace_inputs=True, result_path=result)
+            metadata = own.read(capture / "metadata.json")
+            self.assertEqual(metadata["input_sha256"], pins)
+            self.assertNotIn(relative + "PLAN.json", metadata["input_sha256"])
+
     def test_fourier_subproof_excludes_unrelated_b3_code_but_keeps_writer(self):
         tree = ast.parse('''
 def main():
