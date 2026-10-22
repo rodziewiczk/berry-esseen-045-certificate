@@ -42,6 +42,13 @@ whole-process-tree Job guard before creating work or starting mathematics.
 It does not substitute per-process POSIX limits for that guarantee. Source
 catalogs and metadata tests remain usable on other platforms.
 
+The original phase-scope audit itself has a Windows path-separator mismatch,
+observed in the first hosted run. The separate
+[Linux/Docker full-suite controller](LINUX49.md) executes the original source
+unchanged in a verified aggregate-limited cgroup instead. Its manual workflow
+is [here](../../../.github/workflows/native-replay-linux.yml). A failed Windows
+attempt is not a full arithmetic acceptance.
+
 The entire process tree is serial within one owned Job: 512MiB, 7,200 total
 CPU seconds, at least 1GiB host RAM reserved, launch after two readings of at
 least 1,536MiB five seconds apart. The original 256MiB private-file quota,

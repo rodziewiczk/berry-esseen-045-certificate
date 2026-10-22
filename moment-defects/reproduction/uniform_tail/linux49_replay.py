@@ -1,0 +1,127 @@
+"""Fresh unchanged BE49 FULL suite, only inside a verified bounded Linux Docker cgroup."""
+from __future__ import annotations
+
+import argparse
+import importlib.util
+import json
+import os
+from pathlib import Path
+import shutil
+import sys
+import tempfile
+import zipfile
+
+sys.dont_write_bytecode = True
+BASE = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(BASE))
+from reproduction.uniform_tail.archive49_replay import prepare
+from reproduction.uniform_tail.archive49_catalog import (ARCHIVE_BYTES, ARCHIVE_SHA, MANIFEST_SHA,
+    FILE_COUNT, EXPANDED_BYTES, source_jobs, verify_sources, validate_full_result)
+from reproduction.uniform_tail.count_catalog import need, sha
+from reproduction.uniform_tail.linux_cgroup import CgroupGuard, require_docker_init, run_owned
+
+
+def controller_sources():
+    files = ['run_reproduction.py', 'reproduction/uniform_tail/linux49_replay.py',
+             'reproduction/uniform_tail/linux_cgroup.py', 'reproduction/uniform_tail/archive49_replay.py',
+             'reproduction/uniform_tail/archive49_catalog.py', 'reproduction/uniform_tail/count_catalog.py',
+             'reproduction/uniform_tail/archive49_worker.py', 'reproduction/uniform_tail/__init__.py',
+             'reproduction/all_indices/stable_guard.py', 'reproduction/all_indices/supervised.py',
+             'reproduction/all_indices/c5_inputs.py', 'reproduction/all_indices/c5_counts.py',
+             'reproduction/all_indices/__init__.py']
+    return {name: sha(BASE/name) for name in files}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--archive', type=Path, required=True)
+    parser.add_argument('--run', action='store_true', help='Execute all original selected native jobs, never quick')
+    args = parser.parse_args()
+    need(__debug__ and not sys.flags.optimize and sys.version_info[:2] == (3, 12),
+         'Actual ordinary unoptimized Python3.12')
+    require_docker_init()
+    guard = CgroupGuard()
+    guard.sample(idle=True)
+    pins = controller_sources()
+    source = args.archive.resolve()
+    need(source.is_file() and not source.is_symlink() and source.stat().st_size == ARCHIVE_BYTES
+         and sha(source) == ARCHIVE_SHA, 'Exact externally pinned original BE49 archive')
+    observer_spec = importlib.util.spec_from_file_location('original_source_observer', BASE/'run_reproduction.py')
+    observer = importlib.util.module_from_spec(observer_spec)
+    observer_spec.loader.exec_module(observer)
+    observer.verify_sources()
+    parent = BASE/'work'
+    need(parent.is_dir() and not parent.is_symlink(), 'Dedicated existing work bind mount required')
+    need(shutil.disk_usage(parent).free >= 4*1024**3, 'Work reserve4GiB before creating an epoch')
+    guard.launch_gate()
+    work = Path(tempfile.mkdtemp(prefix='be49-linux-cgroup-', dir=parent)).resolve()
+    need(work.parent == parent.resolve(), 'Fresh exclusive private epoch directly inside BASE/work')
+    root = work/'original-BE49'
+    with zipfile.ZipFile(source) as archive:
+        prepare(archive, root, lambda: guard.work_guard(work))
+    new, retained = source_jobs(root)
+    verify_sources(root)
+    guard.work_guard(work)
+    print(json.dumps({'event': 'original_BE49_Linux_source_epoch_prepared', 'work': str(work),
+                      'files': FILE_COUNT, 'bytes': EXPANDED_BYTES,
+                      'native_arithmetic_executed': False}), flush=True)
+    if not args.run:
+        return
+    worker = Path(__file__).with_name('archive49_worker.py')
+    frozen_worker = work/worker.name
+    shutil.copyfile(worker, frozen_worker)
+    worker_sha = sha(frozen_worker)
+    output, prefix = work/'fresh-full-result', work/'never-created-native-pycache'
+    temporary = work/'tmp'
+    temporary.mkdir()
+    command = [sys.executable, '-B', '-S', '-X', 'pycache_prefix='+str(prefix), str(frozen_worker),
+               '--root', str(root), '--output', str(output), '--pycache-prefix', str(prefix)]
+    env = os.environ.copy()
+    for name in ('PYTHONPATH', 'PYTHONHOME', 'PYTHONOPTIMIZE', 'PYTHONSTARTUP'):
+        env.pop(name, None)
+    env.update(PYTHONDONTWRITEBYTECODE='1', PYTHONNOUSERSITE='1', PYTHONPYCACHEPREFIX=str(prefix),
+               TMPDIR=str(temporary), TMP=str(temporary), TEMP=str(temporary))
+    guard.launch_gate()
+    execution = run_owned(command, work, guard, env)
+    need(execution['execution_observed_by_this_controller'] is True and execution['returncode'] == 0,
+         'This fresh controller actually observed full successful native execution')
+    need(sha(frozen_worker) == worker_sha, 'Unchanged frozen invocation adapter')
+    summary = validate_full_result(root, output, new, retained)
+    verify_sources(root)
+    observer.verify_sources()
+    need(controller_sources() == pins and sha(source) == ARCHIVE_SHA,
+         'All controller/native source and archive bindings unchanged after execution')
+    need(not prefix.exists() and not prefix.is_symlink(), 'No old or newly generated bytecode prefix')
+    guard.work_guard(work)
+    guard.sample(idle=True)
+    report = {'status': 'PASS_FRESH_ORIGINAL_BE49_SELECTED_FULL_SUITE',
+              'scope': 'Exact unchanged original selected FULL native suite, not an analytic formalization',
+              'fresh_selected_native_suite': True, **summary, 'observed_execution': execution,
+              'source_archive_sha256': ARCHIVE_SHA, 'original_manifest_sha256': MANIFEST_SHA,
+              'original_capsule_files': FILE_COUNT, 'original_source_bytes': EXPANDED_BYTES,
+              'controller_source_files_sha256': pins, 'invocation_adapter_sha256': worker_sha,
+              'original_driver_semantic_argv': [str(root/'verify.py'), '--output', str(output)],
+              'aggregate_kernel_guard': guard.receipt(),
+              'native_source_files_or_historical_receipts_edited': False,
+              'all_analytic_and_literature_inputs_verified': False,
+              'full_cutoff31_or_all_index_composition_verified': False,
+              'all_index_conclusion_verified': False}
+    pending = work/'UNCOMMITTED_BE49_FULL_SUITE_RESULT.json'
+    with pending.open('x', encoding='utf-8') as stream:
+        json.dump(report, stream, indent=2)
+    guard.work_guard(work)
+    guard.sample(idle=True)
+    final = work/'FRESH_BE49_FULL_SUITE_RESULT.json'
+    need(not final.exists() and not final.is_symlink(), 'No preexisting fresh full-suite acceptance receipt')
+    pending.rename(final)
+    print(json.dumps(report), flush=True)
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as exc:
+        # The main child of Docker init exits nonzero. Docker then tears down
+        # the entire PID namespace, including any escaped native process group.
+        print('BE49_LINUX_FULL_SUITE_INCOMPLETE: '+str(exc), file=sys.stderr, flush=True)
+        raise SystemExit(1)

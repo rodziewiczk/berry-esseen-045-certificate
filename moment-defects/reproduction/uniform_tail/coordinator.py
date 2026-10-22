@@ -26,3 +26,19 @@ def run_branch(runner, command, work, label):
     # still enforces its own64MiB peak and the native7200CPU/512MiB ceiling;
     # the outer Job is deliberately the stronger complete-branch restriction.
     return run_recorded(runner, command, work, label, 7200, 512 * runner.MIB)
+
+
+def run_native_in_capsule(runner, command, epoch, capsule, label, prefix):
+    """Preserve native cwd while all quota checks cover the complete epoch."""
+    full_guard = runner.parent_guard
+
+    def epoch_guard(tiny=False, work=None):
+        return full_guard(tiny=tiny, work=epoch)
+
+    runner.parent_guard = epoch_guard
+    try:
+        runner.launch_gate()
+        return run_recorded(runner, command, capsule, label, 7200,
+                            512 * runner.MIB, prefix=prefix)
+    finally:
+        runner.parent_guard = full_guard

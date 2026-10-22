@@ -125,6 +125,36 @@ class Archive49MetadataTests(unittest.TestCase):
             coordinator.run_branch(runner, ["wrapper.py"], Path("owned"), "owned-stage")
         native.assert_not_called()
 
+    def test_native_cwd_is_capsule_but_quota_covers_entire_epoch(self):
+        epoch, capsule, prefix = Path("owned"), Path("owned/capsule"), Path("owned/cache")
+        guard = __import__('unittest').mock.Mock()
+        runner = SimpleNamespace(parent_guard=guard, MIB=1024**2,
+                                 launch_gate=__import__('unittest').mock.Mock())
+        def native_call(*args, **kwargs):
+            self.assertEqual(args[2], capsule)
+            runner.parent_guard(work=capsule)
+            runner.parent_guard(tiny=True)
+            return "native capture"
+        with patch.object(coordinator, "run_recorded", side_effect=native_call) as native:
+            self.assertEqual(coordinator.run_native_in_capsule(
+                runner, [sys.executable, "accept_strict.py"], epoch, capsule, "native", prefix),
+                "native capture")
+            native.assert_called_once_with(runner, [sys.executable, "accept_strict.py"],
+                                           capsule, "native", 7200, 512*1024**2, prefix=prefix)
+        self.assertIs(runner.parent_guard, guard)
+        self.assertEqual(guard.call_args_list, [__import__('unittest').mock.call(tiny=False, work=epoch),
+                                                __import__('unittest').mock.call(tiny=True, work=epoch)])
+
+    def test_native_cwd_guard_is_restored_after_failure(self):
+        guard = __import__('unittest').mock.Mock()
+        runner = SimpleNamespace(parent_guard=guard, MIB=1024**2,
+                                 launch_gate=__import__('unittest').mock.Mock())
+        with patch.object(coordinator, "run_recorded", side_effect=ValueError("native failure")):
+            with self.assertRaisesRegex(ValueError, "native failure"):
+                coordinator.run_native_in_capsule(runner, ["accept.py"], Path("epoch"),
+                                                  Path("epoch/capsule"), "native", Path("cache"))
+        self.assertIs(runner.parent_guard, guard)
+
     def fixture(self, root):
         source = root / "original-BE49"
         output = root / "fresh-full-result"

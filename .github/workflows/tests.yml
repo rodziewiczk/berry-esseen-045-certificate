@@ -34,7 +34,7 @@ jobs:
 
       - name: Test full-tail invocation and conditional composition schemas
         working-directory: moment-defects
-        run: python -B -S -m unittest reproduction.uniform_tail.test_tail_adapters reproduction.uniform_tail.test_component40 reproduction.c5_composition.test_semantics -v
+        run: python -B -S -m unittest reproduction.uniform_tail.test_tail_adapters reproduction.uniform_tail.test_component40 reproduction.uniform_tail.test_linux_cgroup reproduction.c5_composition.test_semantics -v
 
   unit-tests:
     runs-on: ubuntu-24.04

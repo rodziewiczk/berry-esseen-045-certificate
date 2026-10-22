@@ -136,11 +136,40 @@ def source_functions(cache,graph,band):
             constants_by_name[node.targets[0].id]=ast.literal_eval(node.value)
     need(set(constants_by_name)=={'BANDS','EMPTY'},'Original exact domain and leaf-classification constants')
     namespace=dict(F=F,deepcopy=deepcopy,Counter=Counter,isqrt=isqrt,CElo=constants(),**constants_by_name)
-    if band=='B3':namespace['BANDS']['B3']=('237/200','6/5',None,None,None,None)
+    b3_binding=None
+    if band=='B3':
+        check_name='work/cutoff5_20261020/high/B3_count_readback_v1/check.py'
+        check_path=source_at(cache,check_name)
+        need(digest(check_path)==graph[check_name],'Original source of the installed B3 constant')
+        assignments=[]
+        for node in ast.parse(check_path.read_bytes()).body:
+            if(not isinstance(node,ast.Assign)or len(node.targets)!=1):continue
+            target=node.targets[0]
+            if(isinstance(target,ast.Subscript)and isinstance(target.value,ast.Attribute)
+               and isinstance(target.value.value,ast.Name)and target.value.value.id=='c'
+               and target.value.attr=='BANDS'and isinstance(target.slice,ast.Constant)
+               and target.slice.value=='B3'):
+                assignments.append(node)
+        need(len(assignments)==1,'Exactly one original c.BANDS[B3] installation')
+        installed=ast.literal_eval(assignments[0].value)
+        need(installed==('237/200','6/5',None,None,None,None),
+             'Unchanged literal B3 whole-band installation, not a new domain')
+        namespace['BANDS']['B3']=installed
+        b3_binding=dict(path=check_name,sha256=graph[check_name],
+            installed_assignment_ast=ast.dump(assignments[0],include_attributes=False))
     selected=ast.Module(body=functions,type_ignores=[]);ast.fix_missing_locations(selected)
     exec(compile(selected,str(path),'exec'),namespace)
+    selected_constants=dict(BANDS={k:list(v)for k,v in namespace['BANDS'].items()},
+        EMPTY=sorted(namespace['EMPTY']),CElo=str(namespace['CElo']))
+    core_source=Path(__file__).with_name('core.py')
     return namespace,dict(path=name,sha256=graph[name],functions=sorted(names),
-        selected_ast_sha256=hashlib.sha256(ast.dump(selected,include_attributes=False).encode()).hexdigest())
+        selected_ast_sha256=hashlib.sha256(ast.dump(selected,include_attributes=False).encode()).hexdigest(),
+        selected_constants=selected_constants,selected_constants_sha256=canonical_sha(selected_constants),
+        B3_installation_source=b3_binding,
+        CElo_builder=dict(path=str(core_source),sha256=digest(core_source),function='constants',
+            scope='Existing exact directed Machin80/40 and integer-square-root C_E lower enclosure; no acceptance change'),
+        stdlib_dependencies=dict(F='fractions.Fraction',deepcopy='copy.deepcopy',
+                                 Counter='collections.Counter',isqrt='math.isqrt'))
 
 
 @dataclass(frozen=True)

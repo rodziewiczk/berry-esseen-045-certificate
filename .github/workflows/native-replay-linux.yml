@@ -1,0 +1,75 @@
+name: Original BE49 replay in Linux cgroup
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-be49-linux
+  cancel-in-progress: false
+
+jobs:
+  full-original-suite:
+    name: Unchanged full original BE49 selected suite
+    runs-on: ubuntu-24.04
+    timeout-minutes: 165
+    steps:
+      - name: Check out the selected revision without persistent credentials
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          persist-credentials: false
+
+      - name: Set up Python 3.12.4 for source retrieval
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: 3.12.4
+
+      - name: Test the resource controller without native mathematics
+        working-directory: moment-defects
+        run: python -B -S -m unittest reproduction.uniform_tail.test_linux_cgroup -v
+
+      - name: Fetch and hash-check the immutable original source capsule
+        working-directory: moment-defects
+        run: python -B -S reproduction/uniform_tail/download_sources.py --download --directory reproduction_inputs/uniform-tail-archives
+
+      - name: Pull the fixed official Linux amd64 Python image
+        run: docker pull python:3.12.4-slim@sha256:a074fac67aa01841fee592d00bae14d25dcaf98ef6e12a683ecceb7e0147e2d1
+
+      - name: Run the complete unchanged suite inside an aggregate-limited cgroup
+        timeout-minutes: 145
+        run: |
+          mkdir -p moment-defects/work
+          docker run --name "be49-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" \
+            --init --read-only --network none --cgroupns private \
+            --memory 512m --memory-swap 512m --cpus 1 --pids-limit 128 \
+            --cap-drop ALL --security-opt no-new-privileges \
+            --mount "type=bind,src=${GITHUB_WORKSPACE},dst=/src,readonly" \
+            --mount "type=bind,src=${GITHUB_WORKSPACE}/moment-defects/work,dst=/src/moment-defects/work" \
+            --mount "type=bind,src=${GITHUB_WORKSPACE}/moment-defects/reproduction_inputs/uniform-tail-archives,dst=/archives,readonly" \
+            --env PYTHONDONTWRITEBYTECODE=1 --env PYTHONNOUSERSITE=1 \
+            --workdir /src/moment-defects \
+            python:3.12.4-slim@sha256:a074fac67aa01841fee592d00bae14d25dcaf98ef6e12a683ecceb7e0147e2d1 \
+            python -B -S reproduction/uniform_tail/linux49_replay.py \
+              --archive /archives/BE_cutoff49_20260930.zip --run
+
+      - name: Stop only this owned container, including all remaining descendants
+        if: always()
+        run: |
+          if docker inspect "be49-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" >/dev/null 2>&1; then
+            docker stop --time 10 "be49-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          fi
+
+      - name: Preserve new results and failure diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: original-be49-linux-${{ github.run_id }}-${{ github.run_attempt }}
+          path: moment-defects/work/
+          if-no-files-found: warn
+          retention-days: 30
+
+# This is selected-suite arithmetic reproduction, not an all-index theorem or
+# formalization. Cgroup CPU, memory, swap, PID and OOM checks fail closed; the
+# original native Python source and original manifests are not modified.

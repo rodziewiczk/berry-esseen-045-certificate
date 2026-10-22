@@ -12,8 +12,8 @@ sys.dont_write_bytecode = True
 BASE = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(BASE / "reproduction"))
 from all_indices.stable_guard import install
-from all_indices.supervised import run_recorded
 from uniform_tail.count_catalog import load, need, sha, verify_fresh_receipt, safe
+from uniform_tail.coordinator import run_native_in_capsule
 
 
 def main():
@@ -44,9 +44,8 @@ def main():
     output = capsule / job["output"]
     need(not output.exists(), "No historical output in the fresh native capsule")
     prefix = work / "nonexistent-native-pycache"
-    runner.launch_gate()
     command = runner.python_command(capsule / job["script"], [str(job["index"])], prefix)
-    run_recorded(runner, command, work, "tail-count-native", 7200, 512 * runner.MIB, prefix=prefix)
+    run_native_in_capsule(runner, command, work, capsule, "tail-count-native", prefix)
     need(output.is_file() and not output.is_symlink(), "Full native acceptance output required")
     summary = verify_fresh_receipt(job, load(output.read_bytes()))
     for name, pin in inputs.items():

@@ -273,6 +273,18 @@ class AvailableSourceTests(unittest.TestCase):
             helper['interface'](row,cfg,band,obj['index'],5)
             physical_gap(helper,row,cfg,'/count5_prepare_v4/'in paths[0])
             self.assertEqual(len(binding['functions']),10)
+            self.assertEqual(binding['selected_constants']['CElo'],str(helper['CElo']))
+            self.assertEqual(binding['selected_constants']['EMPTY'],sorted(helper['EMPTY']))
+            self.assertEqual(binding['selected_constants']['BANDS'],{k:list(v)for k,v in helper['BANDS'].items()})
+            self.assertEqual(binding['selected_constants_sha256'],canonical_sha(binding['selected_constants']))
+            self.assertEqual(binding['CElo_builder']['function'],'constants')
+            self.assertEqual(binding['CElo_builder']['sha256'],digest(Path(binding['CElo_builder']['path'])))
+            if band=='B3':
+                install=binding['B3_installation_source']
+                self.assertEqual(graph[install['path']],install['sha256'])
+                self.assertIn('B3',install['installed_assignment_ast'])
+                self.assertEqual(helper['BANDS']['B3'],('237/200','6/5',None,None,None,None))
+            else:self.assertIsNone(binding['B3_installation_source'])
             for change in(lambda x:x.update(Lambda='0'),lambda x:x.update(acquired_scale_upper='0'),
                           lambda x:x['quadratics'].pop()):
                 damaged=deepcopy(cfg);change(damaged)
