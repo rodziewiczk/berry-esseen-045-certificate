@@ -201,3 +201,14 @@ and design pin. Original roots, strict target, limits and 24 native mutation
 controls remain. Separate distinct result identifiers prevent a new V14
 acceptance from masquerading as a historical V12/V14 receipt. An incomplete
 tree is never accepted, even if all source tests pass.
+
+## Remaining acquisition controller
+
+`c5_acquisition_plan.py` records the exact 12 selected INITIAL jobs and 15
+resource replay/accept jobs, including the full 1200-panel resource partition.
+Its `--inspect-cache PATH` mode checks their pinned source closures only.
+All 27 closures were located; each minimal per-job mirror is below 40 MiB.
+This does **not** implement or verify the remaining mathematical acquisitions.
+Their fresh parent-fact joins, full numerical replay and final composition
+are still required. Historical parent receipts must not be overwritten or
+silently counted as new computation.
