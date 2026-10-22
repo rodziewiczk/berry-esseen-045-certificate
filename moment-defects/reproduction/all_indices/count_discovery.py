@@ -93,6 +93,16 @@ def advance(c, cfg, item, nodes, alpha_priority):
     return 'split', None
 
 
+def choose_pending(pending, order):
+    need(order in ('depth','breadth','root-first'), 'Named discovery traversal only')
+    need(bool(pending), 'Nonempty candidate frontier')
+    if order == 'depth':
+        return 0
+    if order == 'root-first':
+        return next((i for i,item in enumerate(pending) if item[1] == ''),0)
+    return min(range(len(pending)),key=lambda i:(len(pending[i][1]),pending[i][0],pending[i][1]))
+
+
 def save(output, packet):
     """Two stable filenames: never race the supervisor by unlinking a temp file.
 
@@ -118,6 +128,7 @@ def main():
     p.add_argument('--resume', type=Path, help='Candidate checkpoint only, never an accepted proof')
     p.add_argument('--seconds', type=int, default=600)
     p.add_argument('--alpha-priority', choices=('1','4'), default='4')
+    p.add_argument('--order', choices=('depth','breadth','root-first'), default='root-first')
     args = p.parse_args()
     need(__debug__ and not sys.flags.optimize, 'Ordinary non-optimized Python')
     need(1 <= args.seconds <= 7200, 'Bounded discovery slice')
@@ -141,7 +152,8 @@ def main():
     spec.loader.exec_module(c)
     cfg, bound = c.load()
     binding = dict(design_sha256=args.design_sha256, native_header=c.header(bound),
-                   search_sha256=digest(Path(__file__)), alpha_priority=args.alpha_priority)
+                   search_sha256=digest(Path(__file__)), alpha_priority=args.alpha_priority,
+                   traversal=args.order)
     if args.resume:
         source = args.resume.resolve()
         need(source.is_file() and not source.is_symlink() and source.stat().st_size <= 128*1024**2,
@@ -169,7 +181,7 @@ def main():
         roots = old['roots']
     else:
         roots = [dict(k=k,tree={'kind':'pending'}) for k in range(cfg['n']+1)]
-    census(c, cfg, roots)
+    pending,nodes,leaves = census(c, cfg, roots)
     need(not output.exists(), 'New search output epoch only')
     output.mkdir(parents=True, exist_ok=False)
     began, last_save, evaluations = time.monotonic(), 0.0, 0
@@ -179,17 +191,25 @@ def main():
     complete = False
     try:
         while True:
-            pending, nodes, leaves = census(c, cfg, roots)
             if not pending:
                 complete = True
                 break
             if time.monotonic()-began >= args.seconds:
                 break
-            item = pending[0]
+            item = pending.pop(choose_pending(pending,args.order))
             action, decision = advance(c, cfg, item, nodes, F(args.alpha_priority))
+            if action == 'split':
+                k,path,node,box = item
+                left,right = c.children(box,node['axis'],F(node['cut']))
+                pending[0:0] = [(k,path+'L',node['left'],left),
+                                (k,path+'R',node['right'],right)]
+                nodes += 2
+            else:
+                leaves += 1
             evaluations += 1
             print(json.dumps(dict(event='candidate_search_step',k=item[0],path=item[1],
                                   action=action,decision=decision,evaluations=evaluations,
+                                  nodes=nodes,leaves=leaves,pending=len(pending),
                                   elapsed_seconds=round(time.monotonic()-began,3),
                                   arithmetic_accepted=False)),flush=True)
             if evaluations % 10 == 0 or time.monotonic()-last_save >= 15:

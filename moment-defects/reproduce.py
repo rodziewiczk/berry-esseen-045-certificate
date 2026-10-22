@@ -25,6 +25,8 @@ IMPLEMENTED = {
     "c5.counts": ("c5_counts.py", []),
     "c5.gapfree": ("c5_gapfree.py", []),
     "c5.support": ("c5_support.py", []),
+    "c5.high": ("c5_high.py", []),
+    "c5.owncaps": ("c5_owncaps.py", []),
 }
 
 
@@ -39,7 +41,10 @@ def plan():
                  for name in order(nodes)],
         "known_missing_source_obligations":[
             "Seven selected n25 B3/B4 count forests require supply or fresh reconstruction.",
-            "The 13 October base source archive must be distributed with its exact identity.",
+        ],
+        "original_count_sources": [
+            "https://github.com/rodziewiczk/berry-esseen-045-certificate/releases/tag/cutoff20-sources-2026-10-17",
+            "https://github.com/rodziewiczk/berry-esseen-045-certificate/releases/tag/cutoff25-base-sources-2026-10-22",
         ],
         "composition_or_hashes_are_not_arithmetic_replay":True,
     }
@@ -92,7 +97,7 @@ def main():
         use_cpp = args.backend == "cpp" or (args.backend == "auto" and compiler is not None)
         extra = ["--stage", "n3" if use_cpp else "n3-python"]
     command = [sys.executable,"-B","-S",str(BASE/"reproduction/all_indices"/name),*extra]
-    if args.component in ("c5.counts","c5.gapfree","c5.support"):
+    if args.component in ("c5.counts","c5.gapfree","c5.support","c5.high","c5.owncaps"):
         if args.archive is None:
             parser.error("This component requires --archive; use the pinned public source asset")
         command += ["--archive",str(args.archive.resolve())]

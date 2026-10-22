@@ -1,6 +1,7 @@
 """Prepare and independently recompute all compact gap-free leaves and both rays."""
 from __future__ import annotations
 import argparse
+import gc
 import hashlib
 import importlib.util
 import json
@@ -66,6 +67,10 @@ def main():
         print(json.dumps({"scope":"FRESH_GAPFREE_INPUT_PREPARATION_ONLY","work":str(work),
                           "arithmetic_replayed":False}))
         return
+    # The coordinator needs only the three small source pins after preparation.
+    # Do not retain the full archive directory and 16k-file graph during replay.
+    del final, graph, z, raw
+    gc.collect()
     child = None
     try:
         with (work/"SUPERVISOR.log").open("xb") as log:

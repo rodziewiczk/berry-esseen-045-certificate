@@ -52,10 +52,11 @@ def main():
                         ('support_A0_v1','PASS_FRESH_LITERAL5_Q0_SUPPORT_A0')]:
         source = cache/('work/cutoff5_20261020/high/'+name+'/protocol.py')
         output = work/(name+'-FRESH.json')
-        prefix = work/(name.replace('_','-')+'-fresh-pycache')
+        label = name.replace('_','-').lower()
+        prefix = work/(label+'-fresh-pycache')
         r.launch_gate()
         stdout = run_recorded(r,r.python_command(source,['replay',str(output)],prefix),
-                              work,name.replace('_','-'),7200,512*r.MIB,prefix=prefix)
+                              work,label,7200,512*r.MIB,prefix=prefix)
         need(stdout.splitlines()[-1] == status,'Original complete support acceptance line')
         result = json.loads(output.read_text(),object_pairs_hook=unique)
         need(result['status'] == status and result['n'] == 5 and

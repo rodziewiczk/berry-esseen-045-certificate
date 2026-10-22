@@ -55,6 +55,12 @@ class DiscoveryTests(unittest.TestCase):
     def test_node_limit_not_relaxed(self):
         pending,_,_ = d.census(Oracle,self.cfg,self.roots)
         with self.assertRaises(ValueError): d.advance(Oracle,self.cfg,pending[0],10000,F(1))
+    def test_breadth_first_does_not_starve_original_roots(self):
+        frontier = [(6,'LLR',{},[]),(7,'',{},[]),(8,'',{},[])]
+        self.assertEqual(d.choose_pending(frontier,'breadth'),1)
+        self.assertEqual(d.choose_pending(frontier,'depth'),0)
+        self.assertEqual(d.choose_pending(frontier,'root-first'),1)
+        self.assertEqual(d.choose_pending([(6,'LR',{},[]),(7,'R',{},[])],'root-first'),0)
     def test_corrupt_saved_leaf_box_rejected(self):
         self.roots[0]['tree'] = dict(kind='leaf',box=[['0','0']]*5,decision='fake',result={})
         with self.assertRaises(ValueError): d.census(Oracle,self.cfg,self.roots)

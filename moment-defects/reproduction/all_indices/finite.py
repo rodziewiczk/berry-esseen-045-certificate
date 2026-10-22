@@ -23,6 +23,8 @@ def main():
     spec = importlib.util.spec_from_file_location("pinned_reproduction", RUNNER)
     r = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(r)
+    from stable_guard import install
+    install(r)
 
     from supervised import run_recorded
     def run_checked(*argv, **options):

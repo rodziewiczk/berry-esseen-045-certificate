@@ -1,5 +1,7 @@
 work/
 reproduction_inputs/
+count-archives/
+source-archives/
 __pycache__/
 *.pyc
 paper/*.aux

@@ -48,6 +48,8 @@ python -B -S reproduce.py --component c5.counts --archive PATH/cutoff5_20261020.
 python -B -S reproduce.py --component c5.counts --archive PATH/cutoff5_20261020.zip
 python -B -S reproduce.py --component c5.gapfree --archive PATH/cutoff5_20261020.zip
 python -B -S reproduce.py --component c5.support --archive PATH/cutoff5_20261020.zip
+python -B -S reproduce.py --component c5.high --archive PATH/cutoff5_20261020.zip
+python -B -S reproduce.py --component c5.owncaps --archive PATH/cutoff5_20261020.zip
 ```
 
 `--inspect` is only a source-catalog check. The counts command reconstructs and
@@ -95,6 +97,25 @@ python -B -S -m unittest all_indices.test_coverage all_indices.test_reproducer -
 The existing historical certificates and manuscript are preserved. This work
 does not assert Lean verification or a completed all-index computational replay.
 
+Fresh local replay on 22 October completed `c5.gapfree` (all 60 roots, 1994
+nodes, 1027 leaves and both exterior rays, plus corruption controls) and
+`c5.support` (the original nine + nine + one support rows), and both `c5.high`
+variants (3+4 supported scopes, two fresh native computations each, original
+native acceptance with 8+9 corruption controls). This statement is
+an execution report, not an input to subsequent mathematical acceptance.
+The original analytic contact/C4/support/Fourier premises remain scoped exactly
+as stated by the individual receipts. n4 and the all-index run remain incomplete.
+
+The HIGH adapter creates honest new execution captures at its actual working
+directory; it does not rewrite historical macOS paths. The owncaps adapter also
+includes the separately needed global coarse bound 0.429 and its independent
+readback. The selected stronger B3 cap 0.412 substitutes for the older 0.414
+on the identical supported domain; no missing historical B3-v2 replay is
+claimed. This new owncaps adapter is not counted as fresh arithmetic until
+its complete numerical run succeeds. Its Fourier-extension adapter executes
+the unchanged complete Fourier subproof of the pinned review, not the unrelated
+B3 preparer audit; that scope is explicit in its receipt.
+
 ## Reconstructing missing count forests
 
 `prepare_missing_count.py` extracts all 77 original files of a selected capsule
@@ -120,6 +141,10 @@ that can race a supervisor's scratch-file scan. Resume can fall back to the
 backup if the latest write was interrupted. Search-code changes may reuse
 candidate topology only when the frozen native contract/source and strategy
 bindings still match; original native arithmetic is never reused as acceptance.
+The default `root-first` traversal evaluates untouched original count roots
+before returning to depth-first search. An in-memory frontier avoids a full
+forest traversal at every step; complete geometry is checked on resume and at
+the end. Neither optimization changes the oracle, closed boxes or node limits.
 The search preserves original roots, exact closed subdivisions and the native
 10,000-node/depth-128 limits. It never upgrades a partial tree into a proof.
 Candidate checkpoint leaves are untrusted. When a candidate is complete, a
@@ -130,3 +155,49 @@ Do not execute the underlying unprotected `count_discovery.py` directly.
 
 Synthetic engine tests can be included in the test command by adding
 `all_indices.test_discovery`. These tests are not numerical certificate runs.
+
+`import_count_prefix.py` can reuse the externally pinned old B3/p33 prefix
+(1329 candidate leaves), after matching its complete native header and
+reconstructing every closed split and pending box. Reused leaf results are
+untrusted and must all be recomputed by native acceptance. Its tests are in
+`all_indices.test_import_count_prefix`.
+
+The private-output scanner now retries an entire scan on an observed atomic
+rename, requiring two matching complete file inventories. It retains or
+strengthens the original containment, symlink, memory and disk guards and never
+accepts a partially enumerated quota. It is a sampled guard, not a filesystem
+transaction. Tests are in `all_indices.test_stable_guard`. Frozen proof sources
+and the archived runner file are not edited.
+
+## New conditional V14 source epochs
+
+Both original count-source archives are now public GitHub release assets. Fetch
+and verify them, without executing archived code:
+
+```console
+python -B -S reproduction/all_indices/download_count_sources.py --download --directory count-archives
+python -B -S reproduction/all_indices/prepare_b3_v14_epoch_2026_10_22.py --old-archive count-archives/cutoff25_20261011.zip --base13-archive count-archives/cutoff25_20261013.zip --index 31 --output work/new-v14-p31
+```
+
+Use index 32 and a different new output directory for the other panel. Keep
+the canonical archive basenames when recreating the pinned source-epoch
+identities. The reviewed p31 design is
+`6ca73188c5a6969c1f0ec69f41cb0fac660003cf0515fdcadeeda83afcf654f0`;
+p32 is `230a6bb37696c1e79d62847d89090d4187d78d41aa6c98ccbe91c54e1f8f950b`.
+The preparer checks source transforms, premise rejection and all 26 original
+root geometries, but deliberately never evaluates a mathematical cell.
+
+These are **new conditional source epochs**, not recovered historical V14
+identities. They retain all 71 original V12 kernel/proof files and all 21
+V14 additions, including nine runtime helpers. The two additional contract
+fields explicitly require the same unrestricted attained positive-closed
+witness and the deletion allowance 5/16. Bound written derivations explain
+these hypotheses; fresh parent arithmetic and a new same-witness regional
+composition remain required. Neither inserted fields nor source hashes
+establish those premises.
+
+Guarded discovery uses the same `discover_count.py` command with the new capsule
+and design pin. Original roots, strict target, limits and 24 native mutation
+controls remain. Separate distinct result identifiers prevent a new V14
+acceptance from masquerading as a historical V12/V14 receipt. An incomplete
+tree is never accepted, even if all source tests pass.

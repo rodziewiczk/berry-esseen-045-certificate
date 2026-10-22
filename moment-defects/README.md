@@ -53,6 +53,11 @@ and [finite-index arithmetic guide](reproduction/README.md) retain their own
 scope and reproduction boundaries. The new C5 proof does not silently
 discharge retained premises in those older continuation branches.
 
+The [22 October count-base source release](https://github.com/rodziewiczk/berry-esseen-045-certificate/releases/tag/cutoff25-base-sources-2026-10-22)
+adds the original 13 October archive required by the new conditional V14
+reconstruction tooling. Its published SHA-256 matches the local original.
+Source availability is not acceptance of the still-incomplete count forests.
+
 The original 0.45 certificate project at the repository root is unchanged.
 Its dates, attribution and historical files are preserved.
 
