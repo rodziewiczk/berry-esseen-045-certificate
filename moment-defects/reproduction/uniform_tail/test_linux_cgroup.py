@@ -4,7 +4,10 @@ import os
 import signal
 import subprocess
 import tempfile
+import threading
+import time
 import unittest
+from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
 from . import linux_cgroup as linux
@@ -127,6 +130,134 @@ class CgroupFixtures(unittest.TestCase):
     def test_duplicate_or_noninteger_kernel_counters_decline(self):
         for value in ('oom 0\noom 0', 'oom True', 'oom -1', 'oom 00'):
             with self.subTest(value=value), self.assertRaises(ValueError): linux.counters(value)
+
+    def fake_native_guard(self, pids=(424242,)):
+        guard = SimpleNamespace(proc=Path('mock-proc'), baseline={1,os.getpid()}, sample=Mock())
+        states, processes = {pid:'R' for pid in pids}, {}
+        guard.text = lambda name: '\n'.join(map(str, sorted(guard.baseline|set(states))))
+        def pin(proc,pid):
+            self.assertNotIn(pid,guard.baseline)
+            def send(signum):
+                states[pid] = 'T' if signum == 19 else 'R'
+            item = SimpleNamespace(pid=pid,birth=pid+7,state=lambda:states[pid],send=Mock(side_effect=send),close=Mock())
+            processes[pid] = item
+            return item
+        return guard,states,processes,pin
+
+    def test_all_live_numeric_pids_stopped_and_finally_resumed_not_init_or_controller(self):
+        guard,states,processes,pin = self.fake_native_guard((424242,424243))
+        with patch.object(linux,'PinnedProcess',side_effect=pin) as created, patch.object(
+                linux.signal,'SIGSTOP',19,create=True), patch.object(linux.signal,'SIGCONT',18,create=True):
+            with linux.quiesce_numerical(guard):
+                self.assertEqual(set(states.values()),{'T'})
+            self.assertEqual(set(states.values()),{'R'})
+            self.assertEqual(created.call_count,2)
+            for item in processes.values():
+                self.assertEqual(item.send.call_args_list[-1].args,(18,))
+                item.close.assert_called_once_with()
+
+    def test_snapshot_failure_still_continues_every_stopped_process(self):
+        guard,states,processes,pin = self.fake_native_guard((424242,424243))
+        with patch.object(linux,'PinnedProcess',side_effect=pin), patch.object(
+                linux.signal,'SIGSTOP',19,create=True), patch.object(linux.signal,'SIGCONT',18,create=True):
+            with self.assertRaisesRegex(ValueError,'full inventory failed'):
+                with linux.quiesce_numerical(guard):
+                    raise ValueError('full inventory failed')
+            self.assertEqual(set(states.values()),{'R'})
+            self.assertTrue(all(item.send.call_args_list[-1].args == (18,) for item in processes.values()))
+
+    def test_unstoppable_writer_is_bounded_and_no_inventory_yielded(self):
+        guard,states,processes,pin = self.fake_native_guard()
+        def uncooperative(proc,pid):
+            item = pin(proc,pid)
+            item.send.side_effect = lambda signum: None
+            return item
+        with patch.object(linux,'PinnedProcess',side_effect=uncooperative), patch.object(
+                linux.signal,'SIGSTOP',19,create=True), patch.object(linux.signal,'SIGCONT',18,create=True), patch.object(
+                linux.time,'sleep'):
+            with self.assertRaisesRegex(ValueError,'bounded complete stopped'):
+                with linux.quiesce_numerical(guard):
+                    self.fail('A running writer must never yield a successful snapshot')
+            self.assertEqual(processes[424242].send.call_args_list[-1].args,(18,))
+
+    def test_new_child_during_freeze_is_also_stopped_before_snapshot(self):
+        guard,states,processes,pin = self.fake_native_guard()
+        def forking(proc,pid):
+            item = pin(proc,pid)
+            original = item.send.side_effect
+            def send(signum):
+                original(signum)
+                if pid == 424242 and signum == 19:
+                    states.setdefault(424243,'R')
+            item.send.side_effect = send
+            return item
+        with patch.object(linux,'PinnedProcess',side_effect=forking), patch.object(
+                linux.signal,'SIGSTOP',19,create=True), patch.object(linux.signal,'SIGCONT',18,create=True):
+            with linux.quiesce_numerical(guard):
+                self.assertEqual(states,{424242:'T',424243:'T'})
+        self.assertEqual(states,{424242:'R',424243:'R'})
+
+    def test_small_concurrent_writer_is_quiet_for_the_complete_original_inventory(self):
+        guard,states,processes,pin = self.fake_native_guard()
+        running,done,ready = threading.Event(),threading.Event(),threading.Event()
+        running.set()
+        with tempfile.TemporaryDirectory() as name:
+            path=Path(name)/'native-progress.txt'
+            def writer():
+                value=0
+                while not done.is_set():
+                    if running.wait(0.01):
+                        path.write_text(str(value));value+=1;ready.set()
+                    time.sleep(0.001)
+            thread=threading.Thread(target=writer)
+            thread.start()
+            self.assertTrue(ready.wait(2))
+            def scheduled(proc,pid):
+                item=pin(proc,pid)
+                original=item.send.side_effect
+                def send(signum):
+                    original(signum)
+                    running.clear() if signum == 19 else running.set()
+                item.send.side_effect=send
+                return item
+            try:
+                with patch.object(linux,'PinnedProcess',side_effect=scheduled), patch.object(
+                        linux.signal,'SIGSTOP',19,create=True), patch.object(linux.signal,'SIGCONT',18,create=True):
+                    with linux.quiesce_numerical(guard):
+                        first=linux.stable_inventory(Path(name),linux.WORK_LIMIT)
+                        time.sleep(0.01)
+                        self.assertEqual(first,linux.stable_inventory(Path(name),linux.WORK_LIMIT))
+                    self.assertTrue(running.is_set())
+            finally:
+                done.set();running.set();thread.join(timeout=2)
+            self.assertFalse(thread.is_alive())
+
+    def test_process_birth_and_pidfd_prevent_signalling_reused_pids(self):
+        with tempfile.TemporaryDirectory() as name:
+            proc=Path(name)
+            (proc/'424242').mkdir()
+            path=proc/'424242/stat'
+            def statline(birth):
+                return '424242 (native fixture with )) R '+' '.join(['0']*18+[str(birth)]+['0']*4)
+            path.write_text(statline(101))
+            self.assertEqual(linux.process_identity(proc,424242),(101,'R'))
+            with patch.object(linux.os,'pidfd_open',return_value=77,create=True) as opened, patch.object(
+                    linux.signal,'pidfd_send_signal',create=True) as sent, patch.object(linux.os,'close') as closed:
+                item=linux.PinnedProcess(proc,424242)
+                item.send(19)
+                sent.assert_called_once_with(77,19,None,0)
+                path.write_text(statline(102))
+                with self.assertRaisesRegex(ValueError,'identity unchanged'): item.state()
+                item.close()
+                opened.assert_called_once_with(424242,0)
+                closed.assert_called_once_with(77)
+
+    def test_pid_zero_is_never_signalled(self):
+        guard,_,_,pin=self.fake_native_guard((0,))
+        with patch.object(linux,'PinnedProcess',side_effect=pin) as created:
+            with self.assertRaisesRegex(ValueError,'never PID0'):
+                with linux.quiesce_numerical(guard): self.fail('must reject PID0')
+            created.assert_not_called()
 
 
 if __name__ == '__main__':

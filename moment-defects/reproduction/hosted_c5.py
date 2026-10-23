@@ -172,6 +172,9 @@ def execute(stage):
         for label,command,cpu in commands:
             verify_implementation(pins);runner.launch_gate()
             tick = time.monotonic();started = datetime.now(timezone.utc).isoformat()
+            print(json.dumps(dict(event='hosted_c5_step_started',stage=stage,step=label,
+                started_utc=started,arithmetic_accepted=False,
+                all_index_conclusion_verified=False)),flush=True)
             # ORIGINAL attach-before-resume Job covers the wrapper and every
             # descendant, even when an unchanged adapter uses its own Popen.
             stdout = run_recorded(runner,command,run,label,cpu,512*MIB)
@@ -181,6 +184,11 @@ def execute(stage):
                 elapsed_seconds=time.monotonic()-tick,stdout_sha256=digest(run/(label+'.stdout.txt')),
                 branch_memory_limit_bytes=512*MIB,branch_cpu_limit_seconds=cpu)
             report['observed_guarded_steps'].append(item)
+            write(run/('HOSTED_OBSERVED_'+label.upper()+'.json'),item)
+            print(json.dumps(dict(event='hosted_c5_step_terminated_successfully',stage=stage,
+                step=label,elapsed_seconds=item['elapsed_seconds'],
+                selected_component_scope_still_requires_validation=True,
+                all_index_conclusion_verified=False)),flush=True)
             if label == 'prepare':
                 prepared = json.loads(stdout.splitlines()[-1],object_pairs_hook=unique)
                 need(prepared['scope'] == 'COMPLETE_PINNED_C5_INPUTS_PREPARED_ONLY'

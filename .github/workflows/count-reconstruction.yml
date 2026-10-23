@@ -1,0 +1,104 @@
+name: Seven missing count forests (bounded reconstruction)
+
+on:
+  workflow_dispatch:
+    inputs:
+      search_seconds:
+        description: Allocated search seconds per target (1--10800; native acceptance separate)
+        required: true
+        default: '10800'
+        type: string
+      slice_seconds:
+        description: Individual unchanged discovery slice (1--7200; default six1800s slices)
+        required: true
+        default: '1800'
+        type: string
+      use_hints:
+        description: Resume fixed pinned UNTRUSTED local checkpoints (all native leaves still recomputed)
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: seven-missing-count-reconstruction
+  cancel-in-progress: false
+
+jobs:
+  reconstruct-one-forest:
+    name: ${{ matrix.target }} (one conditional regional count only)
+    runs-on: windows-2022
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        target:
+          - b4-q0
+          - b4-q1
+          - b4-q2
+          - b4-q3
+          - b3-p33
+          - b3-p31-v14-new
+          - b3-p32-v14-new
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: moment-defects
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONNOUSERSITE: '1'
+    steps:
+      - name: Check out the exact selected revision (LF source bytes)
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          persist-credentials: false
+
+      - name: Set up Python 3.12.4
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: 3.12.4
+
+      - name: Test bounded controller fixtures only (no mathematics/downloads)
+        timeout-minutes: 5
+        run: python -B -S -m unittest reproduction.test_hosted_count_search reproduction.all_indices.test_derived_count_identity reproduction.continuations.test_archive_guard -v
+
+      - name: Fetch pinned source ZIPs, prepare exact epoch, bounded discovery and original native accept
+        timeout-minutes: 330
+        env:
+          COUNT_TARGET: ${{ matrix.target }}
+          COUNT_SEARCH_SECONDS: ${{ inputs.search_seconds }}
+          COUNT_SLICE_SECONDS: ${{ inputs.slice_seconds }}
+          COUNT_USE_HINTS: ${{ inputs.use_hints }}
+        run: |
+          $hintOptions = @()
+          if ($env:COUNT_USE_HINTS -eq 'true') { $hintOptions = @('--use-published-hints') }
+          python -B -S reproduction/hosted_count_search.py --run --target $env:COUNT_TARGET --search-seconds $env:COUNT_SEARCH_SECONDS --slice-seconds $env:COUNT_SLICE_SECONDS @hintOptions
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Inventory all candidates/checkpoints and diagnostics without truncation
+        if: always()
+        timeout-minutes: 5
+        run: python -B -S reproduction/hosted_count_search.py --collect-artifacts
+
+      - name: Preserve ALL proof work, candidates, primary/backup checkpoints and logs
+        if: always()
+        timeout-minutes: 15
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: count-${{ matrix.target }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            moment-defects/work/
+            moment-defects/hosted_count_artifacts/
+          if-no-files-found: warn
+          retention-days: 30
+
+# Every matrix job is a separate hosted computer; at most TWO hosts run at
+# once. Each host has ONE serial mathematical branch,512MiB whole-tree limit,
+#1GiB host reserve and two1536MiB launch readings5s apart. No user RAM is used.
+# Exit2 means a preserved PARTIAL candidate, not native acceptance. Native
+# acceptance must pass every canonical leaf and the original24 controls.
+# The two NEW conditional V14 source epochs are not historical V14 receipts.
+# No parent acquisition, full n25 graph, C5 or all-index theorem is claimed.

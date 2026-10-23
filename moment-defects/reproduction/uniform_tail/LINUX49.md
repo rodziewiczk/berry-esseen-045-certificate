@@ -46,7 +46,15 @@ Host `MemAvailable` must remain at least1GiB. Before a native launch two
 readings five seconds apart must each be at least1536MiB. The entire private
 source/output/TMP epoch is checked with the existing stable inventory:
 256MiB total files,4GiB free disk,16MiB aggregate native stdout/stderr files,
-and no symlink or special-file escape. The wrapper starts in its own process
+and no symlink or special-file escape. During a live numerical run the
+controller temporarily stops every numerical process in the private cgroup,
+excluding PID1 and itself, before taking the two unchanged complete inventory
+scans. It checks Linux birth ticks and uses pidfds where supported, repeatedly
+enumerates until all live writers are stopped, and permits at most five
+seconds for quiescence plus the complete snapshot. Every stopped live process
+is resumed in a `finally` block, including on snapshot or resource failure.
+This changes scheduling only, not arithmetic, sources, the file quota or the
+requirement for two identical full inventories. The wrapper starts in its own process
 group and that entire group is unconditionally terminated and reaped on both
 success and failure. Before acceptance only Docker init and this controller
 may remain in the cgroup. Exiting Docker init's main child also ends the

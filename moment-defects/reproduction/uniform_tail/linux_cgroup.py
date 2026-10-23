@@ -7,6 +7,8 @@ controller also ends the container's init and its remaining PID namespace.
 """
 from __future__ import annotations
 
+from contextlib import contextmanager
+import errno
 import os
 from pathlib import Path
 import re
@@ -72,6 +74,150 @@ def require_docker_init(proc=Path('/proc'), marker=Path('/.dockerenv')):
     need(marker.is_file() and not marker.is_symlink(), "Docker container marker required")
     need(os.getppid() == 1 and bounded_text(proc/'1/comm').strip() in ('docker-init', 'tini'),
          "Controller must be the direct main child of Docker --init PID1")
+
+
+def process_identity(proc, pid):
+    """Linux PID plus immutable birth tick; comm may itself contain spaces or ')'."""
+    raw = bounded_text(Path(proc)/str(pid)/'stat')
+    opening = raw.find(' (')
+    closing = raw.rfind(')')
+    need(opening > 0 and closing > opening and natural(raw[:opening]) == pid,
+         "Exact native /proc PID identity")
+    fields = raw[closing+1:].split()
+    need(len(fields) >= 20 and fields[0] in ('R','S','D','Z','T','t','X','x','K','W','P','I'),
+         "Actual Linux process state and birth counter")
+    return natural(fields[19]), fields[0]
+
+
+class PinnedProcess:
+    """Signal the same observed process; use a Linux pidfd when supported."""
+    def __init__(self, proc, pid):
+        self.proc, self.pid, self.fd = Path(proc), pid, None
+        self.birth, _ = process_identity(proc, pid)
+        if hasattr(os, 'pidfd_open') and hasattr(signal, 'pidfd_send_signal'):
+            try:
+                self.fd = os.pidfd_open(pid, 0)
+            except OSError as exc:
+                if exc.errno not in (errno.ENOSYS, errno.EINVAL, errno.EPERM):
+                    raise
+        try:
+            need(process_identity(proc, pid)[0] == self.birth, "PID birth unchanged while pinning native process")
+        except BaseException:
+            self.close()
+            raise
+
+    def send(self, signum):
+        if self.fd is not None:
+            signal.pidfd_send_signal(self.fd, signum, None, 0)
+        else:
+            need(process_identity(self.proc, self.pid)[0] == self.birth,
+                 "Never signal a reused native PID")
+            os.kill(self.pid, signum)
+
+    def state(self):
+        birth, state = process_identity(self.proc, self.pid)
+        need(birth == self.birth, "Native PID identity unchanged during quiescence")
+        return state
+
+    def close(self):
+        if self.fd is not None:
+            os.close(self.fd)
+            self.fd = None
+
+
+@contextmanager
+def quiesce_numerical(guard):
+    """Scheduling-only bounded stop/scan/resume, never a partial inventory.
+
+The private container cgroup guarantees that every PID except init and the
+controller is part of this numerical job. Native writers are paused until
+two complete ordinary stable_inventory scans agree. No source is changed.
+"""
+    pinned = {}
+    stopped = set()
+    previous = None
+    deadline = time.monotonic()+5
+
+    def targets():
+        rows = [natural(line) for line in guard.text('cgroup.procs').splitlines()]
+        need(len(rows) == len(set(rows)) and len(rows) <= 128, "Bounded private native PID census")
+        result = set(rows)-guard.baseline
+        need(all(pid > 1 for pid in result), "Only visible individual native PIDs; never PID0 or init")
+        return result
+
+    try:
+        # No child is running during initial source preparation. Avoid needless
+        # signals in that case, but still reject a child appearing during scan.
+        native = targets()
+        if not native:
+            yield
+            need(not targets(), "No numerical process appeared during an idle source snapshot")
+            return
+        for attempt in range(64):
+            guard.sample()
+            need(time.monotonic() <= deadline, "Native writer quiescence within five seconds")
+            native = targets()
+            for pid in sorted(native):
+                try:
+                    if pid not in pinned:
+                        pinned[pid] = PinnedProcess(guard.proc, pid)
+                    item = pinned[pid]
+                    if item.state() != 'Z':
+                        # Record before attempting STOP: even an asynchronous
+                        # stop or an exception must be paired with finally CONT.
+                        stopped.add(pid)
+                        item.send(signal.SIGSTOP)
+                except (FileNotFoundError, ProcessLookupError):
+                    pass
+            current = []
+            quiet = True
+            for pid in sorted(targets()):
+                try:
+                    item = pinned.get(pid)
+                    if item is None:
+                        quiet = False
+                        continue
+                    state = item.state()
+                    quiet = quiet and state in ('T','t','Z')
+                    if state != 'Z':
+                        current.append((pid,item.birth))
+                except (FileNotFoundError, ProcessLookupError):
+                    quiet = False
+            signature = tuple(current)
+            if quiet and signature == previous:
+                guard.sample()
+                yield
+                need(time.monotonic() <= deadline, "Complete quiescent private inventory within five seconds")
+                after = []
+                for pid in sorted(targets()):
+                    item = pinned.get(pid)
+                    state = item.state() if item is not None else process_identity(guard.proc,pid)[1]
+                    if state == 'Z':
+                        continue  # init may reap a non-writing zombie at any instant.
+                    need(item is not None and state in ('T','t'),
+                         "All numerical writers remain pinned and stopped throughout the full snapshot")
+                    after.append((pid,item.birth))
+                need(tuple(after) == signature, "Complete quiescent numerical PID census unchanged across snapshot")
+                guard.sample()
+                return
+            previous = signature if quiet else None
+            time.sleep(0.01)
+        raise ValueError("No bounded complete stopped native process census; no snapshot accepted")
+    finally:
+        failures = []
+        for pid in sorted(stopped):
+            try:
+                pinned[pid].send(signal.SIGCONT)
+            except (FileNotFoundError, ProcessLookupError):
+                pass
+            except Exception as exc:
+                failures.append(str(exc))
+        for item in pinned.values():
+            try:
+                item.close()
+            except Exception as exc:
+                failures.append(str(exc))
+        need(not failures, "All stopped live native processes resumed and handles closed: "+'; '.join(failures))
 
 
 class CgroupGuard:
@@ -151,7 +297,8 @@ class CgroupGuard:
     def work_guard(self, work):
         self.sample()
         need(shutil.disk_usage(work).free >= DISK_FLOOR, "Private scratch disk reserve4GiB")
-        inventory = stable_inventory(work, WORK_LIMIT)
+        with quiesce_numerical(self):
+            inventory = stable_inventory(work, WORK_LIMIT)
         diagnostic = sum(entry[5] for entry in inventory.entries
                          if entry[1] == 'file' and entry[0].endswith(('.stdout.txt', '.stderr.txt')))
         need(diagnostic <= OUTPUT_LIMIT, "Entire private native stdout/stderr diagnostics within16MiB")
